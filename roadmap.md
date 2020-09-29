@@ -1,7 +1,7 @@
 # Formatting
 All goals on the roadmap will be prefixed with the component that they apply to.  
 SY-BTI = Syrus bot interface  
-SY-API = Syrus web API
+SY-API = Syrus web API  
 SY-INT = Syrus web UI  
 SY-PRJ = Project-wide goals  
   
