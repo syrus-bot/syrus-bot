@@ -1,0 +1,16 @@
+{
+    "token":"",
+    "prefix": "+",
+    "color": "14891321",
+    "shards": 1,
+    "lavalink": {
+        "nodes": [ 
+            { 
+                "host": "localhost", 
+                "port": 80, 
+                "region": "us-central", 
+                "password": "sosecure" 
+            }
+        ]
+    }
+}
