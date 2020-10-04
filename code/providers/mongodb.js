@@ -1,12 +1,11 @@
-const { Provider, util: { mergeDefault, mergeObjects, isObject } } = require('klasa');
 const { MongoClient: Mongo } = require('mongodb');
 
-module.exports = class extends Provider {
+module.exports = class {
 
 	constructor(...args) {
 		super(...args, { 
 			name: "mongodb",
-			description: 'Allows use of MongoDB functionality throughout Klasa'
+			description: 'Allows use of MongoDB functionality'
 		});
 		this.db = null;
 	}

@@ -10,9 +10,10 @@
   "license": "ISC",
   "dependencies": {
     "@lavacord/discord.js": "0.0.7",
+    "@sapphire/decorators": "^1.0.1",
+    "@sapphire/framework": "github:sapphire-project/framework",
     "bufferutil": "^4.0.1",
     "discord.js": "github:discordjs/discord.js#master",
-    "klasa": "^0.5.0",
     "lavacord": "^1.1.9",
     "libsodium-wrappers": "^0.7.8",
     "moment": "^2.29.0",
@@ -20,8 +21,10 @@
     "mongodb": "^3.6.2",
     "package.json": "^2.0.1",
     "snekfetch": "^4.0.4",
+    "types": "^0.1.1",
     "uws": "^100.0.1",
-    "websocket": "^1.0.32"
+    "websocket": "^1.0.32",
+    "ws": "^7.3.1"
   },
   "directories": {
     "lib": "lib"
