@@ -1,6 +1,7 @@
 const syrusClient = require('./lib/structures/syrusClient');
 const config = require('./config.json');
 const { LogLevel } = require('@sapphire/framework');
+const fs = require("fs");
 
 async function main() {
     const client = new syrusClient({
@@ -15,17 +16,17 @@ async function main() {
         logger: {level: LogLevel.Debug}
     });
     
+    fs.readdir("./events/", (err, files) => {
+        if (err) return console.error(err);
+        files.forEach(file => {
+            const evnt = require(`./events/${file}`);
+            let eventName = file.split(".")[0];
+            client.on(eventName, evnt.bind(null, client));
+        });
+    });
+    
     try {
-        await client
-            .login(config.token)
-            .then(() => {
-                console.log(`Successfully initialized. Ready to serve ${client.guilds.cache.size} guilds.`);
-                client.user.setPresence({activity: {name: `over ${client.guilds.cache.size} servers! | syrus.gg`, type: "WATCHING"}, status: "dnd"})
-                    .catch(console.error);
-            })
-            .catch((error) => {
-                throw `Failed to login to Discord: ${error}`;
-            });
+        await client.login(config.token);
     } catch (error) {
         client.destroy();
         throw error;
