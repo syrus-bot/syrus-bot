@@ -6,10 +6,11 @@ SY-INT = Syrus web UI
 SY-PRJ = Project-wide goals  
   
 ## Short term goals
-- [ ] (SY-PRJ) Rename repository and finish drafting conceptualisations
+- [x] (SY-PRJ) Rename repository and finish drafting conceptualisations
 - [ ] (SY-API) Enable OAuth2 logins and core functionality of web interface
-- [ ] (SY-BTI) Develop core of the bot
+- [x] (SY-BTI) Develop core of the bot
 - [ ] (SY-BTI) Implement some core functionality and attach to bot account
+- [ ] (SY-BTI) Fix music manager and module
 
 ## Mid term goals
 
