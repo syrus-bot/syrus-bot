@@ -12,8 +12,10 @@
     "@lavacord/discord.js": "0.0.7",
     "@sapphire/decorators": "^1.0.1",
     "@sapphire/framework": "github:sapphire-project/framework#build",
+    "@scp/in17n": "^1.0.1",
     "bufferutil": "^4.0.1",
     "discord.js": "github:discordjs/discord.js#master",
+    "i18next": "^19.8.2",
     "lavacord": "^1.1.9",
     "libsodium-wrappers": "^0.7.8",
     "moment": "^2.29.0",
@@ -22,7 +24,6 @@
     "package.json": "^2.0.1",
     "snekfetch": "^4.0.4",
     "types": "^0.1.1",
-    "uws": "^100.0.1",
     "websocket": "^1.0.32",
     "ws": "^7.3.1"
   },
