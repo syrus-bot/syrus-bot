@@ -2,6 +2,8 @@ const { SapphireClient, CommandStore, EventStore } = require('@sapphire/framewor
 const { mergeDefault } = require('@sapphire/utilities');
 const { ClientOptions } = require('discord.js');
 const config = require("../../config.json");
+const { i18next } = require("i18next");
+const in17n = require("@scp/in17n/register");
 
 require('../extensions/guild.js');
 class SyrusClient extends SapphireClient {
