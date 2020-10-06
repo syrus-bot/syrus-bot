@@ -11,10 +11,9 @@
   "dependencies": {
     "@lavacord/discord.js": "0.0.7",
     "@sapphire/decorators": "^1.0.1",
-    "@sapphire/framework": "github:sapphire-project/framework",
+    "@sapphire/framework": "github:sapphire-project/framework#build",
     "bufferutil": "^4.0.1",
     "discord.js": "github:discordjs/discord.js#master",
-    "enmap": "^5.8.0",
     "lavacord": "^1.1.9",
     "libsodium-wrappers": "^0.7.8",
     "moment": "^2.29.0",
