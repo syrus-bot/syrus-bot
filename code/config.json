@@ -1,0 +1,17 @@
+{
+    "token":"NzYwNzAwMjc2NzA0ODA0ODk3.X3P3Vw.veSotTjziCwZZDBXAWtNvf_QgzU",
+    "developers": ["684155404078415890", "186882941966614528", "234464614996246529"],
+    "prefix": ">",
+    "color": "14891321",
+    "shards": 1,
+    "lavalink": {
+        "nodes": [ 
+            { 
+                "host": "localhost", 
+                "port": 80, 
+                "region": "us-central", 
+                "password": "sosecure" 
+            }
+        ]
+    }
+}

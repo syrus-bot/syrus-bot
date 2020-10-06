@@ -1,0 +1,22 @@
+{
+  "name": "syrus-bot",
+  "version": "1.0.0",
+  "description": "a bot",
+  "main": "botty.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/syrus-bot/syrus-bot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/syrus-bot/syrus-bot/issues"
+  },
+  "homepage": "https://github.com/syrus-bot/syrus-bot#readme",
+  "dependencies": {
+    "node-fetch": "^2.6.1"
+  }
+}

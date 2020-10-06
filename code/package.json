@@ -11,7 +11,7 @@
   "dependencies": {
     "@lavacord/discord.js": "0.0.7",
     "@sapphire/decorators": "^1.0.1",
-    "@sapphire/framework": "github:sapphire-project/framework",
+    "@sapphire/framework": "github:sapphire-project/framework#build",
     "bufferutil": "^4.0.1",
     "discord.js": "github:discordjs/discord.js#master",
     "enmap": "^5.8.0",
@@ -22,6 +22,7 @@
     "mongodb": "^3.6.2",
     "package.json": "^2.0.1",
     "snekfetch": "^4.0.4",
+    "timeago.js": "^4.0.2",
     "types": "^0.1.1",
     "uws": "^100.0.1",
     "websocket": "^1.0.32",

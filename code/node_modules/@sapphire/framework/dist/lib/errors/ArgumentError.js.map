@@ -1,0 +1,1 @@
+{"version":3,"file":"ArgumentError.js","sourceRoot":"","sources":["../../../src/lib/errors/ArgumentError.ts"],"names":[],"mappings":";;;AACA,2CAAwC;AAExC,MAAa,aAAiB,SAAQ,qBAAS;IAI9C,YAAmB,QAAsB,EAAE,SAAiB,EAAE,IAAY,EAAE,OAAe;QAC1F,KAAK,CAAC,IAAI,EAAE,OAAO,CAAC,CAAC;QACrB,IAAI,CAAC,QAAQ,GAAG,QAAQ,CAAC;QACzB,IAAI,CAAC,SAAS,GAAG,SAAS,CAAC;IAC5B,CAAC;CACD;AATD,sCASC"}

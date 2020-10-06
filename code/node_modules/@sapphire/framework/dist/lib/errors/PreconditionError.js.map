@@ -1,0 +1,1 @@
+{"version":3,"file":"PreconditionError.js","sourceRoot":"","sources":["../../../src/lib/errors/PreconditionError.ts"],"names":[],"mappings":";;;AACA,2CAAwC;AAKxC,MAAa,iBAAkB,SAAQ,qBAAS;IAI/C,YAAmB,QAAsB,EAAE,IAAY,EAAE,OAAe,EAAE,SAAkC,IAAI;QAC/G,KAAK,CAAC,IAAI,EAAE,OAAO,CAAC,CAAC;QACrB,IAAI,CAAC,YAAY,GAAG,QAAQ,CAAC;QAC7B,IAAI,CAAC,MAAM,GAAG,MAAM,CAAC;IACtB,CAAC;CACD;AATD,8CASC"}

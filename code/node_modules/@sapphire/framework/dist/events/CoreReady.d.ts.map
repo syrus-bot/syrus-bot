@@ -1,0 +1,1 @@
+{"version":3,"file":"CoreReady.d.ts","sourceRoot":"","sources":["../../src/events/CoreReady.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,YAAY,EAAE,MAAM,kBAAkB,CAAC;AACrD,OAAO,EAAE,KAAK,EAAE,MAAM,yBAAyB,CAAC;AAChD,OAAO,EAAE,MAAM,EAAE,MAAM,qBAAqB,CAAC;AAE7C,qBAAa,SAAU,SAAQ,KAAK,CAAC,MAAM,CAAC,KAAK,CAAC;gBAC9B,OAAO,EAAE,YAAY;IAIjC,GAAG;CAGV"}
