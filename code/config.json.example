@@ -1,5 +1,5 @@
 {
-    "token":"",
+    "token": "",
     "prefix": "+",
     "color": "14891321",
     "shards": 1,
@@ -15,7 +15,7 @@
     }
     "database": {
         "host": "localhost",
-        "port": 27012,,
+        "port": 27012,
         "base": "syrus",
         "user": "",
         "pass": ""
