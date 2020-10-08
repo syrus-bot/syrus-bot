@@ -1,0 +1,11 @@
+{
+    "ping": {
+        "description": "Ping!",
+        "ping": "Pong..?",
+        "pong": "Pong! The round trip took {{roundtrip}}ms, and the heartbeat latency was {{heartbeat}}ms."
+    },
+    "set": {
+        "description": "Manages the guild settings for the bot",
+        "updated": "Changed the `{{key}}` setting to `{{val}}` for the guild!"
+    }
+}
