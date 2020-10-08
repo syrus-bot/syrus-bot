@@ -9,12 +9,11 @@ const nodes = [
 
 
 class MusicManager {
-    
     constructor(guild) {
         this.client = guild.client;
         this.manager = new Manager(guild.client, nodes, {
                 user: guild.client.user.id,
-                shards: guild.client.config.shards
+                shards: 1
         });
         this.queue = [];
         this.current = null;

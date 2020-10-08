@@ -1,7 +1,7 @@
 const { SapphireClient, CommandStore, EventStore } = require('@sapphire/framework');
 const { mergeDefault } = require('@sapphire/utilities');
 const { ClientOptions } = require('discord.js');
-const config = require("../../config.json");
+const db = require("../../providers/mongodb.js")
 const { i18next } = require("i18next");
 const in17n = require("@scp/in17n/register");
 
@@ -26,11 +26,20 @@ class SyrusClient extends SapphireClient {
                 }
             }
         });
-        this.config = config;
+        this.settings = new db();
         this.registerStore(this.commands);
         this.registerStore(this.events);
     }
-    fetchPrefix = () => '>';
+    fetchPrefix = async (message) => {
+        const guild = await this.settings.guild(message.guild.id);
+        const global = await this.settings.global();
+        if (guild !== null) {
+            if (guild.prefix !== undefined) {
+                return guild.prefix;
+            }
+        }
+        return global.prefix;
+    };
     fetchLanguage = () => 'en-us';
 }
 module.exports = SyrusClient

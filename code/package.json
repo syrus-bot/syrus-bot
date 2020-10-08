@@ -21,6 +21,7 @@
     "moment": "^2.29.0",
     "moment-duration-format": "^2.3.2",
     "mongodb": "^3.6.2",
+    "mongoose": "^5.10.8",
     "package.json": "^2.0.1",
     "snekfetch": "^4.0.4",
     "types": "^0.1.1",
