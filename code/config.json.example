@@ -3,6 +3,9 @@
     "prefix": "+",
     "color": "14891321",
     "shards": 1,
+    "owners": [
+        "186882941966614528"
+    ],
     "lavalink": {
         "nodes": [ 
             { 

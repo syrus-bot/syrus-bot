@@ -5,7 +5,8 @@ module.exports = class ClientCommand extends Command {
     constructor(context) {
         super(context, {
             name: "set",
-            description: "commands:set.description"
+            description: "commands:set.description",
+            preconditions: ["GuildOnly", "serverowner"]
         });
     }
     

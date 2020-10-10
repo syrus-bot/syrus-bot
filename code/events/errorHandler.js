@@ -10,6 +10,5 @@ module.exports = class errorEvent extends Event {
 
 	async run(error, errorPayload) {
         console.log(`Error in command ${errorPayload.piece.name}: ${error}`);
-		this.client.user.setPresence({activity: {name: `over ${this.client.guilds.cache.size} servers! | syrus.gg`, type: "WATCHING"}, status: "dnd"});
 	}
 };
