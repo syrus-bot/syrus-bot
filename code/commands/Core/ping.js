@@ -20,7 +20,6 @@
 
 const { Args, Command, CommandOptions } = require('@sapphire/framework');
 
-
 module.exports = class ClientCommand extends Command {
     constructor(context) {
         super(context, {
