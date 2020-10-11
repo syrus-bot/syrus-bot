@@ -136,7 +136,7 @@ the community.
 ### Attribution
 
 This Code of Conduct is adapted from the [Contributor Covenant][homepage],
-version 2.0, available [at][version].
+version 2.0, available [here][version].
 
 Community Impact Guidelines were inspired by [Mozilla's code of conduct
 enforcement ladder](https://github.com/mozilla/diversity).
