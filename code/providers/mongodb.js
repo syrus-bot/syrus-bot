@@ -1,100 +1,85 @@
-const { MongoClient: Mongo } = require('mongodb');
+/*
+    Syrus - a multipurpose Discord bot, designed to be the best so you don't need the rest.
+    Copyright (C) 2020, Syrus Development Team (Nytelife26 / nytelife@protonmail.com, Logan Heinzelman, ColeCCI and mynameismrtime)
+    
+    This file is part of Syrus.
+    
+    Syrus is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Syrus is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Syrus.  If not, see <https://www.gnu.org/licenses/>.
+*/
+
+const mongoose = require('mongoose');
+const { MongoError, DocumentNotFoundError } = require('mongodb');
+const config = require('../config.json');
+
+moduleSchema = new mongoose.Schema({
+    enabled: {type: Boolean, default: true},
+    disabledCommands: [String],
+    settings: {}
+});
+
+guildSchema = new mongoose.Schema({
+    _id: Number,
+    prefix: String,
+    language: String,
+    modules: {
+        core: {type: moduleSchema},
+        music: {type: moduleSchema},
+        moderation: {type: moduleSchema},
+        automod: {type: moduleSchema},
+        utility: {type: moduleSchema},
+        api: {type: moduleSchema},
+        fun: {type: moduleSchema},
+        info: {type: moduleSchema}
+    }
+});
 
 module.exports = class {
-
-	constructor(...args) {
-		super(...args, { 
-			name: "mongodb",
-			description: 'Allows use of MongoDB functionality'
-		});
-		this.db = null;
-	}
-
-	async init() {
-		const connection = mergeDefault({
-			host: 'localhost',
-			port: 27017,
-			db: 'syrus',
-			user: '',
-			pass: '',
-			options: {}
-		}, this.client.options.providers.mongodb);
-		const mongoClient = await Mongo.connect(
-			`mongodb://${connection.user}:${connection.pass}@${connection.host}:${connection.port}/${connection.db}`,
-			mergeObjects(connection.options, { useNewUrlParser: true }));
-		this.db = mongoClient.db(connection.db);
-	}
-
-	/* Table methods */
-
-	get exec() {
-		return this.db;
-	}
-
-	hasTable(table) {
-		return this.db.listCollections().toArray().then(collections => collections.some(col => col.name === table));
-	}
-
-	createTable(table) {
-		return this.db.createCollection(table);
-	}
-
-	deleteTable(table) {
-		return this.db.dropCollection(table);
-	}
-
-	/* Document methods */
-
-	getAll(table, filter = []) {
-		if (filter.length) return this.db.collection(table).find({ id: { $in: filter } }, { _id: 0 }).toArray();
-		return this.db.collection(table).find({}, { _id: 0 }).toArray();
-	}
-
-	getKeys(table) {
-		return this.db.collection(table).find({}, { id: 1, _id: 0 }).toArray();
-	}
-
-	get(table, id) {
-		return this.db.collection(table).findOne(resolveQuery(id));
-	}
-
-	has(table, id) {
-		return this.get(table, id).then(Boolean);
-	}
-
-	getRandom(table) {
-		return this.db.collection(table).aggregate({ $sample: { size: 1 } });
-	}
-
-	create(table, id, doc = {}) {
-		return this.db.collection(table).insertOne(mergeObjects(this.parseUpdateInput(doc), resolveQuery(id)));
-	}
-
-	delete(table, id) {
-		return this.db.collection(table).deleteOne(resolveQuery(id));
-	}
-
-	update(table, id, doc) {
-		return this.db.collection(table).updateOne(resolveQuery(id), { $set: isObject(doc) ? flatten(doc) : parseEngineInput(doc) });
-	}
-
-	replace(table, id, doc) {
-		return this.db.collection(table).replaceOne(resolveQuery(id), this.parseUpdateInput(doc));
-	}
-
-};
-
-const resolveQuery = query => isObject(query) ? query : { id: query };
-
-function flatten(obj, path = '') {
-	let output = {};
-	for (const [key, value] of Object.entries(obj)) {
-		if (isObject(value)) output = Object.assign(output, flatten(value, path ? `${path}.${key}` : key));
-		else output[path ? `${path}.${key}` : key] = value;
-	}
-	return output;
-}
-
-function parseEngineInput(updated) {
-	return Object.assign({}, ...updated.map(entry => ({ [entry.data[0]]: entry.data[1] })));
+    constructor(...args) {
+        const connection = {
+            host: config.database.host,
+            port: config.database.port,
+            data: config.database.base,
+            user: config.database.user,
+            pass: config.database.pass,
+            options: {
+                useNewUrlParser: true,
+                useUnifiedTopology: true
+            }
+        };
+        this.db = mongoose.createConnection(
+            `mongodb://${connection.user}:${connection.pass}@${connection.host}:${connection.port}/${connection.data}`, 
+            connection.options
+        );
+        this.db.startSession();
+        this.db.on('connected', () => {console.log('Database connected!');});
+        this.guildschema = this.db.model('Guild', guildSchema);
+    }
+    
+    global() {
+        this.db.createCollection("global").catch((err) => {});
+        this.db.collection("global").insertOne({_id: 0, prefix: config.prefix, token: config.token}).catch((err) => {});
+        return this.db.collection("global").findOne({_id: 0});
+    }
+    
+    guild(id) {
+        return this.guildschema.findById(Number(id), async (err, guild) => {
+            if (guild === null) {
+                const doc = new this.guildschema({_id: Number(id)});
+                await doc.save();
+                const guild = doc;
+            }
+            return guild;
+        });
+    }
 }
