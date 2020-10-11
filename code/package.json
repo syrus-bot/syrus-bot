@@ -1,13 +1,30 @@
 {
-  "name": "syrus-bot",
+  "name": "syrus",
   "version": "1.0.0",
-  "description": "A Discord bot",
+  "description": "Syrus - a multipurpose Discord bot, designed to be the best so you won't need the rest.",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node main",
+    "gpr": "git pull && npm start"
   },
-  "author": "Nytelife26, ColeCCI and MrTime",
-  "license": "ISC",
+  "author": {
+    "name": "Nytelife26 (Tyler J. Russell)",
+    "email": "nytelife@protonmail.com",
+    "url": "https://github.com/Nytelife26"
+  },
+  "contributors": [
+    {
+      "name": "ColeCCI",
+      "email": "hi@colem.dev",
+      "url": "https://colem.dev"
+    },
+    {
+      "name": "mynameismrtime (Max)",
+      "email": "max@maxx.lol",
+      "url": "https://mrti.me"
+    }
+  ]
+  "license": "GPL-3.0-or-later",
   "dependencies": {
     "@lavacord/discord.js": "0.0.7",
     "@sapphire/decorators": "^1.0.1",
@@ -34,7 +51,8 @@
   "devDependencies": {},
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/syrus-bot/syrus-bot.git"
+    "url": "git+https://github.com/syrus-bot/syrus-bot.git",
+    "directory": "code"
   },
   "bugs": {
     "url": "https://github.com/syrus-bot/syrus-bot/issues"
