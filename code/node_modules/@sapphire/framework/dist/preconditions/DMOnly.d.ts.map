@@ -1,1 +1,0 @@
-{"version":3,"file":"DMOnly.d.ts","sourceRoot":"","sources":["../../src/preconditions/DMOnly.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,OAAO,EAAE,MAAM,YAAY,CAAC;AAC1C,OAAO,EAAE,YAAY,EAAE,kBAAkB,EAAE,MAAM,gCAAgC,CAAC;AAElF,qBAAa,gBAAiB,SAAQ,YAAY;IAC1C,GAAG,CAAC,OAAO,EAAE,OAAO,GAAG,kBAAkB;CAGhD"}

@@ -1,1 +1,0 @@
-{"version":3,"file":"CommandStore.d.ts","sourceRoot":"","sources":["../../../src/lib/structures/CommandStore.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,MAAM,EAAE,MAAM,YAAY,CAAC;AACzC,OAAO,EAAE,cAAc,EAAE,MAAM,uBAAuB,CAAC;AACvD,OAAO,EAAE,OAAO,EAAE,MAAM,WAAW,CAAC;AAEpC;;;GAGG;AACH,qBAAa,YAAa,SAAQ,cAAc,CAAC,OAAO,CAAC;gBACrC,MAAM,EAAE,MAAM;CAGjC"}
