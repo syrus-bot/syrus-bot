@@ -1,0 +1,6 @@
+{
+  "missing": "{{key}} has not been localised for En-US yet.",
+  "commerr": {
+    "denied": "Sorry, I can't let you do that, looks like you lack the required permissions to run {{cmd}} :("
+  }
+}
