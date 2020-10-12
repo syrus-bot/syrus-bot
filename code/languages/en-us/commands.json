@@ -7,5 +7,18 @@
     "set": {
         "description": "Manages the guild settings for the bot",
         "updated": "Changed the `{{key}}` setting to `{{val}}` for the guild!"
+    },
+    "eval": {
+        "description": "Executes JS code from within Discord"
+    },
+    "kill": {
+        "description": "Shuts down the bot",
+        "shutdown": ":wave: Goodbye..."
+    },
+    "reload": {
+        "description": "Reloads a command",
+        "notfound": "There is no {{commandName}} command, sorry :(",
+        "reloaded": "The {{commandName}} command has been reloaded! Happy to help :)",
+        "allreloaded": "All commands have been reloaded! Happy to help :)"
     }
 }

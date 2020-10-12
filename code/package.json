@@ -23,7 +23,7 @@
       "email": "max@maxx.lol",
       "url": "https://mrti.me"
     }
-  ]
+  ],
   "license": "GPL-3.0-or-later",
   "dependencies": {
     "@lavacord/discord.js": "0.0.7",

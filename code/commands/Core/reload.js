@@ -24,22 +24,39 @@ module.exports = class ClientCommand extends Command {
     constructor(context) {
         super(context, {
             name: "reload",
-            description: "reload cmd"
+            description: "commands:reload.description",
+            preconditions: ["owner"]
         });
     }
     
-    async run(msg) {
-        const get_pre = require('../../config.json');
-        const args = msg.content.slice(get_pre.prefix.length).split(/ +/g);
-    if (!args || args.length < 1) return msg.channel.send("You need to provide a command name to reload.");
-    const commandName = args[1];
-    if (!this.client.commands.has(commandName)) {
-        return msg.channel.send(`There is no ${commandName} command, sorry :(`);
-    }
-    delete require.cache[require.resolve(`${process.cwd()}/commands/${commandName}.js`)];
-    this.client.commands.delete(commandName);
-    const props = require(`${process.cwd()}/commands/${commandName}.js`);
-    this.client.commands.set(commandName, props);
-    msg.channel.send(`The ${commandName} command has been reloaded! Happy to help :)`);
-};
+    async run(message, args) {
+        const cmdn = await args.pickResult('string');
+        const cmdnm = cmdn.value;
+        if (cmdnm === "all") {
+            this.client.commands.forEach((value, key, map) => {
+                delete require.cache[require.resolve(value.path)];
+            });
+            this.client.commands.clear();
+            await this.client.commands.loadAll();
+            message.sendTranslated("commands:reload.allreloaded");
+            return;
+        }
+        
+        const cmd = this.client.commands.get(cmdnm);
+        if (cmd === undefined) {
+            return message.sendTranslated("commands:reload.notfound", [{
+                commandName: cmdn
+            }]);
+        }
+        const cmdp = cmd.path;
+        this.client.commands.delete(cmdnm);
+        delete require.cache[require.resolve(cmdp)];
+        const reloaded = await this.client.commands.load(cmdp);
+        for await (let command of reloaded) {
+            this.client.commands.insert(command);
+        }
+        message.sendTranslated("commands:reload.reloaded", [{
+            commandName: cmdnm
+        }]);
+    };
 }

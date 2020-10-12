@@ -28,7 +28,7 @@ module.exports = class ClientCommand extends Command {
         });
     }
     
-    async run(message) {
+    async run(message, args) {
         const msg = await message.sendTranslated('commands:ping.ping');
         await message.sendTranslated('commands:ping.pong', [
             {
