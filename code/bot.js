@@ -25,13 +25,6 @@ const fs = require("fs");
 
 async function main() {
     const client = new syrusClient({
-        fetchAllMembers: false,
-        prefix: config.prefix,
-        commandEditing: false,
-        typing: true,
-        providers: {
-            default: "mongodb"
-        },
         ws: {intents: ['GUILDS', 'GUILD_MESSAGES']},
         logger: {level: LogLevel.Debug}
     });
