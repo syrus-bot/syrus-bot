@@ -50,6 +50,7 @@ class SyrusClient extends SapphireClient {
         this.registerStore(this.commands);
         this.registerStore(this.events);
         this.preconditions.registerPath(`${process.cwd()}/preconditions/`);
+        this.arguments.registerPath(`${process.cwd()}/arguments/`);
     }
     fetchPrefix = async (message) => {
         const guild = await this.settings.guild(message.guild.id);
