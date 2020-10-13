@@ -19,7 +19,7 @@ module.exports = class ClientArgument extends Argument {
                 return this.ok(context.message.mentions.members.first());
             } else {
                 const mem = await guild.members.fetch({query: argument, limit: 1});
-                if (mem.values().length > 0) {
+                if (mem.values().hasNext()) {
                     return this.ok(mem.values().next().value);
                 } else {
                     throw new DiscordAPIError({code: Constants.APIErrors.UNKNOWN_MEMBER});
