@@ -24,41 +24,38 @@ module.exports = class ClientCommand extends Command {
     constructor(context) {
         super(context, {
             name: "sus",
-            description: "someone sus? use this command!"
+            description: "commands:sus.description"
         });
     }
     
-    async run(msg) {
-        const get_pre = require('../../config.json');
-        const args = msg.content.slice(get_pre.prefix.length).split(/ +/g);
-    const Discord = require("discord.js");
-    const options = ["was not", "was"];
-    const imposter = Math.floor(Math.random() * options.length);
-    if (msg.mentions.members.first()) {
-        msg.channel.send(
+    async run(message, args) {
+        const member = await args.pickResult("parsemember");
+        const impostor = {
+            0: {
+                was: "wasn't",
+                rem: "1 impostor remains"
+            },
+            1: {
+                was: "was",
+                rem: "0 impostors remain"
+            }
+        }[Math.floor(Math.random() * 2)];
+        let disp; 
+        if (member.success) {
+            disp = member.value.displayName;
+        } else { 
+            disp = message.author.username;
+        }
+        message.channel.send(
             `
             .      　。　　　　•　    　ﾟ　　。
             　　.　　　.　　　  　　.　　　　　。　　   。　.
              　.　　      。　        ඞ   。　    .    •
-             •                **${msg.mentions.members.first().user.username} ${options[imposter]} An Impostor.**　 。　.
-                                  1 impostor remains
+             •                **${disp} ${impostor.was} The Impostor.**　 。　.
+                                  ${impostor.rem}
             　 　　。　　　　　　ﾟ　　　.　　　　　.
             ,　　　　.　 .　　       .               。
             `
         );
-    } else {
-        msg.channel.send(
-            `
-           .      　。　　　　•　    　ﾟ　　。
-           　　.　　　.　　　  　　.　　　　　。　　   。　.
-            　.　　      。　        ඞ   。　    .    •
-            •                **${msg.author.username} ${options[imposter]} An Impostor.**　 。　.
-                                 1 impostor remains
-           　 　　。　　　　　　ﾟ　　　.　　　　　.
-           ,　　　　.　 .　　       .               。
-           `
-        );
     }
-};
-
 }
