@@ -20,5 +20,30 @@
         "notfound": "There is no {{commandName}} command, sorry :(",
         "reloaded": "The {{commandName}} command has been reloaded! Happy to help :)",
         "allreloaded": "All commands have been reloaded! Happy to help :)"
+    },
+    "pp": {
+        "description": "Tells you a user's (or your own) PP size ;)"
+    },
+    "moderation": {
+        "ban": {
+            "description": "Bans a specified member.",
+            "banned": ":hammer: Banned **{{member}}**."
+        },
+        "kick": {
+            "description": "Kicks a specified member.",
+            "kicked": ":boot: Kicked **{{member}}**."
+        },
+        "lockdown": {
+            "description": "Stop all traffic in a channel.",
+            "lockeddown": ":lock: Locked down **{{channel}}**."
+        },
+        "unlock": {
+            "description": "Unrestricts a channel (removes a lockdown).",
+            "unlocked": ":unlock: Unlocked **{{channel}}**."
+        },
+        "purge": {
+            "description": "Cleans up a certain amount of messages.",
+            "purged": "**Successfully purged {{amount}} message(s).**"
+        }
     }
 }
