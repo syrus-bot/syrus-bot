@@ -10,14 +10,72 @@ interactions with the project.
 
 1. Ensure any dependencies are updated to be as recent as possible, and all security issues
    are audited.
-2. Update the CHANGELOG.md with details of changes.
-3. Increment the version numbers in any example files, README.md, and CHANGELOG.md to the new
+2. Ensure the build passes all checks and your contribution follows all our guidelines.
+3. Update the CHANGELOG.md with details of changes.
+4. Increment the version numbers in any example files, README.md, and CHANGELOG.md to the new
    version that this Pull Request would represent. The versioning scheme we use is [semantic
    versioning](https://semver.org).
-4. You may merge the Pull Request once you have acquired the approval of two other developers,
+5. You may merge the Pull Request once you have acquired the approval of two other developers,
    or if you do not have permission to do that, you may request the most recent reviewer to
    do it for you.
+   
+## Standard of Work
 
+### Licensing
+
+As per our license, the [GNU GPL v3.0][license], our [notice][notice] must be applied to the 
+top of all source files that are part of Syrus. This does not include JSON, but rather any
+actual script, code, or program files. This is vital to maintain our OSS ecosystem, and as
+such any contribution that fails to adhere will be rejected until it is fixed.
+
+[license]: https://github.com/syrus-bot/syrus-bot/blob/master/COPYING
+[notice]: https://github.com/syrus-bot/syrus-bot/blob/master/COPYING.NOTICE
+
+### Formatting
+
+* Tabs for indentation.
+* UNIX style newlines, and one at the end of every file.
+* Trim all trailing whitespace.
+* Use semicolons at the end of every statement (but not after declarations).
+* 80 characters per line of source code.
+* Use backticks for string formatting instead of concatenation.
+* Use backticks for strings with formatting, and double quotes for no formatting.
+* Block declaration braces go on the same line as the condition or declarative statement.
+* Declare only one variable per declarative statement, rather than comma separating.
+
+### Naming Conventions
+
+* Use lowerCamelCase for variables, properties, and function names.
+* Use UpperCamelCase for class names.
+* Use UPPERCASE for static class property constants.
+
+### Array and Object Declaration
+
+* Use trailing commas.
+* Do not put spaces in keys for objects.
+* Do not wrap key names in quotes.
+
+### Conditionals
+
+* Use the `===` operator instead of `==` (and `!==` instead of `!=` too).
+* Use descriptive conditionality variables for complex conditions.
+
+### Functions
+
+* Keep functions at a minimal length, and create other functions to avoid complication.
+* Make return statements clear and return as early as possible.
+* Use one method per line when chaining, and indent them from the original object.
+
+### Comments
+
+* Only use comments for licensing or to clarify complex segments of code.
+* Use `/* */` only for licensing. Standard one-lines should be used for all other comments.
+
+### Miscellaneous
+
+* Licensing goes at the top of every file.
+* Licensing is always followed by requires / imports. Nothing comes between.
+* Sort requirements by consistent project-wide usage, and then alphabetically.
 
 ## Code of Conduct
 
