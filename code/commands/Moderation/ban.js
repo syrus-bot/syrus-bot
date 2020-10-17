@@ -35,12 +35,13 @@ module.exports = class ClientCommand extends Command {
     async run(message, args) {
         const member = await args.pickResult("parsemember");
         if (!member.success) {
-            return message.sendTranslated("global:membernotfound");
+            return message.sendTranslated("global:notfound", [{type: "member"}]);
         }
         
         if (message.member.roles.highest.position <= member.value.roles.highest.position) {
-            return message.sendTranslated("commands:moderation.higheruser", [{
-                func: "ban"
+            return message.sendTranslated("global:highererr", [{
+                func: "ban",
+                type: "member"
             }]);
         }
         let reason = await args.restResult("string");
@@ -60,7 +61,7 @@ module.exports = class ClientCommand extends Command {
                 }]);
             })
             .catch((error) => {
-                if (error.toString().includes("Missing Perm")) return message.sendTranslated("commands:moderation.higheruser", [{func: "ban"}]);
+                if (error.toString().includes("Missing Perm")) return message.sendTranslated("global.highererr", [{func: "ban", type: "member"}]);
             });
     };
 }

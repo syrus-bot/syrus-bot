@@ -19,31 +19,40 @@
 */
 
 const { Args, Command, CommandOptions } = require('@sapphire/framework');
+const { Permissions } = require('discord.js')
 
 module.exports = class ClientCommand extends Command {
     constructor(context) {
         super(context, {
             name: "topic",
-            description: "set the topic of a channel"
+            description: "commands:utilities.topic.description",
+            preconditions: ["GuildOnly", {entry: "permissions", context: {
+                permissions: new Permissions(Permissions.FLAGS.MANAGE_CHANNELS)
+            }}]
         });
     }
+
     
-    async run(msg) {
-        const get_pre = require('../../config.json');
-        const args = msg.content.slice(get_pre.prefix.length).split(/ +/g);
-    const config = require("../../config.json");
-    const Discord = require("discord.js");
-    var newtopic = msg.content.replace(config.prefix + "topic ", "");
-    if (!msg.member.hasPermission(["MANAGE_CHANNELS"])) return msg.channel.send("You must have the **Manage Channels** permission to use this command!");
-    if (!msg.guild.me.hasPermission(["MANAGE_CHANNELS"])) return msg.channel.send("I am missing the **Manage Channels** permission and therefore can't run this command");
-    if (newtopic.includes("topic")) return msg.channel.send("You need to include what to change the channel topic to! i.e: `>topic This channel is for playing games!`");
-    msg.channel
-        .setTopic(newtopic)
-        .then(() => {
-            msg.channel.send(":speaking_head: Updated channel topic for **#" + msg.channel.name + "**");
-        })
-        .catch((error) => {
-            console.log(error);
-        });
-};
+    async run(message, args) {
+        const topic = await args.restResult("string");
+        let newtopic;
+        if (topic.success) {
+            newtopic = topic.value;
+        } else {
+            newtopic = ""
+        }
+        
+        if (!message.channel.manageable) {
+            return message.sendTranslated("global:missingperms");
+        }
+        
+        message.channel
+            .setTopic(newtopic)
+            .then(() => {
+                message.sendTranslated("commands:utilities.topic.changed", [{
+                    channel: message.channel.name,
+                    topic: newtopic || "[]"
+                }]);
+            });
+    }
 }

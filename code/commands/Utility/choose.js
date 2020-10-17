@@ -24,19 +24,20 @@ module.exports = class ClientCommand extends Command {
     constructor(context) {
         super(context, {
             name: "choose",
-            description: "make the bot choose something"
+            aliases: ["pick"],
+            description: "commands:utility.choose.description"
         });
     }
     
-    async run(msg) {
-        const get_pre = require('../../config.json');
-        const args = msg.content.slice(get_pre.prefix.length).split(/ +/g);
-    const config = require("../../config.json");
-    const Discord = require("discord.js");
-    const options = msg.content.replace(config.prefix + "choose ", "").split(",");
-    if (options.length <= 1) return msg.channel.send("You need to provide options seperated by a comma (`,`)\ni.e: `" + config.prefix + "choose blue, green, red`");
-    const choosen = Math.floor(Math.random() * options.length);
-
-    msg.channel.send("Hey " + msg.author.username + ", I have choosen `" + options[choosen] + "`");
-};
+    async run(message, args) {
+        const choices = await args.restResult("string");
+        if (choices.value === undefined) {
+            return message.sendTranslated("global:missingparameters")
+        }
+        const options = choices.value.split(", ");
+        if (options.length <= 1) {
+            return message.sendTranslated("commands:utility.choose.comma")
+        }
+        message.channel.send(`Hmm... I choose... ${options[Math.floor(Math.random() * options.length)]}!`);
+    };
 }

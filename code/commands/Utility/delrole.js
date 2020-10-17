@@ -19,61 +19,40 @@
 */
 
 const { Args, Command, CommandOptions } = require('@sapphire/framework');
+const { Permissions } = require('discord.js');
 
 module.exports = class ClientCommand extends Command {
     constructor(context) {
         super(context, {
             name: "delrole",
-            description: "delete a role"
+            description: "commands:utilities.delrole.description",
+            preconditions: ["GuildOnly", {entry: "permissions", context: {
+                permissions: new Permissions(Permissions.FLAGS.MANAGE_ROLES)
+            }}]
         });
     }
     
-    async run(msg) {
-        const get_pre = require('../../config.json');
-        const args = msg.content.slice(get_pre.prefix.length).split(/ +/g);
-    const Discord = require("discord.js");
-    if (msg.mentions.roles.first()) {
-        if (!msg.member.hasPermission(["MANAGE_ROLES"])) return msg.channel.send("You must have the **Manage Roles** permission to use this command!");
-        if (!msg.guild.me.hasPermission(["MANAGE_ROLES"])) return msg.channel.send("I am missing the **Manage Roles** permission and therefore can't run this command");
-        if (msg.member.roles.highest.position < msg.mentions.roles.first().position) return msg.channel.send("You can't delete this role because it is higher than your current highest role.");
+    async run(message, args) {
+        const role = await args.pickResult("parserole");
+        if (!role.success) {
+            return message.sendTranslated("global:notfound", [{
+                type: "role"
+            }]);
+        }
+        
+        if (!role.value.editable || message.member.roles.highest.position <= role.value.position) {
+            return message.sendTranslated("global:highererr", [{
+                func: "delete",
+                type: "role"
+            }]);
+        }
 
-        msg.mentions.roles
-            .first()
+        role.value
             .delete()
             .then((done) => {
-                msg.channel.send("Successfully deleted the role **" + msg.mentions.roles.first().name + "**");
-            })
-            .catch((error) => {
-                msg.channel.send("I was unable to delete this role. Please move my role above the role you are trying to delete.");
+                message.sendTranslated("commands:utilities.delrole.deleted", [{
+                    deleted: role.value.name
+                }]);
             });
-    } else if (Number(args[1])) {
-        if (!msg.member.hasPermission(["MANAGE_ROLES"])) return msg.channel.send("You must have the **Manage Roles** permission to use this command!");
-        if (!msg.guild.me.hasPermission(["MANAGE_ROLES"])) return msg.channel.send("I am missing the **Manage Roles** permission and therefore can't run this command");
-        var role = msg.guild.roles.cache.get(args[1]);
-        if (role === undefined || role === null) return msg.channel.send('I was unable to locate the role id "' + args[1] + '"');
-        if (msg.member.roles.highest.position < role.position) return msg.channel.send("You can't delete this role because it is higher than your current highest role.");
-        role.delete()
-            .then((done) => {
-                msg.channel.send("Successfully deleted the role **" + msg.mentions.roles.first().name + "**");
-            })
-            .catch((error) => {
-                msg.channel.send("I was unable to delete this role. Please move my role above the role you are trying to delete.");
-            });
-    } else if (args[1]) {
-        if (!msg.member.hasPermission(["MANAGE_ROLES"])) return msg.channel.send("You must have the **Manage Roles** permission to use this command!");
-        if (!msg.guild.me.hasPermission(["MANAGE_ROLES"])) return msg.channel.send("I am missing the **Manage Roles** permission and therefore can't run this command");
-        var role = msg.guild.roles.cache.find((role) => role.name.toLowerCase() === args[1].toLowerCase());
-        if (role === undefined || role === null) return msg.channel.send('I was unable to locate the role name "' + args[1] + '"');
-        if (msg.member.roles.highest.position < role.position) return msg.channel.send("You can't delete this role because it is higher than your current highest role.");
-        role.delete()
-            .then((done) => {
-                msg.channel.send("Successfully deleted the role **" + msg.mentions.roles.first().name + "**");
-            })
-            .catch((error) => {
-                msg.channel.send("I was unable to delete this role. Please move my role above the role you are trying to delete.");
-            });
-    } else {
-        msg.channel.send("You need to include the role you want me to delete!");
     }
-};
 }
