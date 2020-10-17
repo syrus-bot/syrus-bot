@@ -23,19 +23,16 @@ const { Args, Command, CommandOptions } = require("@sapphire/framework");
 module.exports = class ClientCommand extends Command {
 	constructor(context) {
 		super(context, {
-			name: "ping",
-			description: "commands:core.ping.description"
+			name: "kill",
+			description: "commands:core.kill.description",
+			preconditions: ["owner"]
 		});
 	}
 	
 	async run(message, args) {
-		const msg = await message.sendTranslated('commands:core.ping.ping');
-		await message.sendTranslated('commands:core.ping.pong', [
-			{
-				roundtrip: (msg.editedTimestamp || msg.createdTimestamp) - (message.editedTimestamp || message.createdTimestamp),
-				heartbeat: Math.round(this.client.ws.ping)
-			}
-		]);
-		await msg.delete();
+		message.sendTranslated("commands:core.kill.shutdown")
+		setTimeout(function () {
+			process.exit(1);
+		}, 2000);
 	}
-};
+}

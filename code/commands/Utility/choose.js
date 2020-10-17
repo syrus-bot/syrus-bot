@@ -1,9 +1,9 @@
 /*
     Syrus - a multipurpose Discord bot, designed to be the best so you don't need the rest.
     Copyright (C) 2020, Syrus Development Team (Nytelife26 / nytelife@protonmail.com, Logan Heinzelman, ColeCCI and mynameismrtime)
-
+    
     This file is part of Syrus.
-
+    
     Syrus is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
@@ -18,24 +18,26 @@
     along with Syrus.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-const { Args, Command, CommandOptions } = require("@sapphire/framework");
+const { Args, Command, CommandOptions } = require('@sapphire/framework');
 
 module.exports = class ClientCommand extends Command {
-	constructor(context) {
-		super(context, {
-			name: "ping",
-			description: "commands:core.ping.description"
-		});
-	}
-	
-	async run(message, args) {
-		const msg = await message.sendTranslated('commands:core.ping.ping');
-		await message.sendTranslated('commands:core.ping.pong', [
-			{
-				roundtrip: (msg.editedTimestamp || msg.createdTimestamp) - (message.editedTimestamp || message.createdTimestamp),
-				heartbeat: Math.round(this.client.ws.ping)
-			}
-		]);
-		await msg.delete();
-	}
-};
+    constructor(context) {
+        super(context, {
+            name: "choose",
+            aliases: ["pick"],
+            description: "commands:utility.choose.description"
+        });
+    }
+    
+    async run(message, args) {
+        const choices = await args.restResult("string");
+        if (choices.value === undefined) {
+            return message.sendTranslated("global:missingparameters")
+        }
+        const options = choices.value.split(", ");
+        if (options.length <= 1) {
+            return message.sendTranslated("commands:utility.choose.comma")
+        }
+        message.channel.send(`Hmm... I choose... ${options[Math.floor(Math.random() * options.length)]}!`);
+    };
+}

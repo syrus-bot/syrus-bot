@@ -19,23 +19,23 @@
 */
 
 const { Args, Command, CommandOptions } = require("@sapphire/framework");
+const { Permissions } = require("discord.js");
 
 module.exports = class ClientCommand extends Command {
 	constructor(context) {
 		super(context, {
-			name: "ping",
-			description: "commands:core.ping.description"
+			name: "invite",
+			aliases: ["ci", "crinv"],
+			description: "commands:utilities.invite.description",
+			preconditions: ["GuildOnly", {entry: "permissions", context: {
+				permissions: new Permissions(Permissions.FLAGS.CREATE_INSTANT_INVITE)
+			}}]
 		});
 	}
-	
-	async run(message, args) {
-		const msg = await message.sendTranslated('commands:core.ping.ping');
-		await message.sendTranslated('commands:core.ping.pong', [
-			{
-				roundtrip: (msg.editedTimestamp || msg.createdTimestamp) - (message.editedTimestamp || message.createdTimestamp),
-				heartbeat: Math.round(this.client.ws.ping)
-			}
-		]);
-		await msg.delete();
+
+	async run(message) {
+		message.channel.createInvite({ maxAge: 0, maxUses: 0 }, `Created by ${message.author.toString()}`).then((invite) => {
+			message.sendTranslated("commands:utilities.invite.created", [{inv: invite.toString()}]);
+		});
 	}
 };

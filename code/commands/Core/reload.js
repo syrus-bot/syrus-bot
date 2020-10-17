@@ -23,19 +23,40 @@ const { Args, Command, CommandOptions } = require("@sapphire/framework");
 module.exports = class ClientCommand extends Command {
 	constructor(context) {
 		super(context, {
-			name: "ping",
-			description: "commands:core.ping.description"
+			name: "reload",
+			description: "commands:reload.description",
+			preconditions: ["owner"]
 		});
 	}
 	
 	async run(message, args) {
-		const msg = await message.sendTranslated('commands:core.ping.ping');
-		await message.sendTranslated('commands:core.ping.pong', [
-			{
-				roundtrip: (msg.editedTimestamp || msg.createdTimestamp) - (message.editedTimestamp || message.createdTimestamp),
-				heartbeat: Math.round(this.client.ws.ping)
-			}
-		]);
-		await msg.delete();
-	}
-};
+		const cmdn = await args.pickResult("string");
+		const cmdnm = cmdn.value;
+		if (cmdnm === "all") {
+			this.client.commands.forEach((value, key, map) => {
+				delete require.cache[require.resolve(value.path)];
+			});
+			this.client.commands.clear();
+			await this.client.commands.loadAll();
+			message.sendTranslated("commands:core.reload.allreloaded");
+			return;
+		}
+		
+		const cmd = this.client.commands.get(cmdnm);
+		if (cmd === undefined) {
+			return message.sendTranslated("commands:core.reload.notfound", [{
+				commandName: cmdn
+			}]);
+		}
+		const cmdp = cmd.path;
+		this.client.commands.delete(cmdnm);
+		delete require.cache[require.resolve(cmdp)];
+		const reloaded = await this.client.commands.load(cmdp);
+		for await (let command of reloaded) {
+			this.client.commands.insert(command);
+		}
+		message.sendTranslated("commands:core.reload.reloaded", [{
+			commandName: cmdnm
+		}]);
+	};
+}

@@ -1,11 +1,89 @@
 {
-    "ping": {
-        "description": "Ping!",
-        "ping": "Pong..?",
-        "pong": "Pong! The round trip took {{roundtrip}}ms, and the heartbeat latency was {{heartbeat}}ms."
-    },
-    "set": {
-        "description": "Manages the guild settings for the bot",
-        "updated": "Changed the `{{key}}` setting to `{{val}}` for the guild!"
-    }
+	"core": {
+		"eval": {
+			"description": "Executes JS code from within Discord"
+		},
+		"kill": {
+			"description": "Shuts down the bot",
+			"shutdown": ":wave: Goodbye..."
+		},
+		"ping": {
+			"description": "Ping!",
+			"ping": "Pong..?",
+			"pong": "Pong! The round trip took {{roundtrip}}ms, and the heartbeat latency was {{heartbeat}}ms."
+		},
+		"reload": {
+			"description": "Reloads a command",
+			"notfound": "There is no {{commandName}} command, sorry :(",
+			"reloaded": "The {{commandName}} command has been reloaded! Happy to help :)",
+			"allreloaded": "All commands have been reloaded! Happy to help :)"
+		},
+		"set": {
+			"description": "Manages the guild settings for the bot",
+			"updated": "Changed the `{{key}}` setting to `{{val}}` for the guild!"
+		}
+	},
+	"fun": {
+		"pp": {
+			"description": "Tells you a user's (or your own) PP size ;)"
+		},
+		"sus": {
+			"description": "That user's looking kinda sus, don't you think?"
+		}
+	},
+	"moderation": {
+		"ban": {
+			"description": "Bans a specified member.",
+			"banned": ":hammer: Banned **{{member}}**."
+		},
+		"kick": {
+			"description": "Kicks a specified member.",
+			"kicked": ":boot: Kicked **{{member}}**."
+		},
+		"lockdown": {
+			"description": "Stop all traffic in a channel.",
+			"lockeddown": ":lock: Locked down **{{channel}}**."
+		},
+		"purge": {
+			"description": "Cleans up a certain amount of messages.",
+			"purged": "**Successfully purged {{amount}} message(s).**"
+		},
+		"unlock": {
+			"description": "Unrestricts a channel (removes a lockdown).",
+			"unlocked": ":unlock: Unlocked **{{channel}}**."
+		}
+	},
+	"utilities": {
+		"avatar": {
+			"description": "Gets a user's avatar (or your own)."
+		},
+		"choose": {
+			"description": "Picks out of a series of options (comma separated)."
+		},
+		"delrole": {
+			"description": "Deletes a role."
+		},
+		"info": {
+			"description": "Gets a user's info."
+		},
+		"invite": {
+			"description": "Generates an invite for the channel if possible.",
+			"created": "Here is your invite: {{inv}}"
+		},
+		"pin": {
+			"description": "Pins the most recent message."
+		},
+		"role": {
+			"description": "Applies or removes a role from the user.",
+			"removed": "Removed the **{{role}}** role from **{{user}}**",
+			"added": "Removed the **{{role}}** role from **{{user}}**"
+		},
+		"serverinfo": {
+			"description": "Gets the info for the server."
+		},
+		"topic": {
+			"description": "Changes the topic of the channel you're in.",
+			"changed": ":speaking_head: Updated channel topic for **{{channel}}** to `{{topic}}`"
+		}
+	}
 }

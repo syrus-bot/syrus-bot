@@ -19,23 +19,32 @@
 */
 
 const { Args, Command, CommandOptions } = require("@sapphire/framework");
+const { MessageEmbed } = require("discord.js");
 
 module.exports = class ClientCommand extends Command {
 	constructor(context) {
 		super(context, {
-			name: "ping",
-			description: "commands:core.ping.description"
+			name: "avatar",
+			description: "commands:utility.avatar.description",
+			preconditions: ["GuildOnly"]
 		});
 	}
 	
 	async run(message, args) {
-		const msg = await message.sendTranslated('commands:core.ping.ping');
-		await message.sendTranslated('commands:core.ping.pong', [
-			{
-				roundtrip: (msg.editedTimestamp || msg.createdTimestamp) - (message.editedTimestamp || message.createdTimestamp),
-				heartbeat: Math.round(this.client.ws.ping)
-			}
-		]);
-		await msg.delete();
+		const member = await args.pickResult("parsemember");
+		let target;
+		if (member.success) {
+			target = member.value;
+		} else {
+			target = message.member;
+		}
+		const url = target.user.avatarURL({format: "png", dynamic: true})
+		message.channel.send(
+			new MessageEmbed()
+				.setColor("#34eb7d")
+				.setTitle(`${target.user.username}'s Avatar`)
+				.setDescription(`[CLICK HERE FOR LINK](${url})`)
+				.setImage(url)
+		);
 	}
-};
+}

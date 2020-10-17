@@ -18,24 +18,44 @@
     along with Syrus.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-const { Args, Command, CommandOptions } = require("@sapphire/framework");
+const { Args, Command, CommandOptions } = require('@sapphire/framework');
 
 module.exports = class ClientCommand extends Command {
 	constructor(context) {
 		super(context, {
-			name: "ping",
-			description: "commands:core.ping.description"
+			name: "sus",
+			description: "commands:fun.sus.description"
 		});
 	}
 	
 	async run(message, args) {
-		const msg = await message.sendTranslated('commands:core.ping.ping');
-		await message.sendTranslated('commands:core.ping.pong', [
-			{
-				roundtrip: (msg.editedTimestamp || msg.createdTimestamp) - (message.editedTimestamp || message.createdTimestamp),
-				heartbeat: Math.round(this.client.ws.ping)
+		const member = await args.pickResult("parsemember");
+		const impostor = {
+			0: {
+				was: "wasn't",
+				rem: "1 impostor remains"
+			},
+			1: {
+				was: "was",
+				rem: "0 impostors remain"
 			}
-		]);
-		await msg.delete();
+		}[Math.floor(Math.random() * 2)];
+		let disp; 
+		if (member.success) {
+			disp = member.value.displayName;
+		} else { 
+			disp = message.author.username;
+		}
+		message.channel.send(
+			`
+			.      　。　　　　•　    　ﾟ　　。
+			　　.　　　.　　　  　　.　　　　　。　　   。　.
+			 　.　　      。　        ඞ   。　    .    •
+			 •                **${disp} ${impostor.was} The Impostor.**　 。　.
+								  ${impostor.rem}
+			　 　　。　　　　　　ﾟ　　　.　　　　　.
+			,　　　　.　 .　　       .               。
+			`
+		);
 	}
-};
+}

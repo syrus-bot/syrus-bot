@@ -19,23 +19,40 @@
 */
 
 const { Args, Command, CommandOptions } = require("@sapphire/framework");
+const { Permissions } = require("discord.js");
 
 module.exports = class ClientCommand extends Command {
 	constructor(context) {
 		super(context, {
-			name: "ping",
-			description: "commands:core.ping.description"
+			name: "delrole",
+			description: "commands:utilities.delrole.description",
+			preconditions: ["GuildOnly", {entry: "permissions", context: {
+				permissions: new Permissions(Permissions.FLAGS.MANAGE_ROLES)
+			}}]
 		});
 	}
 	
 	async run(message, args) {
-		const msg = await message.sendTranslated('commands:core.ping.ping');
-		await message.sendTranslated('commands:core.ping.pong', [
-			{
-				roundtrip: (msg.editedTimestamp || msg.createdTimestamp) - (message.editedTimestamp || message.createdTimestamp),
-				heartbeat: Math.round(this.client.ws.ping)
-			}
-		]);
-		await msg.delete();
+		const role = await args.pickResult("parserole");
+		if (!role.success) {
+			return message.sendTranslated("global:notfound", [{
+				type: "role"
+			}]);
+		}
+		
+		if (!role.value.editable || message.member.roles.highest.position <= role.value.position) {
+			return message.sendTranslated("global:highererr", [{
+				func: "delete",
+				type: "role"
+			}]);
+		}
+
+		role.value
+			.delete()
+			.then((done) => {
+				message.sendTranslated("commands:utilities.delrole.deleted", [{
+					deleted: role.value.name
+				}]);
+			});
 	}
-};
+}

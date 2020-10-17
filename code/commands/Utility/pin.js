@@ -23,19 +23,18 @@ const { Args, Command, CommandOptions } = require("@sapphire/framework");
 module.exports = class ClientCommand extends Command {
 	constructor(context) {
 		super(context, {
-			name: "ping",
-			description: "commands:core.ping.description"
+			name: "pin",
+			description: "commands:utilities.pin.description"
 		});
 	}
 	
-	async run(message, args) {
-		const msg = await message.sendTranslated('commands:core.ping.ping');
-		await message.sendTranslated('commands:core.ping.pong', [
-			{
-				roundtrip: (msg.editedTimestamp || msg.createdTimestamp) - (message.editedTimestamp || message.createdTimestamp),
-				heartbeat: Math.round(this.client.ws.ping)
-			}
-		]);
-		await msg.delete();
+	async run(message) {
+		message.channel.messages
+			.fetch({ limit: 2 })
+			.then((messages) => {
+				let lastMessage = messages.last();
+				lastMessage.pin();
+		})
+		.catch(console.error);
 	}
-};
+}

@@ -19,23 +19,40 @@
 */
 
 const { Args, Command, CommandOptions } = require("@sapphire/framework");
+const { Permissions } = require("discord.js");
 
 module.exports = class ClientCommand extends Command {
 	constructor(context) {
 		super(context, {
-			name: "ping",
-			description: "commands:core.ping.description"
+			name: "purge",
+			aliases: ["cleanup", "prune"],
+			description: "commands:moderation.purge.description",
+			preconditions: ["GuildOnly", {entry: "permissions", context: {
+				permissions: new Permissions(Permissions.FLAGS.MANAGE_MESSAGES)
+			}}]
 		});
 	}
 	
 	async run(message, args) {
-		const msg = await message.sendTranslated('commands:core.ping.ping');
-		await message.sendTranslated('commands:core.ping.pong', [
-			{
-				roundtrip: (msg.editedTimestamp || msg.createdTimestamp) - (message.editedTimestamp || message.createdTimestamp),
-				heartbeat: Math.round(this.client.ws.ping)
-			}
-		]);
-		await msg.delete();
-	}
-};
+		const amount = await args.pickResult("integer");
+		if (amount.value === undefined) {
+			amount.value = 1;
+		}
+		message.delete().then(() => {;
+			message.channel.messages
+				.fetch({limit: amount.value})
+				.then((messages) => {
+					message.channel.bulkDelete(messages).then(() => {
+						message.sendTranslated("commands:moderation.purge.purged", [{
+							amount: amount.value
+						}]).then((mss) => {
+							setTimeout(function () {
+								mss.delete();
+							}, 3000);
+						});
+					});
+				})
+				.catch(console.error);
+		});
+	};
+}

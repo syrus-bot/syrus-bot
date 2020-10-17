@@ -19,23 +19,23 @@
 */
 
 const { Args, Command, CommandOptions } = require("@sapphire/framework");
+const { Permissions } = require("discord.js");
 
 module.exports = class ClientCommand extends Command {
 	constructor(context) {
 		super(context, {
-			name: "ping",
-			description: "commands:core.ping.description"
+			name: "unlock",
+			description: "commands:moderation.lockdown.description",
+			preconditions: ["GuildOnly", {entry: "permissions", context: {
+				permissions: new Permissions(Permissions.FLAGS.MANAGE_CHANNELS)
+			}}]
 		});
 	}
 	
-	async run(message, args) {
-		const msg = await message.sendTranslated('commands:core.ping.ping');
-		await message.sendTranslated('commands:core.ping.pong', [
-			{
-				roundtrip: (msg.editedTimestamp || msg.createdTimestamp) - (message.editedTimestamp || message.createdTimestamp),
-				heartbeat: Math.round(this.client.ws.ping)
-			}
-		]);
-		await msg.delete();
-	}
-};
+	async run(message) {
+		message.channel.updateOverwrite(message.guild.roles.everyone, { SEND_MESSAGES: false });
+		message.sendTranslated("commands:moderation.unlock.unlocked", [{
+			channel: `<#${message.channel.id}>`
+		}]);
+	};
+}

@@ -18,24 +18,31 @@
     along with Syrus.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-const { Args, Command, CommandOptions } = require("@sapphire/framework");
+const { Args, Command, CommandOptions } = require('@sapphire/framework');
+const { MessageEmbed } = require("discord.js")
 
 module.exports = class ClientCommand extends Command {
 	constructor(context) {
 		super(context, {
-			name: "ping",
-			description: "commands:core.ping.description"
+			name: "pp",
+			description: "commands:fun.pp.description"
 		});
 	}
 	
 	async run(message, args) {
-		const msg = await message.sendTranslated('commands:core.ping.ping');
-		await message.sendTranslated('commands:core.ping.pong', [
-			{
-				roundtrip: (msg.editedTimestamp || msg.createdTimestamp) - (message.editedTimestamp || message.createdTimestamp),
-				heartbeat: Math.round(this.client.ws.ping)
-			}
-		]);
-		await msg.delete();
+		const shaft = "=".repeat(Math.floor(Math.random() * 24));
+		const member = await args.pickResult("parsemember");
+		let disp;
+		if (member.success) {
+			disp = member.value.displayName;
+		} else {
+			disp = message.author.username;
+		}
+		message.channel.send(
+			new MessageEmbed()
+				.setColor("#34eb7d")
+				.setTitle(`${disp}'s PP size`)
+				.setDescription(`**8${shaft}D**`)
+		);
 	}
-};
+}
