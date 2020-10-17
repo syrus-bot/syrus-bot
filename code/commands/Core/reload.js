@@ -38,13 +38,13 @@ module.exports = class ClientCommand extends Command {
             });
             this.client.commands.clear();
             await this.client.commands.loadAll();
-            message.sendTranslated("commands:reload.allreloaded");
+            message.sendTranslated("commands:core.reload.allreloaded");
             return;
         }
         
         const cmd = this.client.commands.get(cmdnm);
         if (cmd === undefined) {
-            return message.sendTranslated("commands:reload.notfound", [{
+            return message.sendTranslated("commands:core.reload.notfound", [{
                 commandName: cmdn
             }]);
         }
@@ -55,7 +55,7 @@ module.exports = class ClientCommand extends Command {
         for await (let command of reloaded) {
             this.client.commands.insert(command);
         }
-        message.sendTranslated("commands:reload.reloaded", [{
+        message.sendTranslated("commands:core.reload.reloaded", [{
             commandName: cmdnm
         }]);
     };

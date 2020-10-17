@@ -24,7 +24,7 @@ module.exports = class ClientCommand extends Command {
     constructor(context) {
         super(context, {
             name: "set",
-            description: "commands:set.description",
+            description: "commands:core.set.description",
             preconditions: ["GuildOnly", "serverowner"]
         });
     }
@@ -37,7 +37,7 @@ module.exports = class ClientCommand extends Command {
         if (key.value !== undefined && val.value !== undefined) {
             guild.set(key.value, val.value.join(' '));
             await guild.save();
-            return await message.sendTranslated("commands:set.updated", [{
+            return await message.sendTranslated("commands:core.set.updated", [{
                 key: key.value, 
                 val: val.value.join(' ')
             }]);

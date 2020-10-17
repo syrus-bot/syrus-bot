@@ -25,7 +25,7 @@ module.exports = class ClientCommand extends Command {
     constructor(context) {
         super(context, {
             name: "pp",
-            description: "commands:pp.description"
+            description: "commands:fun.pp.description"
         });
     }
     

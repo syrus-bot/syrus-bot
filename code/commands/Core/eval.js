@@ -24,7 +24,7 @@ module.exports = class ClientCommand extends Command {
     constructor(context) {
         super(context, {
             name: "eval",
-            description: "commands:eval.description",
+            description: "commands:core.eval.description",
             preconditions: ["owner"],
             quotes: []
         });

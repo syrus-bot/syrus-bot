@@ -24,13 +24,13 @@ module.exports = class ClientCommand extends Command {
     constructor(context) {
         super(context, {
             name: "kill",
-            description: "commands:kill.description",
+            description: "commands:core.kill.description",
             preconditions: ["owner"]
         });
     }
     
     async run(message, args) {
-        message.sendTranslated("commands:kill.shutdown")
+        message.sendTranslated("commands:core.kill.shutdown")
         setTimeout(function () {
             process.exit(1);
         }, 2000);

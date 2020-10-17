@@ -24,13 +24,13 @@ module.exports = class ClientCommand extends Command {
     constructor(context) {
         super(context, {
             name: "ping",
-            description: "commands:ping.description"
+            description: "commands:core.ping.description"
         });
     }
     
     async run(message, args) {
-        const msg = await message.sendTranslated('commands:ping.ping');
-        await message.sendTranslated('commands:ping.pong', [
+        const msg = await message.sendTranslated('commands:core.ping.ping');
+        await message.sendTranslated('commands:core.ping.pong', [
             {
                 roundtrip: (msg.editedTimestamp || msg.createdTimestamp) - (message.editedTimestamp || message.createdTimestamp),
                 heartbeat: Math.round(this.client.ws.ping)
