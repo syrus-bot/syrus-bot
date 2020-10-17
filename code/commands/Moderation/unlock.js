@@ -1,9 +1,9 @@
 /*
     Syrus - a multipurpose Discord bot, designed to be the best so you don't need the rest.
     Copyright (C) 2020, Syrus Development Team (Nytelife26 / nytelife@protonmail.com, Logan Heinzelman, ColeCCI and mynameismrtime)
-    
+
     This file is part of Syrus.
-    
+
     Syrus is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
@@ -18,24 +18,24 @@
     along with Syrus.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-const { Args, Command, CommandOptions } = require('@sapphire/framework');
-const { Permissions } = require('discord.js');
+const { Args, Command, CommandOptions } = require("@sapphire/framework");
+const { Permissions } = require("discord.js");
 
 module.exports = class ClientCommand extends Command {
-    constructor(context) {
-        super(context, {
-            name: "unlock",
-            description: "commands:moderation.lockdown.description",
-            preconditions: ["GuildOnly", {entry: "permissions", context: {
-                permissions: new Permissions(Permissions.FLAGS.MANAGE_CHANNELS)
-            }}]
-        });
-    }
-    
-    async run(message) {
-        message.channel.updateOverwrite(message.guild.roles.everyone, { SEND_MESSAGES: false });
-        message.sendTranslated("commands:moderation.unlock.unlocked", [{
-            channel: `<#${message.channel.id}>`
-        }]);
-    };
+	constructor(context) {
+		super(context, {
+			name: "unlock",
+			description: "commands:moderation.lockdown.description",
+			preconditions: ["GuildOnly", {entry: "permissions", context: {
+				permissions: new Permissions(Permissions.FLAGS.MANAGE_CHANNELS)
+			}}]
+		});
+	}
+	
+	async run(message) {
+		message.channel.updateOverwrite(message.guild.roles.everyone, { SEND_MESSAGES: false });
+		message.sendTranslated("commands:moderation.unlock.unlocked", [{
+			channel: `<#${message.channel.id}>`
+		}]);
+	};
 }
