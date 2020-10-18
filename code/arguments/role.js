@@ -23,12 +23,12 @@ const { Argument } = require("@sapphire/framework");
 
 module.exports = class ClientArgument extends Argument {
 	constructor(context) {
-		super(context, {name: "parsemember"});
+		super(context, {name: "parserole"});
 	}
 
 	async parseID(argument, guild) {
 		if (/^\d+$/.test(argument)) {
-			return await guild.members.fetch(argument)
+			return await guild.roles.fetch(argument)
 				.catch({
 					// noop
 				});
@@ -37,9 +37,9 @@ module.exports = class ClientArgument extends Argument {
 	}
 
 	async parseMention(argument, guild) {
-		if (/^<@!*\d+>$/.test(argument)) {
+		if (/^<@&!*\d+>$/.test(argument)) {
 			return await this.parseID(argument
-				.replace("<@", "")
+				.replace("<@&", "")
 				.replace("!", "")
 				.replace(">", ""),
 				guild
@@ -49,20 +49,11 @@ module.exports = class ClientArgument extends Argument {
 	}
 
 	async parseQuery(argument, guild) {
-		const member = await guild.members
-			.fetch({
-				query: argument,
-				limit: 1
-			})
-			.catch({
-				// noop
-			});
-
-		const resolved = member.values().next();
-		if (resolved.value !== undefined) {
-			return resolved.value
-		}
-		return undefined
+		const role = await guild.roles.cache
+            .find((role) => {
+                return role.name.toLowerCase() === argument.toLowerCase()
+            });
+		return role ? role : undefined
 
 	}
 
@@ -71,19 +62,19 @@ module.exports = class ClientArgument extends Argument {
 		if (!guild) {
 			return this.error(
 				argument,
-				'ArgumentMemberMissingGuild',
+				'ArgumentRoleMissingGuild',
 				'The argument must be run on a guild.'
 			);
 		}
 
-		const member = await this.parseID(argument, guild)
+		const role = await this.parseID(argument, guild)
 			?? await this.parseMention(argument, guild)
 			?? await this.parseQuery(argument, guild);
 
-		return member ? this.ok(member) : this.error(
+		return role ? this.ok(role) : this.error(
 			argument,
-			'ArgumentMemberUnknownMember',
-			'The argument did not resolve to a member.'
+			'ArgumentRoleUnknownRole',
+			'The argument did not resolve to a role.'
 		);
 	}
 }
