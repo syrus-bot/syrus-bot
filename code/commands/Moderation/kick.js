@@ -35,33 +35,45 @@ module.exports = class ClientCommand extends Command {
 	async run(message, args) {
 		const member = await args.pickResult("parsemember");
 		if (!member.success) {
-			return message.sendTranslated("global:notfound", [{type: "member"}]);
+			return message.sendTranslated(
+				"global:notfound",
+				[{type: "member"}]
+			);
 		}
 		
-		if (message.member.roles.highest.position <= member.value.roles.highest.position) {
-			return message.sendTranslated("global:highererr", [{
-				func: "kick",
-				type: "member"
-			}]);
+		const authorPosition = message.member.roles.highest.position;
+		const memberPosition = member.value.roles.highest.position;
+		
+		if (!member.value.kickable || authorPosition <= memberPosition) {
+			return message.sendTranslated(
+				"global:highererr", 
+				[{
+					func: "kick",
+					type: "member"
+				}]
+			);
 		}
 		let reason = await args.restResult("string");
 		if (reason.value !== undefined) {
-			if (reason.value.length > 262) return msg.sendTranslated("global:toolong", [{
-				arg: "reason",
-				chars: 262
-			}]);
+			if (reason.value.length > 262) {
+				return msg.sendTranslated(
+					"global:toolong", 
+					[{
+						arg: "reason",
+						chars: 262
+					}]
+				);
+			}
 		} else {
 			let reason = " | ${reason.value}";
 		}
 		member.value
 			.kick({reason: `BY ${message.author.username} ${reason}`})
 			.then((member) => {
-				message.sendTranslated("commands:moderation.kick.kicked" [{
-					member: `<@${member.value.id}>`
-				}]);
-			})
-			.catch((error) => {
-				if (error.toString().includes("Missing Perm")) return message.sendTranslated("global:highererr", [{func: "kick", type: "member"}]);
+				message.sendTranslated(
+					"commands:moderation.kick.kicked", 
+					[{member: `<@${member.value.id}>`}]
+				);
 			});
-	};
+	}
 }
