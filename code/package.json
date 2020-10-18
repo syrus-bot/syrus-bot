@@ -1,6 +1,6 @@
 {
   "name": "syrus",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Syrus - a multipurpose Discord bot, designed to be the best so you won't need the rest.",
   "main": "main.js",
   "scripts": {
@@ -27,7 +27,7 @@
   "license": "GPL-3.0-or-later",
   "dependencies": {
     "@lavacord/discord.js": "0.0.7",
-    "@sapphire/decorators": "^1.0.1",
+    "@sapphire/decorators": "^1.0.2",
     "@sapphire/framework": "github:sapphire-project/framework#build",
     "@scp/in17n": "^1.0.1",
     "bufferutil": "^4.0.1",
@@ -38,7 +38,7 @@
     "moment": "^2.29.1",
     "moment-duration-format": "^2.3.2",
     "mongodb": "^3.6.2",
-    "mongoose": "^5.10.8",
+    "mongoose": "^5.10.9",
     "package.json": "^2.0.1",
     "snekfetch": "^4.0.4",
     "types": "^0.1.1",
