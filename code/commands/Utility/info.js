@@ -29,27 +29,7 @@ module.exports = class ClientCommand extends Command {
 			description: "commands:utilities.info.description",
 			preconditions: ["GuildOnly"]
 		});
-	}
-
-	async run(message, args) {
-		const member = await args.pickResult("parsemember");
-		let target;
-		let ismemb;
-		if (member.success) {
-			target = member.value;
-			ismemb = true;
-		} else {
-			const user = await args.pickResult("user");
-			if (user.success) {
-				target = {user: user.value};
-				ismemb = false;
-			} else {
-				target = message.member;
-				ismemb = true;
-			}
-		}
-		
-		const format = {
+		this.format = {
 			hourCycle: "h24",
 			timeZone: "UTC",
 			timeZoneName: "short",
@@ -59,43 +39,109 @@ module.exports = class ClientCommand extends Command {
 			hour: "2-digit",
 			minute: "2-digit"
 		}
+	}
+
+	async parseFlags(flags) {
+		return flags.toArray().join(" ")
+			.replace("DISCORD_EMPLOYEE", "<:staff_badge:755961572945559612>")
+			.replace(
+				"DISCORD_PARTNER",
+				"<:new_partner_badge:755961572773331054>"
+			)
+			.replace(
+				"PARTNERED_SERVER_OWNER",
+				""
+			)
+			.replace("HYPESQUAD_EVENTS", "")
+			.replace("HYPESQUAD", "<:hypesquad_badge:755961573268521071>")
+			.replace("BUGHUNTER_LEVEL_1", "<:bughunter:741523547708588105>")
+			.replace(
+				"BUGHUNTER_LEVEL_2",
+				"<:goldbughunter:741523547880685588>"
+			)
+			.replace(
+				"HOUSE_BRILLIANCE",
+				"<:brilliance_badge:755961572546838601>"
+			)
+			.replace("HOUSE_BRAVERY", "<:bravery_badge:755961573415190638>")
+			.replace("HOUSE_BALANCE", "<:balance_badge:755961572748427364>")
+			.replace("EARLY_VERIFIED_DEVELOPER", "")
+			.replace(
+				"VERIFIED_DEVELOPER",
+				"<:verified_developer_badge:755961573561991198>"
+			)
+			.replace("VERIFIED_BOT", "<:verified_bot:755969137448190103>")
+			.replace("SYSTEM", "<:system:755969660809117706>")
+			.replace(
+				"EARLY_SUPPORTER",
+				"<:early_supporter_badge:755970816243400704>"
+			)
+	}
+
+	async buildEmbed(target, isMember) {
 		const url = target.user.avatarURL({format: "png", dynamic: true})
-		
+		const flags = await this.parseFlags(target.user.flags);
 		const embed = new MessageEmbed()
-				.setAuthor(`${target.user.username}#${target.user.discriminator}`, url)
-				.addField("Account Age", target.user.createdAt.toLocaleString("en-GB", format), true)
-				.addField(
-					"User Badges",
-					`${
-						target.user.flags.toArray().join(" ")
-							.replace(/\,/gi, " ")
-							.replace("DISCORD_EMPLOYEE", "<:staff_badge:755961572945559612>")
-							.replace("DISCORD_PARTNER", "<:new_partner_badge:755961572773331054>")
-							.replace("HYPESQUAD", "<:hypesquad_badge:755961573268521071>")
-							.replace(/BUG_HUNTER_LEVEL_1|BUG_HUNTER_LEVEL_2/, "<:bug_hunter_badge:755961572454694914>")
-							.replace("HOUSE_BRILLIANCE", "<:brilliance_badge:755961572546838601>")
-							.replace("HOUSE_BRAVERY", "<:bravery_badge:755961573415190638>")
-							.replace("HOUSE_BALANCE", "<:balance_badge:755961572748427364>")
-							.replace("EARLY_VERIFIED_DEVELOPER", "")
-							.replace("VERIFIED_DEVELOPER", "<:verified_developer_badge:755961573561991198>")
-							.replace("VERIFIED_BOT", "<:verified_bot:755969137448190103>")
-							.replace("SYSTEM", "<:system:755969660809117706>")
-							.replace("EARLY_SUPPORTER", "<:early_supporter_badge:755970816243400704>") || "None"
-					}`, true)
-				.setThumbnail(url)
-				.setFooter(`User ID: ${target.user.id}`)
-		
-		if (ismemb) {
+			.setAuthor(
+				`${target.user.username}#${target.user.discriminator}`,
+				url
+			)
+			.addField(
+				"Account Age",
+				target.user.createdAt.toLocaleString("en-GB", this.format),
+				true
+			)
+			.addField(
+				"User Badges",
+				`${flags ? flags : "None"}`,
+				true
+			)
+			.setThumbnail(url)
+			.setFooter(`User ID: ${target.user.id}`)
+		if (isMember) {
 			embed
-				.addField("Roles",
-				Array.from(
-					target.roles.cache.values(), 
-					role => {if (role.name === "@everyone") return; return `<@&${role.id}>`;}
-				).join(" "), false)
-				.addField("Joined At", target.joinedAt.toLocaleString("en-GB", format), true)
+				.addField(
+					"Roles",
+					Array.from(
+						target.roles.cache.values(),
+						(role) => {
+							if (role.name === "@everyone") {
+								return;
+							}
+							return `<@&${role.id}>`;
+						}
+					).join(" "),
+					false
+				)
+				.addField(
+					"Joined At",
+					target.joinedAt.toLocaleString("en-GB", this.format),
+					true
+				)
 				.addField("Nickame", target.displayName, true)
 				.setColor(target.displayHexColor)
 		}
-		message.channel.send(embed)
+		return embed
+	}
+
+	async run(message, args) {
+		const member = await args.pickResult("parsemember");
+		let target;
+		let isMember;
+		if (member.success) {
+			target = member.value;
+			isMember = true;
+		} else {
+			const user = await args.pickResult("user");
+			if (user.success) {
+				target = {user: user.value};
+				isMember = false;
+			} else {
+				target = message.member;
+				isMember = true;
+			}
+		}
+
+		message.channel.send(await this.buildEmbed(target, isMember))
 	}
 };

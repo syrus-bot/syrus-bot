@@ -42,7 +42,7 @@ module.exports = class ClientArgument extends Argument {
 				.replace("<@&", "")
 				.replace("!", "")
 				.replace(">", ""),
-				guild
+			guild
 			);
 		}
 		return undefined;
@@ -50,9 +50,9 @@ module.exports = class ClientArgument extends Argument {
 
 	async parseQuery(argument, guild) {
 		const role = await guild.roles.cache
-            .find((role) => {
-                return role.name.toLowerCase() === argument.toLowerCase()
-            });
+			.find((role) => {
+				return role.name.toLowerCase() === argument.toLowerCase()
+			});
 		return role ? role : undefined
 
 	}
@@ -62,8 +62,8 @@ module.exports = class ClientArgument extends Argument {
 		if (!guild) {
 			return this.error(
 				argument,
-				'ArgumentRoleMissingGuild',
-				'The argument must be run on a guild.'
+				"ArgumentRoleMissingGuild",
+				"The argument must be run on a guild."
 			);
 		}
 
@@ -73,8 +73,8 @@ module.exports = class ClientArgument extends Argument {
 
 		return role ? this.ok(role) : this.error(
 			argument,
-			'ArgumentRoleUnknownRole',
-			'The argument did not resolve to a role.'
+			"ArgumentRoleUnknownRole",
+			"The argument did not resolve to a role."
 		);
 	}
 }

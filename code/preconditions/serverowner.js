@@ -1,9 +1,9 @@
 /*
     Syrus - a multipurpose Discord bot, designed to be the best so you don't need the rest.
     Copyright (C) 2020, Syrus Development Team (Nytelife26 / nytelife@protonmail.com, Logan Heinzelman, ColeCCI and mynameismrtime)
-    
+
     This file is part of Syrus.
-    
+
     Syrus is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
@@ -18,11 +18,15 @@
     along with Syrus.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-const config = require('../config.json');
-const { err, ok, Precondition, UserError } = require('@sapphire/framework');
+const config = require("../config.json");
+const { err, ok, Precondition, UserError } = require("@sapphire/framework");
 
 module.exports = class ClientPrecondition extends Precondition {
 	run(message) {
-		return message.author.id === message.guild.ownerID ? ok() : err(new UserError('serverOwnerOnly', 'Only my masters are allowed to execute this command.'));
+		const isOwner = message.author.id === message.guild.ownerID;
+		return isOwner ? ok() : err(new UserError(
+			"serverOwnerOnly",
+			"Only my masters are allowed to execute this command."
+		));
 	}
 }

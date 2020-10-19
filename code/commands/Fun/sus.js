@@ -18,7 +18,7 @@
     along with Syrus.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-const { Args, Command, CommandOptions } = require('@sapphire/framework');
+const { Args, Command, CommandOptions } = require("@sapphire/framework");
 
 module.exports = class ClientCommand extends Command {
 	constructor(context) {
@@ -27,7 +27,7 @@ module.exports = class ClientCommand extends Command {
 			description: "commands:fun.sus.description"
 		});
 	}
-	
+
 	async run(message, args) {
 		const member = await args.pickResult("parsemember");
 		const impostor = {
@@ -40,10 +40,10 @@ module.exports = class ClientCommand extends Command {
 				rem: "0 impostors remain"
 			}
 		}[Math.floor(Math.random() * 2)];
-		let disp; 
+		let disp;
 		if (member.success) {
 			disp = member.value.displayName;
-		} else { 
+		} else {
 			disp = message.author.username;
 		}
 		message.channel.send(

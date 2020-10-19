@@ -31,11 +31,15 @@ module.exports = class ClientCommand extends Command {
 			}}]
 		});
 	}
-	
+
 	async run(message) {
-		message.channel.updateOverwrite(message.guild.roles.everyone, { SEND_MESSAGES: false });
-		message.sendTranslated("commands:moderation.lockdown.lockeddown", [{
-			channel: `<#${message.channel.id}>`
-		}]);
-	};
+		message.channel.updateOverwrite(
+			message.guild.roles.everyone,
+			{SEND_MESSAGES: false}
+		);
+		message.sendTranslated(
+			"commands:moderation.lockdown.lockeddown",
+			[{channel: `<#${message.channel.id}>`}]
+		);
+	}
 }

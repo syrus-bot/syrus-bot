@@ -28,11 +28,11 @@ module.exports = class ClientCommand extends Command {
 			preconditions: ["owner"]
 		});
 	}
-	
+
 	async run(message, args) {
-		const cmdn = await args.pickResult("string");
-		const cmdnm = cmdn.value;
-		if (cmdnm === "all") {
+		const parseCommand = await args.pickResult("string");
+		const commandName = parseCommand.value;
+		if (commandName === "all") {
 			this.client.commands.forEach((value, key, map) => {
 				delete require.cache[require.resolve(value.path)];
 			});
@@ -41,22 +41,22 @@ module.exports = class ClientCommand extends Command {
 			message.sendTranslated("commands:core.reload.allreloaded");
 			return;
 		}
-		
-		const cmd = this.client.commands.get(cmdnm);
-		if (cmd === undefined) {
+
+		const command = this.client.commands.get(commandName);
+		if (command === undefined) {
 			return message.sendTranslated("commands:core.reload.notfound", [{
-				commandName: cmdn
+				commandName: commandName
 			}]);
 		}
-		const cmdp = cmd.path;
-		this.client.commands.delete(cmdnm);
-		delete require.cache[require.resolve(cmdp)];
-		const reloaded = await this.client.commands.load(cmdp);
-		for await (let command of reloaded) {
-			this.client.commands.insert(command);
+		const commandPath = command.path;
+		this.client.commands.delete(commandName);
+		delete require.cache[require.resolve(commandPath)];
+		const reloaded = await this.client.commands.load(commandPath);
+		for await (const commandToAdd of reloaded) {
+			this.client.commands.insert(commandToAdd);
 		}
 		message.sendTranslated("commands:core.reload.reloaded", [{
-			commandName: cmdnm
+			commandName: commandName
 		}]);
-	};
+	}
 }

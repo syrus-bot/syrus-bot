@@ -28,14 +28,22 @@ module.exports = class ClientCommand extends Command {
 			aliases: ["ci", "crinv"],
 			description: "commands:utilities.invite.description",
 			preconditions: ["GuildOnly", {entry: "permissions", context: {
-				permissions: new Permissions(Permissions.FLAGS.CREATE_INSTANT_INVITE)
+				permissions: new Permissions(
+					Permissions.FLAGS.CREATE_INSTANT_INVITE
+				)
 			}}]
 		});
 	}
 
 	async run(message) {
-		message.channel.createInvite({ maxAge: 0, maxUses: 0 }, `Created by ${message.author.toString()}`).then((invite) => {
-			message.sendTranslated("commands:utilities.invite.created", [{inv: invite.toString()}]);
+		message.channel.createInvite(
+			{ maxAge: 0, maxUses: 0 },
+			`Created by ${message.author.toString()}`
+		).then((invite) => {
+			message.sendTranslated(
+				"commands:utilities.invite.created",
+				[{inv: invite.toString()}]
+			);
 		});
 	}
 };

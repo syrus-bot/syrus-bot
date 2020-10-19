@@ -28,10 +28,10 @@ module.exports = class ClientCommand extends Command {
 			preconditions: ["owner"]
 		});
 	}
-	
+
 	async run(message, args) {
 		message.sendTranslated("commands:core.kill.shutdown")
-		setTimeout(function () {
+		setTimeout(() => {
 			process.exit(1);
 		}, 2000);
 	}

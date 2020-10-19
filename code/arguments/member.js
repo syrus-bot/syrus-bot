@@ -28,10 +28,11 @@ module.exports = class ClientArgument extends Argument {
 
 	async parseID(argument, guild) {
 		if (/^\d+$/.test(argument)) {
-			return await guild.members.fetch(argument)
-				.catch({
-					// noop
-				});
+			try {
+				return await guild.members.fetch(argument)
+			} catch {
+				// noop
+			}
 		}
 		return undefined;
 	}
@@ -42,28 +43,19 @@ module.exports = class ClientArgument extends Argument {
 				.replace("<@", "")
 				.replace("!", "")
 				.replace(">", ""),
-				guild
+			guild
 			);
 		}
 		return undefined;
 	}
 
 	async parseQuery(argument, guild) {
-		const member = await guild.members
-			.fetch({
-				query: argument,
-				limit: 1
-			})
-			.catch({
-				// noop
-			});
+		const member = await guild.members.fetch({
+			query: argument,
+			limit: 1
+		})
 
-		const resolved = member.values().next();
-		if (resolved.value !== undefined) {
-			return resolved.value
-		}
-		return undefined
-
+		return member.values().next().value
 	}
 
 	async run(argument, context) {
@@ -71,8 +63,8 @@ module.exports = class ClientArgument extends Argument {
 		if (!guild) {
 			return this.error(
 				argument,
-				'ArgumentMemberMissingGuild',
-				'The argument must be run on a guild.'
+				"ArgumentMemberMissingGuild",
+				"The argument must be run on a guild."
 			);
 		}
 
@@ -82,8 +74,8 @@ module.exports = class ClientArgument extends Argument {
 
 		return member ? this.ok(member) : this.error(
 			argument,
-			'ArgumentMemberUnknownMember',
-			'The argument did not resolve to a member.'
+			"ArgumentMemberUnknownMember",
+			"The argument did not resolve to a member."
 		);
 	}
 }

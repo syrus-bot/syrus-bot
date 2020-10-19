@@ -28,21 +28,22 @@ module.exports = class ClientCommand extends Command {
 			preconditions: ["GuildOnly", "serverowner"]
 		});
 	}
-	
+
 	async run(message, args) {
 		const guild = await message.client.settings.guild(message.guild.id);
 		const key = await args.pickResult("string");
 		const val = await args.repeatResult("string");
-		
+
 		if (key.value !== undefined && val.value !== undefined) {
 			guild.set(key.value, val.value.join(" "));
 			await guild.save();
 			return await message.sendTranslated("commands:core.set.updated", [{
-				key: key.value, 
+				key: key.value,
 				val: val.value.join(" ")
 			}]);
 		}
-		let out = "```md"
+		let out;
+		out += "```md"
 		for (const [key, value] of Object.entries(guild.toObject())) {
 			out += `\n[ ${key} ][ ${value} ]`
 		}

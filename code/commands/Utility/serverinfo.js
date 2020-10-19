@@ -32,7 +32,7 @@ module.exports = class ClientCommand extends Command {
 	}
 
 	async run(message) {
-		const guild = message.guild;
+		const {guild} = message;
 		const owner = await guild.members.fetch(guild.ownerID);
 		message.channel.send(
 			new MessageEmbed()
@@ -50,8 +50,8 @@ module.exports = class ClientCommand extends Command {
 				.addField(
 					"Stats",
 					`
-						<:textchannel:763412308780908555> ${guild.channels.cache.filter((c) => c.type === "text").size} text channel(s)
-						<:voicechannel:763412288668827728> ${guild.channels.cache.filter((c) => c.type === "voice").size} voice channel(s)
+						<:textchannel:763412308780908555> ${guild.channels.cache.filter((channel) => channel.type === "text").size} text channel(s)
+						<:voicechannel:763412288668827728> ${guild.channels.cache.filter((channel) => channel.type === "voice").size} voice channel(s)
 						<:emoji:763412234218766337> ${guild.emojis.cache.size} emoji(s)
 						<:members:763412258235482153> ${guild.roles.cache.size} role(s)
 					`,

@@ -18,7 +18,7 @@
     along with Syrus.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-const { Args, Command, CommandOptions } = require('@sapphire/framework');
+const { Args, Command, CommandOptions } = require("@sapphire/framework");
 const { MessageEmbed } = require("discord.js")
 
 module.exports = class ClientCommand extends Command {
@@ -28,7 +28,7 @@ module.exports = class ClientCommand extends Command {
 			description: "commands:fun.pp.description"
 		});
 	}
-	
+
 	async run(message, args) {
 		const shaft = "=".repeat(Math.floor(Math.random() * 24));
 		const member = await args.pickResult("parsemember");

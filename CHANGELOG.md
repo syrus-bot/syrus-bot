@@ -1,3 +1,22 @@
+# 1.2.0
+
+## Breaking Changes
+
+N/A
+
+## New Features
+
+- Dynamic language parsing
+- Preconditions (`preconditions/owner`)
+- ESLint support
+
+## Bug Fixes
+
+- Standardized code formatting
+- Fixed problem with Utility command `info` where flags were incomplete
+- Fixed problem with Moderation commands `ban` and `kick` where messages
+would not display properly and reasons were parsing incorrectly
+
 # 1.1.0
 
 ## Breaking Changes

@@ -19,22 +19,25 @@
 */
 
 const { Args, Command, CommandOptions } = require("@sapphire/framework");
+const { Permissions } = require("discord.js");
 
 module.exports = class ClientCommand extends Command {
 	constructor(context) {
 		super(context, {
 			name: "pin",
-			description: "commands:utilities.pin.description"
+			description: "commands:utilities.pin.description",
+			preconditions: ["GuildOnly", {entry: "permissions", context: {
+				permissions: new Permissions(Permissions.FLAGS.MANAGE_MESSAGES)
+			}}]
 		});
 	}
-	
+
 	async run(message) {
 		message.channel.messages
 			.fetch({ limit: 2 })
 			.then((messages) => {
-				let lastMessage = messages.last();
+				const lastMessage = messages.last();
 				lastMessage.pin();
-		})
-		.catch(console.error);
+			});
 	}
 }

@@ -32,38 +32,53 @@ module.exports = class ClientCommand extends Command {
 			}}]
 		});
 	}
-	
+
 	async run(message, args) {
-		const member = await args.pickResult("parsemember");
-		if (!member.success) {
-			return message.sendTranslated("global:notfound", [{type: "member"}]);
+		const memberParse = await args.pickResult("parsemember");
+		if (!memberParse.success) {
+			return message.sendTranslated(
+				"global:notfound",
+				[{type: "member"}]
+			);
 		}
-		const role = await args.pickResult("parserole");
-		if (!role.success) {
-			return message.sendTranslated("global:notfound", [{type: "role"}]);
+		const roleParse = await args.pickResult("parserole");
+		if (!roleParse.success) {
+			return message.sendTranslated(
+				"global:notfound",
+				[{type: "role"}]
+			);
 		}
-		const m = member.value;
-		const r = role.value;
-		if (!r.editable || m.roles.highest.position <= r.position) {
-			return message.sendTranslated("global:highererr", [{
-				func: "delete", 
-				type: "role"
-			}]);
+		const member = memberParse.value;
+		const role = roleParse.value;
+		if (!role.editable || member.roles.highest.position <= role.position) {
+			return message.sendTranslated(
+				"global:highererr",
+				[{
+					func: "delete",
+					type: "role"
+				}]
+			);
 		}
-		if (m.roles.cache.has(r.id)) {
-			m.roles.remove(r.id).then((ok) => {
-				message.sendTranslated("commands:utilities.role.removed", [{
-					role: r.name,
-					user: `${m.user.username}#${m.user.discriminator}`
-				}]);
+		if (member.roles.cache.has(role.id)) {
+			member.roles.remove(role.id).then((ok) => {
+				message.sendTranslated(
+					"commands:utilities.role.removed",
+					[{
+						role: role.name,
+						user: `${member.user.username}#${member.user.discriminator}`
+					}]
+				);
 			});
 		} else {
-			m.roles.add(r.id).then((ok) => {
-				message.sendTranslated("commands:utilities.role.added", [{
-					role: r.name,
-					user: `${m.user.username}#${m.user.discriminator}`
-				}]);
+			member.roles.add(role.id).then((ok) => {
+				message.sendTranslated(
+					"commands:utilities.role.added",
+					[{
+						role: role.name,
+						user: `${member.user.username}#${member.user.discriminator}`
+					}]
+				);
 			});
 		}
-	};
+	}
 }

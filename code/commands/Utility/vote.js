@@ -31,15 +31,18 @@ module.exports = class ClientCommand extends Command {
 			}}]
 		});
 	}
-	
+
 	async run(message, args) {
 		const vote = await args.restResult("string");
 		if (!vote.success) {
-			return message.sendTranslated("global:commerr.missingparams", [{
-				arg: "poll"
-			}]);
+			return message.sendTranslated(
+				"global:commerr.missingparams",
+				[{arg: "poll"}]
+			);
 		}
-		const poll = await message.channel.send(`**${message.author.toString()}** asks: ${vote.value}`);
+		const poll = await message.channel.send(
+			`**${message.author.toString()}** asks: ${vote.value}`
+		);
 		await poll.react("👍");
 		await poll.react("👎");
 		await poll.react("🤷");

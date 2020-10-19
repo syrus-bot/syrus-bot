@@ -29,7 +29,7 @@ module.exports = class ClientCommand extends Command {
 			preconditions: ["GuildOnly"]
 		});
 	}
-	
+
 	async run(message, args) {
 		const member = await args.pickResult("parsemember");
 		let target;

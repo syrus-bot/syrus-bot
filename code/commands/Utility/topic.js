@@ -32,7 +32,7 @@ module.exports = class ClientCommand extends Command {
 		});
 	}
 
-	
+
 	async run(message, args) {
 		const topic = await args.restResult("string");
 		let newtopic;
@@ -41,18 +41,21 @@ module.exports = class ClientCommand extends Command {
 		} else {
 			newtopic = ""
 		}
-		
+
 		if (!message.channel.manageable) {
 			return message.sendTranslated("global:missingperms");
 		}
-		
+
 		message.channel
 			.setTopic(newtopic)
 			.then(() => {
-				message.sendTranslated("commands:utilities.topic.changed", [{
-					channel: message.channel.name,
-					topic: newtopic || "[]"
-				}]);
+				message.sendTranslated(
+					"commands:utilities.topic.changed",
+					[{
+						channel: message.channel.name,
+						topic: newtopic || "[]"
+					}]
+				);
 			});
 	}
 }

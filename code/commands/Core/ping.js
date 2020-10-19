@@ -27,15 +27,20 @@ module.exports = class ClientCommand extends Command {
 			description: "commands:core.ping.description"
 		});
 	}
-	
+
 	async run(message, args) {
-		const msg = await message.sendTranslated('commands:core.ping.ping');
-		await message.sendTranslated('commands:core.ping.pong', [
-			{
-				roundtrip: (msg.editedTimestamp || msg.createdTimestamp) - (message.editedTimestamp || message.createdTimestamp),
+		const pingMessage = await message.sendTranslated(
+			"commands:core.ping.ping"
+		);
+		const pingTimestamp = pingMessage.createdTimestamp;
+		const originalTimestamp = message.createdTimestamp;
+		await message.sendTranslated(
+			"commands:core.ping.pong",
+			[{
+				roundtrip: pingTimestamp - originalTimestamp,
 				heartbeat: Math.round(this.client.ws.ping)
-			}
-		]);
-		await msg.delete();
+			}]
+		);
+		await pingMessage.delete();
 	}
 };

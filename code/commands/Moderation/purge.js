@@ -32,27 +32,23 @@ module.exports = class ClientCommand extends Command {
 			}}]
 		});
 	}
-	
+
 	async run(message, args) {
 		const amount = await args.pickResult("integer");
 		if (amount.value === undefined) {
 			amount.value = 1;
 		}
-		message.delete().then(() => {;
-			message.channel.messages
-				.fetch({limit: amount.value})
-				.then((messages) => {
-					message.channel.bulkDelete(messages).then(() => {
-						message.sendTranslated("commands:moderation.purge.purged", [{
-							amount: amount.value
-						}]).then((mss) => {
-							setTimeout(function () {
-								mss.delete();
-							}, 3000);
-						});
-					});
-				})
-				.catch(console.error);
-		});
-	};
+		await message.delete();
+		const messages = await message.channel.messages
+			.fetch({limit: amount.value});
+		await message.channel.bulkDelete(messages)
+		const finishedMessage = await message.sendTranslated(
+			"commands:moderation.purge.purged",
+			[{amount: amount.value}]
+		)
+
+		setTimeout(() => {
+			finishedMessage.delete();
+		}, 3000);
+	}
 }

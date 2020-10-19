@@ -31,7 +31,7 @@ module.exports = class ClientCommand extends Command {
 			}}]
 		});
 	}
-	
+
 	async run(message, args) {
 		const member = await args.pickResult("parsemember");
 		if (!member.success) {
@@ -40,38 +40,40 @@ module.exports = class ClientCommand extends Command {
 				[{type: "member"}]
 			);
 		}
-		
+
 		const authorPosition = message.member.roles.highest.position;
 		const memberPosition = member.value.roles.highest.position;
-		
+
 		if (!member.value.bannable || authorPosition <= memberPosition) {
 			return message.sendTranslated(
-				"global:highererr", 
+				"global:highererr",
 				[{
 					func: "ban",
 					type: "member"
 				}]
 			);
 		}
-		let reason = await args.restResult("string");
-		if (reason.value !== undefined) {
-			if (reason.value.length > 262) {
-				return msg.sendTranslated(
-					"global:toolong", 
+		let reason;
+		const parseReason = await args.restResult("string")
+		if (parseReason.value !== undefined) {
+			if (parseReason.value.length > 262) {
+				return message.sendTranslated(
+					"global:toolong",
 					[{
 						arg: "reason",
 						chars: 262
 					}]
 				);
 			}
+			reason = ` | ${reason.value}`;
 		} else {
-			let reason = " | ${reason.value}";
+			reason = "";
 		}
 		member.value
-			.ban({reason: `BY ${message.author.username} ${reason}`})
+			.ban({reason: `BY ${message.author.username}${reason}`})
 			.then((member) => {
 				message.sendTranslated(
-					"commands:moderation.ban.banned", 
+					"commands:moderation.ban.banned",
 					[{member: `<@${member.value.id}>`}]
 				);
 			});

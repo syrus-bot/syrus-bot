@@ -31,7 +31,7 @@ module.exports = class ClientCommand extends Command {
 			}}]
 		});
 	}
-	
+
 	async run(message, args) {
 		const role = await args.pickResult("parserole");
 		if (!role.success) {
@@ -39,20 +39,26 @@ module.exports = class ClientCommand extends Command {
 				type: "role"
 			}]);
 		}
-		
-		if (!role.value.editable || message.member.roles.highest.position <= role.value.position) {
-			return message.sendTranslated("global:highererr", [{
-				func: "delete",
-				type: "role"
-			}]);
+
+		const memberPosition = message.member.roles.highest.position;
+		const rolePosition = role.value.position;
+		if (!role.value.editable || memberPosition <= rolePosition) {
+			return message.sendTranslated(
+				"global:highererr",
+				[{
+					func: "delete",
+					type: "role"
+				}]
+			);
 		}
 
 		role.value
 			.delete()
 			.then((done) => {
-				message.sendTranslated("commands:utilities.delrole.deleted", [{
-					deleted: role.value.name
-				}]);
+				message.sendTranslated(
+					"commands:utilities.delrole.deleted",
+					[{deleted: role.value.name}]
+				);
 			});
 	}
 }
