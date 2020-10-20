@@ -2,11 +2,12 @@
 	"name": "syrus",
 	"version": "1.2.0",
 	"description": "Syrus - a multipurpose Discord bot, designed to be the best so you won't need the rest.",
-	"main": "main.js",
+	"main": "src/main.js",
 	"scripts": {
-		"start": "npx eslint ./**/*.js --fix && node main",
-		"setup": "npm install && mv config.json.example config.json || move config.json.example config.json",
-		"gpr": "git pull && npm start"
+		"start": "npm run lint && cd src && node main",
+		"lint": "npx eslint **/*.js --fix",
+		"gpr": "git pull && npm start",
+		"commit": "git add . && npx git cz"
 	},
 	"author": {
 		"name": "Nytelife26 (Tyler J. Russell)",
@@ -50,12 +51,30 @@
 		"lib": "lib"
 	},
 	"devDependencies": {
-		"eslint": "^7.11.0"
+		"@commitlint/cli": "^11.0.0",
+		"@commitlint/config-conventional": "^11.0.0",
+		"@semantic-release/changelog": "^5.0.1",
+		"@semantic-release/git": "^9.0.0",
+		"commitizen": "^4.2.1",
+		"cz-conventional-changelog": "^3.3.0",
+		"eslint": "^7.11.0",
+		"husky": "^4.3.0",
+		"semantic-release": "^17.2.1"
+	},
+	"config": {
+		"commitizen": {
+			"path": "cz-conventional-changelog"
+		}
+	},
+	"husky": {
+		"hooks": {
+			"pre-commit": "npm run lint",
+			"commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+		}
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/syrus-bot/syrus-bot.git",
-		"directory": "src"
+		"url": "git+https://github.com/syrus-bot/syrus-bot.git"
 	},
 	"engines": {
 		"node": ">=14.0.0"

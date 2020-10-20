@@ -1,9 +1,9 @@
 /*
     Syrus - a multipurpose Discord bot, designed to be the best so you don't need the rest.
     Copyright (C) 2020, Syrus Development Team (Nytelife26 / nytelife@protonmail.com, Logan Heinzelman, ColeCCI and mynameismrtime)
-    
+
     This file is part of Syrus.
-    
+
     Syrus is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
@@ -18,18 +18,18 @@
     along with Syrus.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-const { Event } = require('@sapphire/framework');
+const { Event } = require("@sapphire/framework");
 
 module.exports = class readyEvent extends Event {
 	constructor(context) {
 		super(context, {
 			once: true,
-			event: 'ready'
+			event: "ready"
 		});
 	}
 
 	async run() {
-        console.log(`Successfully initialised and connected to ${this.client.guilds.cache.size} servers.`);
+		console.log(`Successfully initialised and connected to ${this.client.guilds.cache.size} servers.`);
 		this.client.user.setPresence({activity: {name: `over ${this.client.guilds.cache.size} servers! | syrus.gg`, type: "WATCHING"}, status: "dnd"});
 	}
 };
