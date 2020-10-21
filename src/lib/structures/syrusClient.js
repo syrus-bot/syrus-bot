@@ -59,23 +59,19 @@ class SyrusClient extends SapphireClient {
 
 	fetchPrefix = async (message) => {
 		const guild = await this.settings.guild(message.guild.id);
-		const global = await this.settings.global();
-		if (guild !== null) {
-			if (guild.prefix !== undefined) {
-				return guild.prefix;
-			}
+		if (guild.prefix !== undefined) {
+			return guild.prefix;
 		}
+		const global = await this.settings.global();
 		return global.prefix;
 	};
 
 	fetchLanguage = async (message) => {
 		const guild = await this.settings.guild(message.guild.id);
-		const global = await this.settings.global();
-		if (guild !== null) {
-			if (guild.language !== undefined) {
-				return guild.language;
-			}
+		if (guild.language !== undefined) {
+			return guild.language;
 		}
+		const global = await this.settings.global();
 		return global.language;
 	};
 }

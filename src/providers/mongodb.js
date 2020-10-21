@@ -68,33 +68,28 @@ module.exports = class {
 		this.GuildSchema = this.db.model("Guild", guildSchema);
 	}
 
-	global() {
-		console.log("hi!");
-		this.db.createCollection("global")
-			.catch(() => {
-				// noop
-			});
-		this.db.collection("global")
-			.insertOne({
-				_id: 0,
-				prefix: config.prefix,
-				token: config.token,
-				language: "en-us"
-			})
-			.catch(() => {
-				// noop
-			});
-		return this.db.collection("global").findOne({_id: 0});
+	async global() {
+		const collection = this.db.collection("global");
+		const global = await collection.findOne({_id: 0});
+		if (global === null) {
+			const docs = await collection
+				.insertOne({
+					_id: 0,
+					prefix: config.prefix,
+					token: config.token,
+					language: "en-us"
+				});
+			return docs.ops[0];
+		}
+		return global;
 	}
 
-	guild(id) {
-		return this.GuildSchema.findById(Number(id), async (guild) => {
-			if (guild === null) {
-				const doc = new this.GuildSchema({_id: Number(id)});
-				await doc.save();
-				const guild = doc;
-			}
-			return guild;
-		});
+	async guild(id) {
+		const guild = await this.GuildSchema.findById(Number(id)).exec();
+		if (guild === null) {
+			const doc = new this.GuildSchema({_id: Number(id)});
+			return await doc.save()
+		}
+		return guild;
 	}
 }
