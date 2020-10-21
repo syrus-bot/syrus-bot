@@ -54,7 +54,7 @@ module.exports = class ClientCommand extends Command {
 			return message.sendTranslated(
 				"global:highererr",
 				[{
-					func: "delete",
+					func: "grant or remove",
 					type: "role"
 				}]
 			);
