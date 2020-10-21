@@ -25,7 +25,8 @@ const { LogLevel } = require("@sapphire/framework");
 async function main() {
 	const client = new SyrusClient({
 		ws: {intents: ["GUILDS", "GUILD_MESSAGES"]},
-		logger: {level: LogLevel.Debug}
+		logger: {level: LogLevel.Debug},
+		disableMentions: "everyone"
 	});
 
 	try {
