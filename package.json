@@ -34,6 +34,7 @@
 		"@scp/in17n": "^1.0.1",
 		"bufferutil": "^4.0.1",
 		"discord.js": "github:discordjs/discord.js#master",
+		"globby": "^11.0.1",
 		"i18next": "^19.8.2",
 		"lavacord": "^1.1.9",
 		"libsodium-wrappers": "^0.7.8",

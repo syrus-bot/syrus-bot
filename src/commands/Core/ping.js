@@ -31,7 +31,7 @@ module.exports = class ClientCommand extends Command {
 	async run(message, args) {
 		const time = Date.now();
 		const msg = await message.sendTranslated("commands:core.ping.ping");
-		const complete = Date.now()
+		const complete = Date.now();
 		const key = await message.fetchLanguageKey(
 			"commands:core.ping.pong",
 			{
