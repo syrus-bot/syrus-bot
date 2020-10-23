@@ -18,32 +18,27 @@
     along with Syrus.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-const SyrusCommand = require("../../lib/structures/SyrusCommand");
-const { Args, CommandOptions } = require("@sapphire/framework");
-const { MessageEmbed } = require("discord.js")
+const { Constants, DiscordAPIError } = require("discord.js");
+const { Argument } = require("@sapphire/framework");
 
-module.exports = class ClientCommand extends SyrusCommand {
+module.exports = class ClientArgument extends Argument {
 	constructor(context) {
-		super(context, {
-			name: "pp",
-			description: "commands:fun.pp.description"
-		});
+		super(context, {name: "category"});
 	}
 
-	async run(message, args) {
-		const shaft = "=".repeat(Math.floor(Math.random() * 24));
-		const member = await args.pickResult("parsemember");
-		let disp;
-		if (member.success) {
-			disp = member.value.displayName;
-		} else {
-			disp = message.author.username;
-		}
-		message.channel.send(
-			new MessageEmbed()
-				.setColor("#34eb7d")
-				.setTitle(`${disp}'s PP size`)
-				.setDescription(`**8${shaft}D**`)
+	async parseCategory(argument) {
+		const isCategory = this.client.commands.categories.includes(argument);
+		const store = this.client.commands;
+		return isCategory ? store.fetchCategory(argument) : undefined;
+	}
+
+	async run(argument, context) {
+		const category = await this.parseCategory(argument);
+
+		return category ? this.ok(category) : this.error(
+			argument,
+			"ArgumentCategoryUnknownCategory",
+			"The argument did not resolve to a category."
 		);
 	}
 }
