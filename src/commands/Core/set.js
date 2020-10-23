@@ -18,9 +18,10 @@
     along with Syrus.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-const { Args, Command, CommandOptions } = require("@sapphire/framework");
+const SyrusCommand = require("../../lib/structures/SyrusCommand");
+const { Args, CommandOptions } = require("@sapphire/framework");
 
-module.exports = class ClientCommand extends Command {
+module.exports = class ClientCommand extends SyrusCommand {
 	constructor(context) {
 		super(context, {
 			name: "set",

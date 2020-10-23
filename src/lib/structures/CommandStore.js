@@ -18,32 +18,29 @@
     along with Syrus.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-const SyrusCommand = require("../../lib/structures/SyrusCommand");
-const { Args, CommandOptions } = require("@sapphire/framework");
-const { MessageEmbed } = require("discord.js")
+const { BaseAliasStore } = require("@sapphire/framework");
+const SyrusCommand = require("./SyrusCommand");
 
-module.exports = class ClientCommand extends SyrusCommand {
-	constructor(context) {
-		super(context, {
-			name: "pp",
-			description: "commands:fun.pp.description"
-		});
+module.exports = class SyrusCommandStore extends BaseAliasStore {
+	constructor(client) {
+		super(client, SyrusCommand, {name: "commands"});
 	}
 
-	async run(message, args) {
-		const shaft = "=".repeat(Math.floor(Math.random() * 24));
-		const member = await args.pickResult("parsemember");
-		let disp;
-		if (member.success) {
-			disp = member.value.displayName;
-		} else {
-			disp = message.author.username;
+	fetchCategory(categoryName) {
+		return this.filter((command) => command.category === categoryName);
+	}
+
+	categorized() {
+		const categories = this.categories;
+		const categorizer = {};
+		for (const category of categories) {
+			categorizer.push(this.fetchCategory(category));
 		}
-		message.channel.send(
-			new MessageEmbed()
-				.setColor("#34eb7d")
-				.setTitle(`${disp}'s PP size`)
-				.setDescription(`**8${shaft}D**`)
-		);
+		return categorizer;
 	}
+
+	get categories() {
+		return Array.from(new Set(this.map((command) => command.category)));
+	}
+
 }
