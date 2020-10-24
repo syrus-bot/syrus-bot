@@ -32,7 +32,7 @@ module.exports = class ClientCommand extends SyrusCommand {
 
 	async run(message, args) {
 		const shaft = "=".repeat(Math.floor(Math.random() * 24));
-		const member = await args.pickResult("parsemember");
+		const member = await args.pickResult("member");
 		let disp;
 		if (member.success) {
 			disp = member.value.displayName;

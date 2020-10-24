@@ -34,7 +34,7 @@ module.exports = class ClientCommand extends SyrusCommand {
 	}
 
 	async run(message, args) {
-		const member = await args.pickResult("parsemember");
+		const member = await args.pickResult("member");
 		if (!member.success) {
 			return message.sendTranslated(
 				"global:notfound",

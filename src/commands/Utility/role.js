@@ -35,14 +35,14 @@ module.exports = class ClientCommand extends SyrusCommand {
 	}
 
 	async run(message, args) {
-		const memberParse = await args.pickResult("parsemember");
+		const memberParse = await args.pickResult("member");
 		if (!memberParse.success) {
 			return message.sendTranslated(
 				"global:notfound",
 				[{type: "member"}]
 			);
 		}
-		const roleParse = await args.pickResult("parserole");
+		const roleParse = await args.pickResult("role");
 		if (!roleParse.success) {
 			return message.sendTranslated(
 				"global:notfound",
