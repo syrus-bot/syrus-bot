@@ -27,7 +27,13 @@ module.exports = class SyrusCommandStore extends BaseAliasStore {
 	}
 
 	fetchCategory(categoryName) {
-		return this.filter((command) => command.category === categoryName);
+		if (!this.categories.includes(categoryName)) {
+			return undefined;
+		}
+		const filter = this
+			.filter((command) => command.category === categoryName);
+		filter.name = categoryName;
+		return filter;
 	}
 
 	categorized() {
