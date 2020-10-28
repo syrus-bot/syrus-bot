@@ -27,9 +27,8 @@ module.exports = class ClientArgument extends Argument {
 	}
 
 	async parseCategory(argument) {
-		const isCategory = this.client.commands.categories.includes(argument);
-		const store = this.client.commands;
-		return isCategory ? store.fetchCategory(argument) : undefined;
+		const category = this.client.commands.fetchCategory(argument);
+		return category ? category : undefined;
 	}
 
 	async run(argument, context) {

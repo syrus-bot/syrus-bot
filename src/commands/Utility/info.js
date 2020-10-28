@@ -126,7 +126,7 @@ module.exports = class ClientCommand extends SyrusCommand {
 	}
 
 	async run(message, args) {
-		const member = await args.pickResult("parsemember");
+		const member = await args.pickResult("member");
 		let target;
 		let isMember;
 		if (member.success) {
