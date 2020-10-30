@@ -23,7 +23,6 @@ const {
 	EventStore
 } = require("@sapphire/framework");
 const CommandStore = require("./CommandStore");
-const { mergeDefault } = require("@sapphire/utilities");
 const { ClientOptions } = require("discord.js");
 const DB = require("../../providers/mongodb.js")
 const { i18next } = require("i18next");

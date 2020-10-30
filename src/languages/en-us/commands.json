@@ -3,6 +3,9 @@
 		"eval": {
 			"description": "Executes JS code from within Discord"
 		},
+		"help": {
+			"description": "Gives you info about my commands of course!"
+		},
 		"kill": {
 			"description": "Shuts down the bot",
 			"shutdown": ":wave: Goodbye..."
