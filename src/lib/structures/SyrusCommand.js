@@ -34,5 +34,6 @@ module.exports = class SyrusCommand extends Command {
 			this.path.replace(/\\/g, "/")
 		).split("/");
 		this.category = folder[folder.length - 1];
+		this.usage = options.usage ?? `${this.name} [...args]`;
 	}
 }
