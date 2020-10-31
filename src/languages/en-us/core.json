@@ -1,0 +1,29 @@
+{
+	"eval": {
+		"description": "Executes JS code from within Discord."
+	},
+	"help": {
+		"description": "Gives you info about my commands of course!",
+		"dm": "I can't embed in this server, so I sent the help to your DMs instead.",
+		"nodm": "I can't embed in this server, and you have DMs disabled! Enable your DMs or ask an admin to let me use embeds so I can help you please :("
+	},
+	"kill": {
+		"description": "Shuts down the bot.",
+		"shutdown": ":wave: Goodbye..."
+	},
+	"ping": {
+		"description": "Ping!",
+		"ping": "Pong..?",
+		"pong": "Pong! Execution took {{execution}}ms, round trip took {{roundtrip}}ms, and the heartbeat latency was {{heartbeat}}ms."
+	},
+	"reload": {
+		"description": "Reloads a command.",
+		"notfound": "There is no {{commandName}} command, sorry :(",
+		"reloaded": "The {{commandName}} command has been reloaded! Happy to help :)",
+		"allreloaded": "All commands have been reloaded! Happy to help :)"
+	},
+	"set": {
+		"description": "Manages the guild settings for the bot.",
+		"updated": "Changed the `{{key}}` setting to `{{val}}` for the guild!"
+	}
+}

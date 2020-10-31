@@ -1,0 +1,38 @@
+{
+	"avatar": {
+		"description": "Gets a user's avatar (or your own)."
+	},
+	"choose": {
+		"description": "Picks out of a series of options (comma separated).",
+		"comma": "The options need to be a comma-separated list! For example: `peaches, pears, apples, ...etc`"
+	},
+	"delrole": {
+		"description": "Deletes a role.",
+		"deleted": "Deleted the **{{deleted}}** role!"
+	},
+	"info": {
+		"description": "Gets a user's info."
+	},
+	"invite": {
+		"description": "Generates an invite for the channel if possible.",
+		"created": "Here is your invite: {{inv}}"
+	},
+	"pin": {
+		"description": "Pins the most recent message."
+	},
+	"role": {
+		"description": "Applies or removes a role from the user.",
+		"removed": "Removed the **{{role}}** role from **{{user}}**",
+		"added": "Removed the **{{role}}** role from **{{user}}**"
+	},
+	"serverinfo": {
+		"description": "Gets the info for the server."
+	},
+	"topic": {
+		"description": "Changes the topic of the channel you're in.",
+		"changed": ":speaking_head: Updated channel topic for **{{channel}}** to `{{topic}}`"
+	},
+	"vote": {
+		"description": "Creates a poll for people to vote on."
+	}
+}

@@ -26,7 +26,7 @@ module.exports = class ClientCommand extends SyrusCommand {
 	constructor(context) {
 		super(context, {
 			name: "avatar",
-			description: "commands:utility.avatar.description",
+			description: "utilities:avatar.description",
 			preconditions: ["GuildOnly"]
 		});
 	}

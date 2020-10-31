@@ -25,16 +25,16 @@ module.exports = class ClientCommand extends SyrusCommand {
 	constructor(context) {
 		super(context, {
 			name: "ping",
-			description: "commands:core.ping.description"
+			description: "core:ping.description"
 		});
 	}
 
 	async run(message, args) {
 		const time = Date.now();
-		const msg = await message.sendTranslated("commands:core.ping.ping");
+		const msg = await message.sendTranslated("core:ping.ping");
 		const complete = Date.now();
 		const key = await message.fetchLanguageKey(
-			"commands:core.ping.pong",
+			"core:ping.pong",
 			{
 				execution: time - message.createdTimestamp,
 				roundtrip: complete - time,

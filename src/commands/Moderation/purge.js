@@ -27,7 +27,7 @@ module.exports = class ClientCommand extends SyrusCommand {
 		super(context, {
 			name: "purge",
 			aliases: ["cleanup", "prune"],
-			description: "commands:moderation.purge.description",
+			description: "moderation:purge.description",
 			preconditions: ["GuildOnly", {entry: "permissions", context: {
 				permissions: new Permissions(Permissions.FLAGS.MANAGE_MESSAGES)
 			}}]
@@ -44,7 +44,7 @@ module.exports = class ClientCommand extends SyrusCommand {
 			.fetch({limit: amount.value});
 		await message.channel.bulkDelete(messages)
 		const finishedMessage = await message.sendTranslated(
-			"commands:moderation.purge.purged",
+			"moderation:purge.purged",
 			[{amount: amount.value}]
 		)
 

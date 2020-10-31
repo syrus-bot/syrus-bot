@@ -26,7 +26,7 @@ module.exports = class ClientCommand extends SyrusCommand {
 	constructor(context) {
 		super(context, {
 			name: "ban",
-			description: "commands:moderation.ban.description",
+			description: "moderation:ban.description",
 			preconditions: ["GuildOnly", {entry: "permissions", context: {
 				permissions: new Permissions(Permissions.FLAGS.BAN_MEMBERS)
 			}}]
@@ -74,7 +74,7 @@ module.exports = class ClientCommand extends SyrusCommand {
 			.ban({reason: `BY ${message.author.username}${reason}`})
 			.then((member) => {
 				message.sendTranslated(
-					"commands:moderation.ban.banned",
+					"moderation:ban.banned",
 					[{member: `<@${member.value.id}>`}]
 				);
 			});

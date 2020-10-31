@@ -27,7 +27,7 @@ module.exports = class ClientCommand extends SyrusCommand {
 		super(context, {
 			name: "serverinfo",
 			aliases: ["sinfo", "server", "si"],
-			description: "commands:utilities.serverinfo.description",
+			description: "utilities:serverinfo.description",
 			preconditions: ["GuildOnly"]
 		});
 	}

@@ -26,7 +26,7 @@ module.exports = class ClientCommand extends SyrusCommand {
 	constructor(context) {
 		super(context, {
 			name: "unlock",
-			description: "commands:moderation.lockdown.description",
+			description: "moderation:lockdown.description",
 			preconditions: ["GuildOnly", {entry: "permissions", context: {
 				permissions: new Permissions(Permissions.FLAGS.MANAGE_CHANNELS)
 			}}]
@@ -39,7 +39,7 @@ module.exports = class ClientCommand extends SyrusCommand {
 			{SEND_MESSAGES: false}
 		);
 		message.sendTranslated(
-			"commands:moderation.unlock.unlocked",
+			"moderation:unlock.unlocked",
 			[{channel: `<#${message.channel.id}>`}]
 		);
 	}

@@ -26,7 +26,7 @@ module.exports = class ClientCommand extends SyrusCommand {
 	constructor(context) {
 		super(context, {
 			name: "topic",
-			description: "commands:utilities.topic.description",
+			description: "utilities:topic.description",
 			preconditions: ["GuildOnly", {entry: "permissions", context: {
 				permissions: new Permissions(Permissions.FLAGS.MANAGE_CHANNELS)
 			}}]
@@ -51,7 +51,7 @@ module.exports = class ClientCommand extends SyrusCommand {
 			.setTopic(newtopic)
 			.then(() => {
 				message.sendTranslated(
-					"commands:utilities.topic.changed",
+					"utilities:topic.changed",
 					[{
 						channel: message.channel.name,
 						topic: newtopic || "[]"

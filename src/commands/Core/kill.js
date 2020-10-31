@@ -25,13 +25,13 @@ module.exports = class ClientCommand extends SyrusCommand {
 	constructor(context) {
 		super(context, {
 			name: "kill",
-			description: "commands:core.kill.description",
+			description: "core:kill.description",
 			preconditions: ["owner"]
 		});
 	}
 
 	async run(message, args) {
-		message.sendTranslated("commands:core.kill.shutdown")
+		message.sendTranslated("core:kill.shutdown")
 		setTimeout(() => {
 			process.exit(1);
 		}, 2000);

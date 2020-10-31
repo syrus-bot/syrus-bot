@@ -26,7 +26,7 @@ module.exports = class ClientCommand extends SyrusCommand {
 	constructor(context) {
 		super(context, {
 			name: "delrole",
-			description: "commands:utilities.delrole.description",
+			description: "utilities:delrole.description",
 			preconditions: ["GuildOnly", {entry: "permissions", context: {
 				permissions: new Permissions(Permissions.FLAGS.MANAGE_ROLES)
 			}}]
@@ -57,7 +57,7 @@ module.exports = class ClientCommand extends SyrusCommand {
 			.delete()
 			.then((done) => {
 				message.sendTranslated(
-					"commands:utilities.delrole.deleted",
+					"utilities:delrole.deleted",
 					[{deleted: role.value.name}]
 				);
 			});
