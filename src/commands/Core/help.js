@@ -28,11 +28,11 @@ const EMBED_PERMS = new Permissions([
 ]);
 const time = 1000 * 60 * 3;
 
-module.exports = class extends SyrusCommand {
-	constructor(...args) {
-		super(...args, {
+module.exports = class ClientCommand extends SyrusCommand {
+	constructor(context) {
+		super(context, {
 			aliases: ["commands", "cmd", "cmds"],
-			description: "commands:core.help.description"
+			description: "core:help.description"
 		});
 	}
 
@@ -52,9 +52,9 @@ module.exports = class extends SyrusCommand {
 		if (!canEmbed) {
 			try {
 				await message.author.send(display);
-				await message.sendTranslated("commands:core.help.dm");
+				await message.sendTranslated("core:help.dm");
 			} catch {
-				await message.sendTranslated("commands:core.help.nodm");
+				await message.sendTranslated("core:help.nodm");
 			}
 		}
 		await message.channel.send(display);
@@ -85,7 +85,7 @@ module.exports = class extends SyrusCommand {
 				inline: false
 			}
 		}));
-		
+
 		const allHelpDesc = `
 				Hover over commands for more info (on PC), OR
 				use \`${prefix}help [command|category]\` 

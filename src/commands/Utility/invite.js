@@ -27,7 +27,7 @@ module.exports = class ClientCommand extends SyrusCommand {
 		super(context, {
 			name: "invite",
 			aliases: ["ci", "crinv"],
-			description: "commands:utilities.invite.description",
+			description: "utilities:invite.description",
 			preconditions: ["GuildOnly", {entry: "permissions", context: {
 				permissions: new Permissions(
 					Permissions.FLAGS.CREATE_INSTANT_INVITE
@@ -42,7 +42,7 @@ module.exports = class ClientCommand extends SyrusCommand {
 			`Created by ${message.author.toString()}`
 		).then((invite) => {
 			message.sendTranslated(
-				"commands:utilities.invite.created",
+				"utilities:invite.created",
 				[{inv: invite.toString()}]
 			);
 		});

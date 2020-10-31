@@ -26,7 +26,7 @@ module.exports = class ClientCommand extends SyrusCommand {
 	constructor(context) {
 		super(context, {
 			name: "vote",
-			description: "commands:utilities.vote.description",
+			description: "utilities:vote.description",
 			preconditions: ["GuildOnly", {entry: "permissions", context: {
 				permissions: new Permissions(Permissions.FLAGS.ADD_REACTIONS)
 			}}]

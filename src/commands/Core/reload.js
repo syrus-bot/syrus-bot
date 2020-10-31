@@ -25,7 +25,7 @@ module.exports = class ClientCommand extends SyrusCommand {
 	constructor(context) {
 		super(context, {
 			name: "reload",
-			description: "commands:reload.description",
+			description: "core:reload.description",
 			preconditions: ["owner"]
 		});
 	}
@@ -39,11 +39,11 @@ module.exports = class ClientCommand extends SyrusCommand {
 				});
 				this.client.commands.clear();
 				await this.client.commands.loadAll();
-				message.sendTranslated("commands:core.reload.allreloaded");
+				message.sendTranslated("core:reload.allreloaded");
 				return;
 			}
 			return message.sendTranslated(
-				"commands:core.reload.notfound",
+				"core:reload.notfound",
 				[{commandName: command.error.parameter}]
 			);
 		}
@@ -52,7 +52,7 @@ module.exports = class ClientCommand extends SyrusCommand {
 		const reloaded = await args.start().pickResult("command");
 		await this.client.commands.insert(reloaded.value);
 		message.sendTranslated(
-			"commands:core.reload.reloaded",
+			"core:reload.reloaded",
 			[{commandName: command.value.name}]
 		);
 	}

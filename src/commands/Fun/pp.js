@@ -26,7 +26,7 @@ module.exports = class ClientCommand extends SyrusCommand {
 	constructor(context) {
 		super(context, {
 			name: "pp",
-			description: "commands:fun.pp.description"
+			description: "fun:pp.description"
 		});
 	}
 

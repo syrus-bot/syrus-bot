@@ -26,7 +26,7 @@ module.exports = class ClientCommand extends SyrusCommand {
 		super(context, {
 			name: "choose",
 			aliases: ["pick"],
-			description: "commands:utility.choose.description"
+			description: "utilities:choose.description"
 		});
 	}
 
@@ -37,7 +37,7 @@ module.exports = class ClientCommand extends SyrusCommand {
 		}
 		const options = choices.value.split(", ");
 		if (options.length <= 1) {
-			return message.sendTranslated("commands:utility.choose.comma")
+			return message.sendTranslated("utilities:choose.comma")
 		}
 		message.channel.send(`Hmm... I choose... ${options[Math.floor(Math.random() * options.length)]}!`);
 	}

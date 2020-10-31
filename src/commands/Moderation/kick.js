@@ -26,7 +26,7 @@ module.exports = class ClientCommand extends SyrusCommand {
 	constructor(context) {
 		super(context, {
 			name: "kick",
-			description: "commands:moderation.kick.description",
+			description: "moderation:kick.description",
 			preconditions: ["GuildOnly", {entry: "permissions", context: {
 				permissions: new Permissions(Permissions.FLAGS.KICK_MEMBERS)
 			}}]
@@ -74,7 +74,7 @@ module.exports = class ClientCommand extends SyrusCommand {
 			.kick({reason: `BY ${message.author.username}${reason}`})
 			.then((member) => {
 				message.sendTranslated(
-					"commands:moderation.kick.kicked",
+					"moderation:kick.kicked",
 					[{member: `<@${member.value.id}>`}]
 				);
 			});

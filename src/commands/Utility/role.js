@@ -27,7 +27,7 @@ module.exports = class ClientCommand extends SyrusCommand {
 		super(context, {
 			name: "role",
 			aliases: ["r", "ro"],
-			description: "commands:utilities.role.description",
+			description: "utilities:role.description",
 			preconditions: ["GuildOnly", {entry: "permissions", context: {
 				permissions: new Permissions(Permissions.FLAGS.MANAGE_ROLES)
 			}}]
@@ -63,7 +63,7 @@ module.exports = class ClientCommand extends SyrusCommand {
 		if (member.roles.cache.has(role.id)) {
 			member.roles.remove(role.id).then((ok) => {
 				message.sendTranslated(
-					"commands:utilities.role.removed",
+					"utilities:role.removed",
 					[{
 						role: role.name,
 						user: `${member.user.username}#${member.user.discriminator}`
@@ -73,7 +73,7 @@ module.exports = class ClientCommand extends SyrusCommand {
 		} else {
 			member.roles.add(role.id).then((ok) => {
 				message.sendTranslated(
-					"commands:utilities.role.added",
+					"utilities:role.added",
 					[{
 						role: role.name,
 						user: `${member.user.username}#${member.user.discriminator}`
