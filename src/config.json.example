@@ -15,7 +15,7 @@
                 "password": "sosecure" 
             }
         ]
-    }
+    },
     "database": {
         "host": "localhost",
         "port": 27012,
