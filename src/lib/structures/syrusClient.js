@@ -28,7 +28,6 @@ const DB = require("../../providers/mongodb.js")
 const { i18next } = require("i18next");
 const in17n = require("@scp/in17n/register");
 
-require("../extensions/guild.js");
 class SyrusClient extends SapphireClient {
 	constructor(options) {
 		super({
@@ -47,13 +46,14 @@ class SyrusClient extends SapphireClient {
 				}
 			}
 		});
+		this.arguments.registerPath(`${process.cwd()}/arguments/`);
 		this.commands = new CommandStore(this).registerPath(`${process.cwd()}/commands/`);
 		this.events = new EventStore(this).registerPath(`${process.cwd()}/events/`);
-		this.settings = new DB();
+		this.music = null;
+		this.preconditions.registerPath(`${process.cwd()}/preconditions/`);
 		this.registerStore(this.commands);
 		this.registerStore(this.events);
-		this.preconditions.registerPath(`${process.cwd()}/preconditions/`);
-		this.arguments.registerPath(`${process.cwd()}/arguments/`);
+		this.settings = new DB();
 	}
 
 	fetchPrefix = async (message) => {
