@@ -50,49 +50,37 @@ module.exports = class MusicManager extends Lavaqueue {
 			userID: client.user.id,
 			password: NODE.password,
 			hosts: {
-				rest: `http://${NODE.host}:${NODE.port}`,
+				rest: `http${NODE.ssl}://${NODE.host}:${NODE.port}`,
+				ws: `ws${NODE.ssl}://${NODE.host}:${NODE.port}`,
 				redis: REDIS
 			},
 			send: send
 		});
 		this.client = client;
 
-		if (client.guilds.cache && typeof client.ws.send === "undefined") {
-			client.ws
-				.on(
-					"VOICE_STATE_UPDATE",
-					(shard, state) => this.voiceStateUpdate(state)
-				)
-				.on(
-					"VOICE_SERVER_UPDATE",
-					(shard, info) => this.voiceServerUpdate(info)
-				)
-				.on(
-					"GUILD_CREATE",
-					(shard, guild) => {
-						for (const state of guild.voice_states) {
-							this.voiceStateUpdate(state);
-						}
-					}
-				);
-		} else {
-			client.on("raw", async (packet) => {
-				switch (packet.t) {
-					case "VOICE_SERVER_UPDATE":
-						await this.voiceServerUpdate(packet.d);
-						break;
-					case "VOICE_STATE_UPDATE":
-						await this.voiceStateUpdate(packet.d);
-						break;
-					case "GUILD_CREATE":
-						for await (const state of packet.d.voice_states) {
-							await this.voiceStateUpdate(state);
-						}
-						break;
-					default:
-						// noop
-				}
-			});
+		client.on("raw", (packet) => {
+			switch (packet.t) {
+				case "VOICE_SERVER_UPDATE":
+					this.voiceServerUpdate(packet.d);
+					break;
+				case "VOICE_STATE_UPDATE":
+					this.voiceStateUpdate(packet.d);
+					break;
+				default:
+					// noop
+			}
+		});
+	}
+
+	async fetchTracks(query) {
+		let finder;
+		try {
+			finder = new URL(query);
+		} catch (err) {
+			if (err instanceof TypeError) {
+				finder = `ytsearch:${query}`;
+			}
 		}
+		return this.load(finder);
 	}
 }
