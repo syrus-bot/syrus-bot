@@ -20,8 +20,6 @@
 
 const { Client: Lavaqueue } = require("lavaqueue");
 const config = require("../../config.json");
-const fetch = require("node-fetch");
-const { duration } = require("moment");
 const { ok, err } = require("@sapphire/framework")
 
 const NODE = config.lavalink;
