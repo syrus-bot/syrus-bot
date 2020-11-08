@@ -21,7 +21,8 @@
 const { Client: Lavaqueue } = require("lavaqueue");
 const config = require("../../config.json");
 const { ok, err } = require("@sapphire/framework")
-
+// const Queue = require("./Queue");
+const { Queue } = require("lavaqueue");
 const NODE = config.lavalink;
 const REDIS = config.redis;
 
@@ -68,6 +69,16 @@ module.exports = class MusicManager extends Lavaqueue {
 					// noop
 			}
 		});
+	}
+
+	get(key) {
+		let queue;
+		queue = super.get(key);
+		if (!queue) {
+			queue = new Queue(this, key);
+			this.set(key, queue)
+		}
+		return queue;
 	}
 
 	async fetchTracks(query) {
