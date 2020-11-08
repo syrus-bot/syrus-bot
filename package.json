@@ -30,6 +30,7 @@
 	"dependencies": {
 		"@sapphire/decorators": "^1.0.2",
 		"@sapphire/framework": "github:sapphire-project/framework#build",
+		"@sapphire/time-utilities": "^1.1.0",
 		"@scp/in17n": "^1.0.1",
 		"bufferutil": "^4.0.1",
 		"discord.js": "github:discordjs/discord.js#master",
@@ -37,8 +38,6 @@
 		"i18next": "^19.8.2",
 		"lavaqueue": "^3.1.8",
 		"libsodium-wrappers": "^0.7.8",
-		"moment": "^2.29.1",
-		"moment-duration-format": "^2.3.2",
 		"mongodb": "^3.6.2",
 		"mongoose": "^5.10.9",
 		"package.json": "^2.0.1",
