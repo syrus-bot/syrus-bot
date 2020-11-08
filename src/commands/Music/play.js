@@ -49,7 +49,7 @@ module.exports = class ClientCommand extends SyrusCommand {
 		if (!myVoice.channel) {
 			await queue.player.join(theirVoice.id);
 		}
-		const tracks = await this.client.music.fetchTracks(songs.value)
+		const tracks = await this.client.music.fetchTracks(songs.value);
 		switch (tracks.loadType) {
 			// TODO: implement handler for search
 			case "TRACK_LOADED":
@@ -62,6 +62,8 @@ module.exports = class ClientCommand extends SyrusCommand {
 				// noop
 		}
 		// TODO: implement embed for playing
-		await queue.start();
+		if (!queue.player.playing) {
+			await queue.start();
+		}
 	}
 };
