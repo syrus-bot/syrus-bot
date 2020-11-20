@@ -56,9 +56,9 @@ module.exports = class ClientCommand extends SyrusCommand {
 				true
 			)
 
-		/* 
-			TODO: Add information about who requested the song, 
-			and the thumbnail  
+		/*
+			TODO: Add information about who requested the song,
+			and the thumbnail
 		*/
 		return message.channel.send(embed)
 	}
