@@ -5,7 +5,7 @@
 	"main": "src/main.js",
 	"scripts": {
 		"start": "npm run lint && cd src && node main",
-		"lint": "npx eslint ./**/*.js --fix",
+		"lint": "npx eslint src --fix",
 		"gpr": "git pull && npm start",
 		"commit": "git add . && npx git cz"
 	},
