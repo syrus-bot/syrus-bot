@@ -18,23 +18,24 @@
     along with Syrus.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-const SyrusClient = require("./lib/structures/SyrusClient");
-const config = require("./config.json");
-const { LogLevel } = require("@sapphire/framework");
+const SyrusCommand = require("../../lib/structures/SyrusCommand");
+const { Args, CommandOptions } = require("@sapphire/framework");
 
-async function main() {
-	const client = new SyrusClient({
-		ws: {intents: ["GUILDS", "GUILD_MESSAGES", "GUILD_VOICE_STATES"]},
-		logger: {level: LogLevel.Debug},
-		disableMentions: "everyone"
-	});
+module.exports = class ClientCommand extends SyrusCommand {
 
-	try {
-		await client.login(config.token);
-	} catch (error) {
-		client.destroy();
-		throw error;
+	constructor(context) {
+		super(context, {
+			name: "pause",
+			description: "music:pause.description"
+		});
 	}
-}
 
-main().catch(console.error);
+	async run(message, args) {
+		const player = this.client.music.queues.get(message.guild.id).player;
+		if (!player.paused) {
+			await player.pause();
+			return message.sendTranslated("music:pause.paused");
+		}
+		return message.sendTranslated("music:resume.already");
+	}
+};

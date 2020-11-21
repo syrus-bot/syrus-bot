@@ -5,7 +5,7 @@
 	"main": "src/main.js",
 	"scripts": {
 		"start": "npm run lint && cd src && node main",
-		"lint": "npx eslint ./**/*.js --fix",
+		"lint": "npx eslint src --ext .json,.js --fix",
 		"gpr": "git pull && npm start",
 		"commit": "git add . && npx git cz"
 	},
@@ -28,25 +28,23 @@
 	],
 	"license": "GPL-3.0-or-later",
 	"dependencies": {
-		"@lavacord/discord.js": "0.0.7",
-		"@sapphire/decorators": "^1.0.2",
+		"@sapphire/decorators": "^1.0.3",
 		"@sapphire/framework": "github:sapphire-project/framework#build",
-		"@scp/in17n": "^1.0.1",
-		"bufferutil": "^4.0.1",
+		"@sapphire/time-utilities": "^1.2.0",
+		"@scp/in17n": "^1.0.2",
+		"bufferutil": "^4.0.2",
 		"discord.js": "github:discordjs/discord.js#master",
 		"globby": "^11.0.1",
-		"i18next": "^19.8.2",
-		"lavacord": "^1.1.9",
+		"got": "^11.8.0",
+		"i18next": "^19.8.4",
+		"lavaqueue": "^3.1.8",
 		"libsodium-wrappers": "^0.7.8",
-		"moment": "^2.29.1",
-		"moment-duration-format": "^2.3.2",
-		"mongodb": "^3.6.2",
-		"mongoose": "^5.10.9",
+		"mongodb": "^3.6.3",
+		"mongoose": "^5.10.15",
 		"package.json": "^2.0.1",
-		"snekfetch": "^4.0.4",
 		"types": "^0.1.1",
 		"websocket": "^1.0.32",
-		"ws": "^7.3.1"
+		"ws": "^7.4.0"
 	},
 	"directories": {
 		"lib": "lib"
@@ -56,11 +54,12 @@
 		"@commitlint/config-conventional": "^11.0.0",
 		"@semantic-release/changelog": "^5.0.1",
 		"@semantic-release/git": "^9.0.0",
-		"commitizen": "^4.2.1",
+		"commitizen": "^4.2.2",
 		"cz-conventional-changelog": "^3.3.0",
-		"eslint": "^7.11.0",
+		"eslint": "^7.13.0",
+		"eslint-plugin-json": "^2.1.2",
 		"husky": "^4.3.0",
-		"semantic-release": "^17.2.1"
+		"semantic-release": "^17.2.4"
 	},
 	"config": {
 		"commitizen": {

@@ -18,17 +18,31 @@
     along with Syrus.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-const {
-	SapphireClient,
-	EventStore
-} = require("@sapphire/framework");
+const { SapphireClient } = require("@sapphire/framework");
 const CommandStore = require("./CommandStore");
 const { ClientOptions } = require("discord.js");
 const DB = require("../../providers/mongodb.js")
 const { i18next } = require("i18next");
 const in17n = require("@scp/in17n/register");
 
-require("../extensions/guild.js");
+async function fetchPrefix(message) {
+	const guild = await this.settings.guild(message.guild.id);
+	if (guild.prefix !== undefined) {
+		return guild.prefix;
+	}
+	const global = await this.settings.global();
+	return global.prefix;
+}
+
+async function fetchLanguage(message) {
+	const guild = await this.settings.guild(message.guild.id);
+	if (guild.language !== undefined) {
+		return guild.language;
+	}
+	const global = await this.settings.global();
+	return global.language;
+}
+
 class SyrusClient extends SapphireClient {
 	constructor(options) {
 		super({
@@ -47,31 +61,14 @@ class SyrusClient extends SapphireClient {
 				}
 			}
 		});
-		this.commands = new CommandStore(this).registerPath(`${process.cwd()}/commands/`);
-		this.events = new EventStore(this).registerPath(`${process.cwd()}/events/`);
-		this.settings = new DB();
+		this.commands = new CommandStore(this)
+			.registerPath(`${process.cwd()}/commands/`);
+		this.music = null;
 		this.registerStore(this.commands);
-		this.registerStore(this.events);
-		this.preconditions.registerPath(`${process.cwd()}/preconditions/`);
-		this.arguments.registerPath(`${process.cwd()}/arguments/`);
+		this.settings = new DB();
+
+		this.fetchPrefix = fetchPrefix.bind(this);
+		this.fetchLanguage = fetchLanguage.bind(this);
 	}
-
-	fetchPrefix = async (message) => {
-		const guild = await this.settings.guild(message.guild.id);
-		if (guild.prefix !== undefined) {
-			return guild.prefix;
-		}
-		const global = await this.settings.global();
-		return global.prefix;
-	};
-
-	fetchLanguage = async (message) => {
-		const guild = await this.settings.guild(message.guild.id);
-		if (guild.language !== undefined) {
-			return guild.language;
-		}
-		const global = await this.settings.global();
-		return global.language;
-	};
 }
 module.exports = SyrusClient
