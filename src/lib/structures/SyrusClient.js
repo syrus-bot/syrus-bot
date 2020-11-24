@@ -52,7 +52,8 @@ class SyrusClient extends SapphireClient {
 				defaultNS: "global",
 				i18next: {
 					preload: ["en-us"],
-					load: "all",
+					load: "currentOnly",
+					lowerCaseLng: true,
 					fallbackLng: "en-us",
 					initImmediate: false,
 					interpolation: {
