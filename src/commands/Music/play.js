@@ -31,9 +31,11 @@ module.exports = class ClientCommand extends SyrusCommand {
 		}
 		const tracks = await this.client.music.fetchTracks(songs.value);
 		switch (tracks.loadType) {
-			// TODO: implement handler for search
+			case "SEARCH_RESULT":
+				await queue.add(tracks.tracks[0].track);
+				break;
 			case "TRACK_LOADED":
-				await queue.add(tracks.tracks.map((track) => track.track));
+				await queue.add(tracks.tracks[0].track);
 				break;
 			case "PLAYLIST_LOADED":
 				await queue.add(tracks.tracks.map((track) => track.track));
