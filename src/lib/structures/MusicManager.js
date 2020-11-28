@@ -49,7 +49,10 @@ async function eventHandler(inbound) {
 		});
 	}
 	if (inbound.type === "TrackEndEvent" && inbound.reason === "STOPPED") {
-		// handle queue stopping
+		const embed = new MessageEmbed()
+			.setTitle("Queue finished...");
+		this.queues.get(inbound.guildId)
+			.player.infoChannel.send(embed);
 	}
 }
 
