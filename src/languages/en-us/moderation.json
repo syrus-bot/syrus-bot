@@ -1,0 +1,22 @@
+{
+	"ban": {
+		"description": "Bans a specified member.",
+		"banned": ":hammer: Banned **{{member}}**."
+	},
+	"kick": {
+		"description": "Kicks a specified member.",
+		"kicked": ":boot: Kicked **{{member}}**."
+	},
+	"lockdown": {
+		"description": "Stop all traffic in a channel.",
+		"lockeddown": ":lock: Locked down **{{channel}}**."
+	},
+	"purge": {
+		"description": "Cleans up a certain amount of messages.",
+		"purged": "**Successfully purged {{amount}} message(s).**"
+	},
+	"unlock": {
+		"description": "Unrestricts a channel (removes a lockdown).",
+		"unlocked": ":unlock: Unlocked **{{channel}}**."
+	}
+}

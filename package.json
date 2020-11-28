@@ -1,0 +1,86 @@
+{
+	"name": "syrus",
+	"version": "1.2.0",
+	"description": "Syrus - a multipurpose Discord bot, designed to be the best so you won't need the rest.",
+	"main": "src/main.js",
+	"scripts": {
+		"start": "npm run lint && cd src && node main",
+		"lint": "npx eslint src --ext .json,.js --fix",
+		"gpr": "git pull && npm start",
+		"commit": "git add . && npx git cz"
+	},
+	"author": {
+		"name": "Nytelife26 (Tyler J. Russell)",
+		"email": "nytelife@protonmail.com",
+		"url": "https://github.com/Nytelife26"
+	},
+	"contributors": [
+		{
+			"name": "ColeCCI",
+			"email": "hi@colem.dev",
+			"url": "https://colem.dev"
+		},
+		{
+			"name": "mynameismrtime (Max)",
+			"email": "max@maxx.lol",
+			"url": "https://mrti.me"
+		}
+	],
+	"license": "GPL-3.0-or-later",
+	"dependencies": {
+		"@sapphire/decorators": "^1.0.3",
+		"@sapphire/framework": "github:sapphire-project/framework#build",
+		"@sapphire/time-utilities": "^1.2.0",
+		"@scp/in17n": "^1.0.2",
+		"bufferutil": "^4.0.2",
+		"discord.js": "github:discordjs/discord.js#master",
+		"globby": "^11.0.1",
+		"got": "^11.8.0",
+		"i18next": "^19.8.4",
+		"lavaqueue": "^3.1.8",
+		"libsodium-wrappers": "^0.7.8",
+		"mongodb": "^3.6.3",
+		"mongoose": "^5.10.15",
+		"package.json": "^2.0.1",
+		"types": "^0.1.1",
+		"websocket": "^1.0.32",
+		"ws": "^7.4.0"
+	},
+	"directories": {
+		"lib": "lib"
+	},
+	"devDependencies": {
+		"@commitlint/cli": "^11.0.0",
+		"@commitlint/config-conventional": "^11.0.0",
+		"@semantic-release/changelog": "^5.0.1",
+		"@semantic-release/git": "^9.0.0",
+		"commitizen": "^4.2.2",
+		"cz-conventional-changelog": "^3.3.0",
+		"eslint": "^7.13.0",
+		"eslint-plugin-json": "^2.1.2",
+		"husky": "^4.3.0",
+		"semantic-release": "^17.2.4"
+	},
+	"config": {
+		"commitizen": {
+			"path": "cz-conventional-changelog"
+		}
+	},
+	"husky": {
+		"hooks": {
+			"pre-commit": "npm run lint",
+			"commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+		}
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/syrus-bot/syrus-bot.git"
+	},
+	"engines": {
+		"node": ">=14.0.0"
+	},
+	"bugs": {
+		"url": "https://github.com/syrus-bot/syrus-bot/issues"
+	},
+	"homepage": "https://github.com/syrus-bot/syrus-bot#readme"
+}

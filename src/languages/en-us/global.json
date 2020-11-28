@@ -1,0 +1,10 @@
+{
+	"missing": "{{key}} has not been localised for En-US yet.",
+	"commerr": {
+		"denied": "Sorry, I can't let you do that, looks like you lack the required permissions to run {{cmd}} :(",
+		"missingparams": "You forgot to specify a value for the {{arg}} argument!"
+	},
+	"toolong": "Looks like your specified value for the {{arg}} argument was too long! It must be at most {{chars}} characters.",
+	"notfound": "Ouch! I couldn't find the {{type}} you were looking for, sorry :( try again!",
+	"highererr": "Yikes! You can't {{func}} that {{type}} because it's higher than you in the hierarchy (or possibly higher than me)."
+}
