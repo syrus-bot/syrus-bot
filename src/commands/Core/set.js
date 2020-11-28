@@ -6,7 +6,7 @@ module.exports = class ClientCommand extends SyrusCommand {
 		super(context, {
 			name: "set",
 			description: "core:set.description",
-			preconditions: ["GuildOnly"]
+			preconditions: ["GuildOnly", "serverowner"]
 		});
 	}
 
@@ -15,10 +15,10 @@ module.exports = class ClientCommand extends SyrusCommand {
 		const key = await args.pickResult("string");
 		const val = await args.repeatResult("string");
 
-		if (key.value !== undefined) {
+		if (key.value && val.value) {
 			guild.set(key.value, val.value.join(" "));
 			await guild.save();
-			return await message.sendTranslated("core:set.updated", [{
+			return message.sendTranslated("core:set.updated", [{
 				key: key.value,
 				val: val.value.join(" ")
 			}]);
@@ -27,7 +27,7 @@ module.exports = class ClientCommand extends SyrusCommand {
 		out = "```md";
 		out += this.format(guild.toObject(), 0);
 		out += "```";
-		return await message.channel.send(out);
+		return message.channel.send(out);
 	}
 
 	format(object, indent) {
