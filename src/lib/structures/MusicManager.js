@@ -48,7 +48,8 @@ async function eventHandler(inbound) {
 				.player.infoChannel.send(embed);
 		});
 	}
-	if (inbound.type === "TrackEndEvent" && inbound.reason === "STOPPED") {
+	const finished = ["STOPPED", "FINISHED"].includes(inbound.reason);
+	if (inbound.type === "TrackEndEvent" && finished) {
 		const embed = new MessageEmbed()
 			.setTitle("Queue finished...");
 		this.queues.get(inbound.guildId)
