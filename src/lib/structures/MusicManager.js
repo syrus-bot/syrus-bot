@@ -1,7 +1,7 @@
 const { Client: Lavaqueue } = require("lavaqueue");
 const config = require("../../config.json");
 const { ok, err } = require("@sapphire/framework")
-// const Queue = require("./Queue");
+const { MessageEmbed } = require("discord.js");
 const { Queue } = require("lavaqueue");
 const NODE = config.lavalink;
 const REDIS = config.redis;
@@ -23,6 +23,40 @@ function send(guildID, packet) {
 	}
 }
 
+function packetHandler(packet) {
+	switch (packet.t) {
+		case "VOICE_SERVER_UPDATE":
+			this.voiceServerUpdate(packet.d);
+			break;
+		case "VOICE_STATE_UPDATE":
+			this.voiceStateUpdate(packet.d);
+			break;
+		default:
+			// noop
+	}
+}
+
+async function eventHandler(inbound) {
+	if (inbound.type === "TrackStartEvent") {
+		this.decode(inbound.track).then((track) => {
+			const embed = new MessageEmbed()
+				.setTitle("Now playing...")
+				.setDescription(
+					`[${track.author} | ${track.title}](${track.uri})`
+				);
+			this.queues.get(inbound.guildId)
+				.player.infoChannel.send(embed);
+		});
+	}
+	const finished = ["STOPPED", "FINISHED"].includes(inbound.reason);
+	if (inbound.type === "TrackEndEvent" && finished) {
+		const embed = new MessageEmbed()
+			.setTitle("Queue finished...");
+		this.queues.get(inbound.guildId)
+			.player.infoChannel.send(embed);
+	}
+}
+
 module.exports = class MusicManager extends Lavaqueue {
 	constructor(client) {
 		super({
@@ -37,18 +71,10 @@ module.exports = class MusicManager extends Lavaqueue {
 		});
 		this.client = client;
 
-		client.on("raw", (packet) => {
-			switch (packet.t) {
-				case "VOICE_SERVER_UPDATE":
-					this.voiceServerUpdate(packet.d);
-					break;
-				case "VOICE_STATE_UPDATE":
-					this.voiceStateUpdate(packet.d);
-					break;
-				default:
-					// noop
-			}
-		});
+		/* packetHandler updates voice states
+		   eventHandler listens on rotating queue */
+		client.on("raw", packetHandler.bind(this));
+		this.on("event", eventHandler.bind(this));
 	}
 
 	get(key) {

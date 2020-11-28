@@ -18,6 +18,7 @@ module.exports = class ClientCommand extends SyrusCommand {
 			await queue.clear();
 			return message.sendTranslated("music:stop.stopped");
 		}
+		queue.player.infoChannel = undefined;
 		return message.sendTranslated("music:stop.nothing");
 	}
 };
