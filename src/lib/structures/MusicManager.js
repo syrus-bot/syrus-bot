@@ -1,7 +1,6 @@
 const { Client: Lavaqueue } = require("lavaqueue");
 const config = require("../../config.json");
 const { ok, err } = require("@sapphire/framework")
-// const Queue = require("./Queue");
 const { Queue } = require("lavaqueue");
 const NODE = config.lavalink;
 const REDIS = config.redis;
@@ -36,6 +35,12 @@ function packetHandler(packet) {
 	}
 }
 
+function eventHandler(inbound) {
+
+	/* noop
+	   construction in progress */
+}
+
 module.exports = class MusicManager extends Lavaqueue {
 	constructor(client) {
 		super({
@@ -50,7 +55,10 @@ module.exports = class MusicManager extends Lavaqueue {
 		});
 		this.client = client;
 
+		/* packetHandler updates voice states
+		   eventHandler listens on rotating queue */
 		client.on("raw", packetHandler.bind(this));
+		this.on("event", eventHandler.bind(this));
 	}
 
 	get(key) {
