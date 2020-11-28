@@ -1,6 +1,6 @@
 {
 	"name": "syrus",
-	"version": "1.2.0",
+	"version": "1.0.0",
 	"description": "Syrus - a multipurpose Discord bot, designed to be the best so you won't need the rest.",
 	"main": "src/main.js",
 	"scripts": {
