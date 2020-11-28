@@ -1,6 +1,7 @@
 const { Client: Lavaqueue } = require("lavaqueue");
 const config = require("../../config.json");
 const { ok, err } = require("@sapphire/framework")
+const { MessageEmbed } = require("discord.js");
 const { Queue } = require("lavaqueue");
 const NODE = config.lavalink;
 const REDIS = config.redis;
@@ -35,18 +36,20 @@ function packetHandler(packet) {
 	}
 }
 
-function eventHandler(inbound) {
-	if (inbound.type === "TrackEndEvent") {
-		switch (inbound.reason) {
-			case "REPLACED":
-				// handle next track
-				break;
-			case "STOPPED":
-				// handle player finishing
-				break;
-			default:
-				// noop
-		}
+async function eventHandler(inbound) {
+	if (inbound.type === "TrackStartEvent") {
+		this.decode(inbound.track).then((track) => {
+			const embed = new MessageEmbed()
+				.setTitle("Now playing...")
+				.setDescription(
+					`[${track.author} | ${track.title}](${track.uri})`
+				);
+			this.queues.get(inbound.guildId)
+				.player.infoChannel.send(embed);
+		});
+	}
+	if (inbound.type === "TrackEndEvent" && inbound.reason === "STOPPED") {
+		// handle queue stopping
 	}
 }
 
