@@ -36,9 +36,18 @@ function packetHandler(packet) {
 }
 
 function eventHandler(inbound) {
-
-	/* noop
-	   construction in progress */
+	if (inbound.type === "TrackEndEvent") {
+		switch (inbound.reason) {
+			case "REPLACED":
+				// handle next track
+				break;
+			case "STOPPED":
+				// handle player finishing
+				break;
+			default:
+				// noop
+		}
+	}
 }
 
 module.exports = class MusicManager extends Lavaqueue {
