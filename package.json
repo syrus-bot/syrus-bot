@@ -21,12 +21,12 @@
 			"url": "https://colem.dev"
 		},
 		{
-			"name": "mynameismrtime (Max)",
+			"name": "mynameismax",
 			"email": "max@maxx.lol",
 			"url": "https://mrti.me"
 		}
 	],
-	"license": "GPL-3.0-or-later",
+	"license": "MIT",
 	"dependencies": {
 		"@sapphire/decorators": "^1.0.3",
 		"@sapphire/framework": "github:sapphire-project/framework#build",
