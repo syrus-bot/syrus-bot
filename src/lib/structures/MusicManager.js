@@ -23,6 +23,19 @@ function send(guildID, packet) {
 	}
 }
 
+function packetHandler(packet) {
+	switch (packet.t) {
+		case "VOICE_SERVER_UPDATE":
+			this.voiceServerUpdate(packet.d);
+			break;
+		case "VOICE_STATE_UPDATE":
+			this.voiceStateUpdate(packet.d);
+			break;
+		default:
+			// noop
+	}
+}
+
 module.exports = class MusicManager extends Lavaqueue {
 	constructor(client) {
 		super({
@@ -37,18 +50,7 @@ module.exports = class MusicManager extends Lavaqueue {
 		});
 		this.client = client;
 
-		client.on("raw", (packet) => {
-			switch (packet.t) {
-				case "VOICE_SERVER_UPDATE":
-					this.voiceServerUpdate(packet.d);
-					break;
-				case "VOICE_STATE_UPDATE":
-					this.voiceStateUpdate(packet.d);
-					break;
-				default:
-					// noop
-			}
-		});
+		client.on("raw", packetHandler.bind(this));
 	}
 
 	get(key) {
