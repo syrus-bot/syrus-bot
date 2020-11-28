@@ -15,20 +15,35 @@ module.exports = class ClientCommand extends SyrusCommand {
 		const key = await args.pickResult("string");
 		const val = await args.repeatResult("string");
 
-		if (key.value !== undefined && val.value !== undefined) {
+		if (key.value && val.value) {
 			guild.set(key.value, val.value.join(" "));
 			await guild.save();
-			return await message.sendTranslated("core:set.updated", [{
+			return message.sendTranslated("core:set.updated", [{
 				key: key.value,
 				val: val.value.join(" ")
 			}]);
 		}
 		let out;
-		out += "```md"
-		for (const [key, value] of Object.entries(guild.toObject())) {
-			out += `\n[ ${key} ][ ${value} ]`
+		out = "```md";
+		out += this.format(guild.toObject(), 0);
+		out += "```";
+		return message.channel.send(out);
+	}
+
+	format(object, indent) {
+		let toReturn;
+		toReturn = "";
+		for (const [key, value] of Object.entries(object)) {
+			const keyFormat = `${key.charAt(0).toUpperCase()}${key.slice(1)}`;
+			const notMeta = !["_id", "__v"].includes(key);
+			if (typeof value === "object" && notMeta) {
+				const exists = Object.entries(value).length ? "" : "N/A";
+				toReturn += `\n${"  ".repeat(indent)}${keyFormat}: ${exists}`;
+				toReturn += this.format(value, indent + 1);
+			} else if (notMeta) {
+				toReturn += `\n${"  ".repeat(indent)}- ${keyFormat} | ${value}`;
+			}
 		}
-		out += "```"
-		return await message.channel.send(out);
+		return toReturn;
 	}
 };
