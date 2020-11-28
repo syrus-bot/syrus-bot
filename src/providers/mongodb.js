@@ -72,4 +72,8 @@ module.exports = class {
 		}
 		return guild;
 	}
+
+	async guildDelete(id) {
+		await this.GuildSchema.findByIdAndDelete(Number(id)).exec();
+	}
 }
