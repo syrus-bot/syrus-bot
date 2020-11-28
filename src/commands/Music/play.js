@@ -43,7 +43,9 @@ module.exports = class ClientCommand extends SyrusCommand {
 			default:
 				// noop
 		}
-		// TODO: implement embed for playing
+
+		queue.player.infoChannel = queue.player.infoChannel ?? message.channel;
+
 		if (!queue.player.playing) {
 			await queue.start();
 		}
