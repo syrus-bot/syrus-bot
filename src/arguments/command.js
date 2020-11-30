@@ -1,4 +1,3 @@
-const { Constants, DiscordAPIError, GuildMember } = require("discord.js");
 const { Argument } = require("@sapphire/framework");
 const globby = require("globby");
 
