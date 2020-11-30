@@ -1,9 +1,10 @@
 const { SapphireClient } = require("@sapphire/framework");
 const CommandStore = require("./CommandStore");
-const { ClientOptions } = require("discord.js");
 const DB = require("../../providers/mongodb.js")
-const { i18next } = require("i18next");
-const in17n = require("@scp/in17n/register");
+/* eslint-disable no-inline-comments, line-comment-position */
+const { i18next } = require("i18next"); // lgtm [js/unused-local-variable]
+const in17n = require("@scp/in17n/register"); // lgtm [js/unused-local-variable]
+/* eslint-enable no-inline-comments, line-comment-position */
 
 async function fetchPrefix(message) {
 	const guild = await this.settings.guild(message.guild.id);

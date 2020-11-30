@@ -1,5 +1,4 @@
 const SyrusCommand = require("../../lib/structures/SyrusCommand");
-const { Args, CommandOptions } = require("@sapphire/framework");
 const { Timestamp } = require("@sapphire/time-utilities");
 const { MessageEmbed } = require("discord.js");
 

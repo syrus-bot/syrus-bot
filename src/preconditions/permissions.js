@@ -1,4 +1,4 @@
-const { Precondition, UserError } = require("@sapphire/framework");
+const { Precondition } = require("@sapphire/framework");
 const { Permissions } = require("discord.js");
 
 module.exports = class ClientPrecondition extends Precondition {

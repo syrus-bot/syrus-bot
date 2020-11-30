@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const { MongoError, DocumentNotFoundError } = require("mongodb");
 const config = require("../config.json");
 
 const moduleSchema = new mongoose.Schema({
@@ -71,5 +70,9 @@ module.exports = class {
 			return await doc.save()
 		}
 		return guild;
+	}
+
+	async guildDelete(id) {
+		await this.GuildSchema.findByIdAndDelete(Number(id)).exec();
 	}
 }

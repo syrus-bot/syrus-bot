@@ -1,6 +1,5 @@
 const { Client: Lavaqueue } = require("lavaqueue");
 const config = require("../../config.json");
-const { ok, err } = require("@sapphire/framework")
 const { MessageEmbed } = require("discord.js");
 const { Queue } = require("lavaqueue");
 const NODE = config.lavalink;

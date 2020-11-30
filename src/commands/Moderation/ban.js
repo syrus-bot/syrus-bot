@@ -1,5 +1,4 @@
 const SyrusCommand = require("../../lib/structures/SyrusCommand");
-const { Args, CommandOptions } = require("@sapphire/framework");
 const { Permissions } = require("discord.js");
 
 module.exports = class ClientCommand extends SyrusCommand {
@@ -35,7 +34,7 @@ module.exports = class ClientCommand extends SyrusCommand {
 			);
 		}
 		let reason;
-		const parseReason = await args.restResult("string")
+		const parseReason = await args.restResult("string");
 		if (parseReason.value !== undefined) {
 			if (parseReason.value.length > 262) {
 				return message.sendTranslated(
@@ -46,7 +45,7 @@ module.exports = class ClientCommand extends SyrusCommand {
 					}]
 				);
 			}
-			reason = ` | ${reason.value}`;
+			reason = ` | ${parseReason.value}`;
 		} else {
 			reason = "";
 		}

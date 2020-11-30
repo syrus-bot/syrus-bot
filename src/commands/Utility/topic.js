@@ -1,5 +1,4 @@
 const SyrusCommand = require("../../lib/structures/SyrusCommand");
-const { Args, CommandOptions } = require("@sapphire/framework");
 const { Permissions } = require("discord.js");
 
 module.exports = class ClientCommand extends SyrusCommand {
@@ -20,7 +19,7 @@ module.exports = class ClientCommand extends SyrusCommand {
 		if (topic.success) {
 			newtopic = topic.value;
 		} else {
-			newtopic = ""
+			newtopic = "";
 		}
 
 		if (!message.channel.manageable) {
