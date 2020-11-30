@@ -1,5 +1,4 @@
 const SyrusCommand = require("../../lib/structures/SyrusCommand");
-const { Args, CommandOptions } = require("@sapphire/framework");
 
 module.exports = class ClientCommand extends SyrusCommand {
 
@@ -21,7 +20,7 @@ module.exports = class ClientCommand extends SyrusCommand {
 			return message.sendTranslated(
 				"global:commerr.missingparams",
 				[{arg: "song"}]
-			)
+			);
 		}
 
 		const queue = this.client.music.queues.get(message.guild.id);

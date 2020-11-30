@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const { MongoError, DocumentNotFoundError } = require("mongodb");
 const config = require("../config.json");
 
 const moduleSchema = new mongoose.Schema({

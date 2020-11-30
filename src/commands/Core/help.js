@@ -1,12 +1,10 @@
 
 const SyrusCommand = require("../../lib/structures/SyrusCommand");
-const { Args, CommandOptions } = require("@sapphire/framework");
-const { Collection, MessageEmbed, Permissions } = require("discord.js");
+const { MessageEmbed, Permissions } = require("discord.js");
 
 const EMBED_PERMS = new Permissions([
 	Permissions.FLAGS.EMBED_LINKS
 ]);
-const time = 1000 * 60 * 3;
 
 module.exports = class ClientCommand extends SyrusCommand {
 	constructor(context) {

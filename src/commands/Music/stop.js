@@ -1,5 +1,4 @@
 const SyrusCommand = require("../../lib/structures/SyrusCommand");
-const { Args, CommandOptions } = require("@sapphire/framework");
 
 module.exports = class ClientCommand extends SyrusCommand {
 

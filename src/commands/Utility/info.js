@@ -1,5 +1,4 @@
 const SyrusCommand = require("../../lib/structures/SyrusCommand");
-const { Args, CommandOptions } = require("@sapphire/framework");
 const { MessageEmbed, SnowflakeUtil } = require("discord.js");
 
 module.exports = class ClientCommand extends SyrusCommand {
@@ -19,7 +18,7 @@ module.exports = class ClientCommand extends SyrusCommand {
 			day: "2-digit",
 			hour: "2-digit",
 			minute: "2-digit"
-		}
+		};
 	}
 
 	async parseFlags(flags) {
@@ -56,7 +55,7 @@ module.exports = class ClientCommand extends SyrusCommand {
 			.replace(
 				"EARLY_SUPPORTER",
 				"<:early_supporter_badge:755970816243400704>"
-			)
+			);
 	}
 
 	async buildEmbed(target, isMember) {
@@ -78,7 +77,7 @@ module.exports = class ClientCommand extends SyrusCommand {
 				true
 			)
 			.setThumbnail(url)
-			.setFooter(`User ID: ${target.user.id}`)
+			.setFooter(`User ID: ${target.user.id}`);
 		if (isMember) {
 			embed
 				.addField(
@@ -100,9 +99,9 @@ module.exports = class ClientCommand extends SyrusCommand {
 					true
 				)
 				.addField("Nickame", target.displayName, true)
-				.setColor(target.displayHexColor)
+				.setColor(target.displayHexColor);
 		}
-		return embed
+		return embed;
 	}
 
 	async run(message, args) {
@@ -122,7 +121,6 @@ module.exports = class ClientCommand extends SyrusCommand {
 				isMember = true;
 			}
 		}
-
-		message.channel.send(await this.buildEmbed(target, isMember))
+		message.channel.send(await this.buildEmbed(target, isMember));
 	}
 };
