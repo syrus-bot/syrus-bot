@@ -1,5 +1,5 @@
 const SyrusCommand = require("../../lib/structures/SyrusCommand");
-const { MessageEmbed, SnowflakeUtil } = require("discord.js");
+const { MessageEmbed } = require("discord.js");
 
 module.exports = class ClientCommand extends SyrusCommand {
 	constructor(context) {
