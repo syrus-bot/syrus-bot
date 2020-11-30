@@ -31,7 +31,7 @@
 		"@sapphire/decorators": "^1.0.3",
 		"@sapphire/framework": "github:sapphire-project/framework#build",
 		"@sapphire/time-utilities": "^1.2.0",
-		"@scp/in17n": "^1.0.2",
+		"@scp/in17n": "^2.0.1",
 		"bufferutil": "^4.0.2",
 		"discord.js": "github:discordjs/discord.js#master",
 		"globby": "^11.0.1",
