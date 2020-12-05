@@ -14,5 +14,7 @@ process.on("SIGINT", () => {
 process.on("uncaughtException", (error) => {
 	console.log("Uncaught Exception:");
 	console.error(error);
-	process.exit(99);
+	if (process.env.NODE_ENV !== "production") {
+		process.exit(99);
+	}
 });
