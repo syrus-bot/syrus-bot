@@ -35,7 +35,7 @@ function packetHandler(packet) {
 	}
 }
 
-async function eventHandler(inbound) {
+function eventHandler(inbound) {
 	if (inbound.type === "TrackStartEvent") {
 		this.decode(inbound.track).then((track) => {
 			const embed = new MessageEmbed()
@@ -56,6 +56,29 @@ async function eventHandler(inbound) {
 	}
 }
 
+function errorHandler(error) {
+	switch (error.code) {
+		case "ECONNREFUSED":
+			if (!this.failed) {
+				const address = error.address;
+				const port = error.port;
+				console.log(
+					`Lavalink on ${address}:${port} failed. Retrying...`
+				);
+			}
+			this.failed += 1;
+			break;
+		default:
+			// noop
+	}
+}
+
+function readyHandler() {
+	console.log(
+		`Lavalink connected successfully after ${this.failed} attempts.`
+	);
+}
+
 module.exports = class MusicManager extends Lavaqueue {
 	constructor(client) {
 		super({
@@ -69,11 +92,14 @@ module.exports = class MusicManager extends Lavaqueue {
 			send: send
 		});
 		this.client = client;
+		this.failed = 0;
 
 		/* packetHandler updates voice states
 		   eventHandler listens on rotating queue */
 		client.on("raw", packetHandler.bind(this));
 		this.on("event", eventHandler.bind(this));
+		this.on("error", errorHandler.bind(this));
+		this.on("open", readyHandler.bind(this));
 	}
 
 	get(key) {
