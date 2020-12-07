@@ -47,6 +47,11 @@ module.exports = class {
 		this.GuildSchema = this.db.model("Guild", guildSchema);
 	}
 
+	cleanup () {
+		console.log("Disconnecting from the database...");
+		this.db.close();
+	}
+
 	async global() {
 		const collection = this.db.collection("global");
 		const global = await collection.findOne({_id: 0});
