@@ -57,19 +57,15 @@ function eventHandler(inbound) {
 }
 
 function errorHandler(error) {
-	switch (error.code) {
-		case "ECONNREFUSED":
-			if (!this.failed) {
-				const address = error.address;
-				const port = error.port;
-				console.log(
-					`Lavalink on ${address}:${port} failed. Retrying...`
-				);
-			}
-			this.failed += 1;
-			break;
-		default:
-			// noop
+	if (["ECONNREFUSED", "ENOTFOUND"].includes(error.code)) {
+		if (!this.failed) {
+			const address = error.address;
+			const port = error.port;
+			console.log(
+				`Lavalink on ${address}:${port} failed. Retrying...`
+			);
+		}
+		this.failed += 1;
 	}
 }
 
