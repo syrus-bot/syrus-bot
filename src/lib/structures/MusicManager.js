@@ -35,25 +35,53 @@ function packetHandler(packet) {
 	}
 }
 
-async function eventHandler(inbound) {
-	if (inbound.type === "TrackStartEvent") {
-		this.decode(inbound.track).then((track) => {
-			const embed = new MessageEmbed()
-				.setTitle("Now playing...")
-				.setDescription(
-					`[${track.author} | ${track.title}](${track.uri})`
-				);
-			this.queues.get(inbound.guildId)
-				.player.infoChannel.send(embed);
-		});
+function eventHandler(inbound) {
+	switch (inbound.type) {
+		case "TrackStartEvent": {
+			this.decode(inbound.track).then((track) => {
+				const embed = new MessageEmbed()
+					.setTitle("Now playing...")
+					.setDescription(
+						`[${track.author} | ${track.title}](${track.uri})`
+					);
+				this.queues.get(inbound.guildId).player.infoChannel.send(embed);
+			});
+			break;
+		}
+		case "TrackEndEvent": {
+			const queue = this.queues.get(inbound.guildId);
+			queue.length().then((length) => {
+				if (!length) {
+					const embed = new MessageEmbed()
+						.setTitle("Queue finished...");
+					queue.player.infoChannel.send(embed);
+				}
+			});
+			break;
+		}
+		default: {
+			// noop
+		}
 	}
-	const finished = ["STOPPED", "FINISHED"].includes(inbound.reason);
-	if (inbound.type === "TrackEndEvent" && finished) {
-		const embed = new MessageEmbed()
-			.setTitle("Queue finished...");
-		this.queues.get(inbound.guildId)
-			.player.infoChannel.send(embed);
+}
+
+function errorHandler(error) {
+	if (["ECONNREFUSED", "ENOTFOUND"].includes(error.code)) {
+		if (!this.failed) {
+			const address = error.address;
+			const port = error.port;
+			console.log(
+				`Lavalink on ${address}:${port} failed. Retrying...`
+			);
+		}
+		this.failed += 1;
 	}
+}
+
+function readyHandler() {
+	console.log(
+		`Lavalink connected successfully after ${this.failed} attempts.`
+	);
 }
 
 module.exports = class MusicManager extends Lavaqueue {
@@ -69,11 +97,14 @@ module.exports = class MusicManager extends Lavaqueue {
 			send: send
 		});
 		this.client = client;
+		this.failed = 0;
 
 		/* packetHandler updates voice states
 		   eventHandler listens on rotating queue */
 		client.on("raw", packetHandler.bind(this));
 		this.on("event", eventHandler.bind(this));
+		this.on("error", errorHandler.bind(this));
+		this.on("open", readyHandler.bind(this));
 	}
 
 	get(key) {
