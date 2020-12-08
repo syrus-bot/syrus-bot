@@ -36,23 +36,32 @@ function packetHandler(packet) {
 }
 
 function eventHandler(inbound) {
-	if (inbound.type === "TrackStartEvent") {
-		this.decode(inbound.track).then((track) => {
-			const embed = new MessageEmbed()
-				.setTitle("Now playing...")
-				.setDescription(
-					`[${track.author} | ${track.title}](${track.uri})`
-				);
-			this.queues.get(inbound.guildId)
-				.player.infoChannel.send(embed);
-		});
-	}
-	const finished = ["STOPPED", "FINISHED"].includes(inbound.reason);
-	if (inbound.type === "TrackEndEvent" && finished) {
-		const embed = new MessageEmbed()
-			.setTitle("Queue finished...");
-		this.queues.get(inbound.guildId)
-			.player.infoChannel.send(embed);
+	switch (inbound.type) {
+		case "TrackStartEvent": {
+			this.decode(inbound.track).then((track) => {
+				const embed = new MessageEmbed()
+					.setTitle("Now playing...")
+					.setDescription(
+						`[${track.author} | ${track.title}](${track.uri})`
+					);
+				this.queues.get(inbound.guildId).player.infoChannel.send(embed);
+			});
+			break;
+		}
+		case "TrackEndEvent": {
+			const queue = this.queues.get(inbound.guildId);
+			queue.length().then((length) => {
+				if (!length) {
+					const embed = new MessageEmbed()
+						.setTitle("Queue finished...");
+					queue.player.infoChannel.send(embed);
+				}
+			});
+			break;
+		}
+		default: {
+			// noop
+		}
 	}
 }
 
