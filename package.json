@@ -31,7 +31,7 @@
 		"@sapphire/decorators": "^1.0.3",
 		"@sapphire/framework": "github:sapphire-project/framework#build",
 		"@sapphire/time-utilities": "^1.2.0",
-		"@scp/in17n": "^1.0.2",
+		"@scp/in17n": "^2.0.1",
 		"bufferutil": "^4.0.2",
 		"discord.js": "github:discordjs/discord.js#master",
 		"globby": "^11.0.1",
@@ -56,10 +56,10 @@
 		"@semantic-release/git": "^9.0.0",
 		"commitizen": "^4.2.2",
 		"cz-conventional-changelog": "^3.3.0",
-		"eslint": "^7.13.0",
+		"eslint": "^7.14.0",
 		"eslint-plugin-json": "^2.1.2",
 		"husky": "^4.3.0",
-		"semantic-release": "^17.2.4"
+		"semantic-release": "^17.3.0"
 	},
 	"config": {
 		"commitizen": {
