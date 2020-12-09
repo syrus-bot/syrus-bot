@@ -13,8 +13,7 @@ module.exports = class ClientCommand extends SyrusCommand {
 		const myVoice = message.guild.me.voice;
 		if (theirVoice.channelID !== myVoice.channelID) {
 			return message.sendTranslated(
-				"music:reqsamechannel",
-				[{channel: theirVoice.channel.name}]
+				"music:reqsamechannel"
 			)
 		}
 
@@ -24,7 +23,7 @@ module.exports = class ClientCommand extends SyrusCommand {
 		await queue.player.destroy();
 		return message.sendTranslated(
 			"music:disconnect.disconnected",
-			[{channel: theirVoice.channel.name}]
+			[{channel: myVoice.channel.name}]
 		);
 	}
 };
