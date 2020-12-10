@@ -50,6 +50,9 @@ function eventHandler(inbound) {
 		}
 		case "TrackEndEvent": {
 			const queue = this.queues.get(inbound.guildId);
+			if (queue.player.infoChannel === undefined) {
+				break;
+			}
 			queue.length().then((length) => {
 				if (!length) {
 					const embed = new MessageEmbed()
