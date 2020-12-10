@@ -11,6 +11,9 @@ const guildSchema = new mongoose.Schema({
 	_id: Number,
 	prefix: String,
 	language: String,
+	djRoles: [Number],
+	modRoles: [Number],
+	adminRoles: [Number],
 	modules: {
 		core: {type: moduleSchema},
 		music: {type: moduleSchema},
