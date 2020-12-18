@@ -4,7 +4,8 @@
     "color": "14891321",
     "shards": 1,
     "owners": [
-        "186882941966614528"
+        "186882941966614528",
+        "234464614996246529"
     ],
     "lavalink": {
         "nodes": [ 
@@ -15,12 +16,15 @@
                 "password": "sosecure" 
             }
         ]
-    }
+    },
     "database": {
         "host": "localhost",
         "port": 27012,
         "base": "syrus",
         "user": "",
         "pass": ""
+    },
+    "tokens": {
+        "ksoftsi": ""
     }
 }
