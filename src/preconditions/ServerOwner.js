@@ -1,9 +1,16 @@
 const { Precondition } = require("@sapphire/framework");
 
 module.exports = class ClientPrecondition extends Precondition {
-	run(message) {
-		// TODO: add cascade for bot owners
-		const isOwner = message.author.id === message.guild.ownerID;
+	async run(message) {
+		const config = await this.client.settings.guild(message.guild.id);
+		let isOwner;
+		isOwner = message.author.id === message.guild.ownerID;
+		if (!isOwner) {
+			isOwner = await this.client.preconditions.find((precondition) => {
+				return precondition.name === "Owner";
+			}).run(message);
+			isOwner = isOwner.success;
+		}
 		return isOwner ? this.ok() : this.err(
 			this.name,
 			"Only my masters are allowed to execute this command."
