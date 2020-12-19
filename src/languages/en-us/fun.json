@@ -4,5 +4,49 @@
 	},
 	"sus": {
 		"description": "That user's looking kinda sus, don't you think?"
+	},
+	"8ball": {
+		"description": "Ask the all-knowing Magic 8 Ball your burning yes/no questions.",
+		"no-q-err": {
+			"title": "The Magic 8 Ball needs a question, otherwise it's useless!",
+			"description": "Maybe add a question and try again?"
+		}
+	},
+	"clap": {
+		"description": "Send 👏 a 👏 message 👏 like 👏 this.",
+		"no-msg-err": "Do you just want me to send an empty message? I'd add a message to *clap* if I were you."
+	},
+	"owoify": {
+		"description": "Owoify a message wike ffis!",
+		"no-msg-err": "Come on, you're ruining it by not adding a message to owoify!"
+	},
+	"fortune": {
+		"description": "It's like opening a fortune cookie, but on Discord, I guess."
+	},
+	"dadjoke": {
+		"description": "Get a random dad joke."
+	},
+	"wikihow": {
+		"description": "Get a random, out of context image from a random WikiHow article."
+	},
+	"minesweeper": {
+		"description": "Play a good ol' game of Minesweeper.",
+		"embed": {
+			"title": "New Minesweeper Game",
+			"description": "Use reactions to choose from the difficulties shown below for this game!",
+			"easy": {
+				"title": "🇦 - Easy",
+				"description": "This difficulty has a 9x9 grid with 10 mines."
+			},
+			"hard": {
+				"title": "🇧 - Hard",
+				"description": "This difficulty has a 14x14 grid with 40 mines."
+			},
+			"expert": {
+				"title": "🇨 - Expert",
+				"description": "This difficulty has a 22x22 grid with 99 mines."
+			}
+		},
+		"generating": "Generating your Minesweeper game... Good luck!"
 	}
 }
