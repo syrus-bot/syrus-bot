@@ -37,4 +37,4 @@ module.exports = class ClientPrecondition extends Precondition {
 			"The bot or user is missing permissions to run this command."
 		);
 	}
-}
+};
