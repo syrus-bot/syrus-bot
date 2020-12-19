@@ -34,6 +34,7 @@
 		"@scp/in17n": "^1.0.2",
 		"bufferutil": "^4.0.2",
 		"discord.js": "github:discordjs/discord.js#master",
+		"discord.js-minesweeper": "^1.0.6",
 		"globby": "^11.0.1",
 		"got": "^11.8.0",
 		"i18next": "^19.8.4",
