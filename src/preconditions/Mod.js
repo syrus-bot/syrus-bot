@@ -6,15 +6,21 @@ module.exports = class ClientPrecondition extends Precondition {
 	}
 
 	async run(message) {
-		// TODO: add cascade for admin
 		const config = await this.client.settings.guild(message.guild.id);
-		const isMod = this.checkRoles(
+		let isMod;
+		isMod = this.checkRoles(
 			message.member.roles.cache,
 			config.modRoles
 		);
+		if (!isMod) {
+			isMod = await this.client.preconditions.find((precondition) => {
+				return precondition.name === "Admin";
+			}).run(message);
+			isMod = isMod.success;
+		}
 		return isMod ? this.ok() : this.error(
 			this.name,
 			"Only moderators or higher are allowed to execute that command."
 		);
 	}
-}
+};
