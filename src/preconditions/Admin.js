@@ -6,12 +6,18 @@ module.exports = class ClientPrecondition extends Precondition {
 	}
 
 	async run(message) {
-		// TODO: add cascade for serverowner
 		const config = await this.client.settings.guild(message.guild.id);
-		const isAdmin = this.checkRoles(
+		let isAdmin;
+		isAdmin = this.checkRoles(
 			message.member.roles.cache,
 			config.adminRoles
 		);
+		if (!isAdmin) {
+			isAdmin = await this.client.preconditions.find((precondition) => {
+				return precondition.name === "ServerOwner";
+			}).run(message);
+			isAdmin = isAdmin.success;
+		}
 		return isAdmin ? this.ok() : this.error(
 			this.name,
 			"Only administrators or higher are allowed to execute that command."
