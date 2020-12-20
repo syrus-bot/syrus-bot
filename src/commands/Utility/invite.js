@@ -7,7 +7,7 @@ module.exports = class ClientCommand extends SyrusCommand {
 			name: "invite",
 			aliases: ["ci", "crinv"],
 			description: "utilities:invite.description",
-			preconditions: ["GuildOnly", {entry: "permissions", context: {
+			preconditions: ["GuildOnly", {entry: "Permissions", context: {
 				permissions: new Permissions(
 					Permissions.FLAGS.CREATE_INSTANT_INVITE
 				)

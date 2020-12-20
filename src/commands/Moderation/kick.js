@@ -6,7 +6,7 @@ module.exports = class ClientCommand extends SyrusCommand {
 		super(context, {
 			name: "kick",
 			description: "moderation:kick.description",
-			preconditions: ["GuildOnly", {entry: "permissions", context: {
+			preconditions: ["GuildOnly", {entry: "Permissions", context: {
 				permissions: new Permissions(Permissions.FLAGS.KICK_MEMBERS)
 			}}]
 		});

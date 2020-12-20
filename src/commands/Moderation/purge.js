@@ -7,7 +7,7 @@ module.exports = class ClientCommand extends SyrusCommand {
 			name: "purge",
 			aliases: ["cleanup", "prune"],
 			description: "moderation:purge.description",
-			preconditions: ["GuildOnly", {entry: "permissions", context: {
+			preconditions: ["GuildOnly", {entry: "Permissions", context: {
 				permissions: new Permissions(Permissions.FLAGS.MANAGE_MESSAGES)
 			}}]
 		});

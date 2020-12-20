@@ -7,7 +7,7 @@ module.exports = class ClientCommand extends SyrusCommand {
 			name: "role",
 			aliases: ["r", "ro"],
 			description: "utilities:role.description",
-			preconditions: ["GuildOnly", {entry: "permissions", context: {
+			preconditions: ["GuildOnly", {entry: "Permissions", context: {
 				permissions: new Permissions(Permissions.FLAGS.MANAGE_ROLES)
 			}}]
 		});
