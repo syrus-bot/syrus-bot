@@ -5,7 +5,7 @@ module.exports = class ClientCommand extends SyrusCommand {
 		super(context, {
 			name: "kill",
 			description: "core:kill.description",
-			preconditions: ["owner"]
+			preconditions: ["Owner"]
 		});
 	}
 
