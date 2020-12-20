@@ -1,8 +1,6 @@
 const { SapphireClient } = require("@sapphire/framework");
 const CommandStore = require("./CommandStore");
 const DB = require("../../providers/mongodb.js");
-const MusicManager = require("./MusicManager.js");
-
 /* eslint-disable no-inline-comments, line-comment-position */
 const { i18next } = require("i18next"); // lgtm [js/unused-local-variable]
 const in17n = require("@scp/in17n/register"); // lgtm [js/unused-local-variable]
@@ -27,7 +25,7 @@ async function fetchLanguage(message) {
 }
 
 module.exports = class SyrusClient extends SapphireClient {
-	constructor(options, config) {
+	constructor(options) {
 		super({
 			...options,
 			i18n: {
@@ -56,15 +54,5 @@ module.exports = class SyrusClient extends SapphireClient {
 
 		this.once("ready", this.connectMusic.bind(this, config));
 		this.once("ready", this.connectMongo.bind(this, config));
-	}
-
-	connectMusic(config) {
-		this.music = new MusicManager(this, config);
-	}
-
-	connectMongo(config) {
-		const { user, pass, host, port, base } = config.database;
-		const mongo = `mongodb://${user}:${pass}@${host}:${port}/${base}`;
-		this.settings = new DB(mongo, config);
 	}
 };

@@ -1,6 +1,5 @@
 const SyrusCommand = require("../../lib/structures/SyrusCommand");
 const util = require("util");
-const { performance, PerformanceObserver } = require("perf_hooks");
 
 module.exports = class ClientCommand extends SyrusCommand {
 	constructor(context) {
