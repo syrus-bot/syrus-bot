@@ -2,7 +2,6 @@ const { Precondition } = require("@sapphire/framework");
 
 module.exports = class ClientPrecondition extends Precondition {
 	async run(message) {
-		const config = await this.client.settings.guild(message.guild.id);
 		let isOwner;
 		isOwner = message.author.id === message.guild.ownerID;
 		if (!isOwner) {
