@@ -19,7 +19,6 @@
 */
 
 const SyrusCommand = require("../../lib/structures/SyrusCommand");
-const { Args, CommandOptions } = require("@sapphire/framework");
 
 function owoify(message) {
 	const splitted = message

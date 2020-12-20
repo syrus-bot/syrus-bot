@@ -19,16 +19,15 @@
 */
 
 const SyrusCommand = require("../../lib/structures/SyrusCommand");
-const { Args, CommandOptions } = require("@sapphire/framework");
 const { DiscordAPIError } = require("discord.js");
 
-function clapWord(word) {
-	const splitted = word.split("");
-	return splitted.join(" 👏 ").replace(/@/g, "@\u200b");
-}
-
-function clapMessage(message) {
-	const splitted = message.split(" ");
+function clapMessage(content) {
+	let splitted;
+	if (!/\s/.test(content.trim())) {
+		splitted = content.split("");
+	} else {
+		splitted = content.split(" ");
+	}
 	return splitted.join(" 👏 ").replace(/@/g, "@\u200b");
 }
 
@@ -47,15 +46,6 @@ module.exports = class ClientCommand extends SyrusCommand {
 			return message.channel.send(
 				await message.fetchLanguageKey("fun:clap.no-msg-err")
 			);
-		}
-		if (!/\s/.test(messageToClap.value.trim())) {
-			try {
-				return message.channel.send(clapWord(messageToClap.value));
-			} catch (error) {
-				if (error instanceof DiscordAPIError) {
-					return message.sendTranslated("global:toolong");
-				}
-			}
 		}
 		try {
 			return message.channel.send(clapMessage(messageToClap.value));

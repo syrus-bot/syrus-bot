@@ -19,10 +19,9 @@
 */
 
 const SyrusCommand = require("../../lib/structures/SyrusCommand");
-const { Args, CommandOptions } = require("@sapphire/framework");
 const { MessageEmbed } = require("discord.js");
-const answers = [
-	"It is certian.",
+const ANSWERS = [
+	"It is certain.",
 	"It is decidedly so.",
 	"Without a doubt.",
 	"Yes, definitely.",
@@ -67,7 +66,7 @@ module.exports = class ClientCommand extends SyrusCommand {
 					))
 			)
 		}
-		const answer = answers[Math.floor(Math.random() * answers.length)];
+		const answer = ANSWERS[Math.floor(Math.random() * ANSWERS.length)];
 		message.channel.send(
 			new MessageEmbed()
 				.setColor("#57309D")

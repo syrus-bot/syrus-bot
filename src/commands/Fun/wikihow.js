@@ -19,7 +19,6 @@
 */
 
 const SyrusCommand = require("../../lib/structures/SyrusCommand");
-const { Args, CommandOptions } = require("@sapphire/framework");
 const config = require("../../config.json");
 const got = require("got");
 const { MessageEmbed, MessageAttachment } = require("discord.js")
