@@ -44,7 +44,7 @@
 		"mongoose": "^5.11.8",
 		"package.json": "^2.0.1",
 		"types": "^0.1.1",
-		"websocket": "^1.0.32",
+		"websocket": "^1.0.33",
 		"ws": "^7.4.1"
 	},
 	"directories": {
@@ -59,12 +59,8 @@
 		"cz-conventional-changelog": "^3.3.0",
 		"eslint": "^7.14.0",
 		"eslint-plugin-json": "^2.1.2",
-		"husky": "^4.3.5",
-		"mocha": "^8.2.1",
-		"mongodb-memory-server": "^6.9.2",
-		"nyc": "^15.1.0",
-		"semantic-release": "^17.3.0",
-		"sinon": "^9.2.2"
+		"husky": "^4.3.6",
+		"semantic-release": "^17.3.0"
 	},
 	"config": {
 		"commitizen": {
