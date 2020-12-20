@@ -5,8 +5,10 @@ module.exports = class ClientPrecondition extends Precondition {
 		return roles.some((role) => against.includes(role.id));
 	}
 
-	async run(message) {
-		const config = await this.client.settings.guild(message.guild.id);
+	async run(message, conf) {
+		const config = conf ?? await this.client.settings.guild(
+			message.guild.id
+		);
 		let isAdmin;
 		isAdmin = this.checkRoles(
 			message.member.roles.cache,
