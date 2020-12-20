@@ -20,4 +20,4 @@ module.exports = class ClientCommand extends SyrusCommand {
 				lastMessage.pin();
 			});
 	}
-}
+};

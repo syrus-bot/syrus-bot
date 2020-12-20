@@ -19,4 +19,4 @@ module.exports = class ClientArgument extends Argument {
 			"The argument did not resolve to a category."
 		);
 	}
-}
+};

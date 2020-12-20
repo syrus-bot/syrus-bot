@@ -35,4 +35,4 @@ module.exports = class ClientCommand extends SyrusCommand {
 			[{commandName: command.value.name}]
 		);
 	}
-}
+};

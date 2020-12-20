@@ -14,7 +14,7 @@ module.exports = class ClientCommand extends SyrusCommand {
 		if (theirVoice.channelID !== myVoice.channelID) {
 			return message.sendTranslated(
 				"music:reqsamechannel"
-			)
+			);
 		}
 
 		const queue = this.client.music.queues.get(message.guild.id);

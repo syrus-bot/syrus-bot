@@ -10,8 +10,8 @@ module.exports = class ClientCommand extends SyrusCommand {
 	}
 
 	async run(message, args) {
-		await message.sendTranslated("core:kill.shutdown")
-		this.client.destroy()
+		await message.sendTranslated("core:kill.shutdown");
+		this.client.destroy();
 		process.exit();
 	}
-}
+};

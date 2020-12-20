@@ -75,7 +75,7 @@ module.exports = class {
 		const guild = await this.GuildSchema.findById(Number(id)).exec();
 		if (guild === null) {
 			const doc = new this.GuildSchema({_id: Number(id)});
-			return await doc.save()
+			return await doc.save();
 		}
 		return guild;
 	}
@@ -83,4 +83,4 @@ module.exports = class {
 	async guildDelete(id) {
 		await this.GuildSchema.findByIdAndDelete(Number(id)).exec();
 	}
-}
+};

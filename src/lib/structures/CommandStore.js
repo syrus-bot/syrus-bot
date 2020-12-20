@@ -28,5 +28,4 @@ module.exports = class SyrusCommandStore extends BaseAliasStore {
 	get categories() {
 		return Array.from(new Set(this.map((command) => command.category)));
 	}
-
-}
+};

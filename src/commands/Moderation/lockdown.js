@@ -22,4 +22,4 @@ module.exports = class ClientCommand extends SyrusCommand {
 			[{channel: `<#${message.channel.id}>`}]
 		);
 	}
-}
+};

@@ -1,5 +1,5 @@
 const SyrusCommand = require("../../lib/structures/SyrusCommand");
-const util = require("util")
+const util = require("util");
 
 module.exports = class ClientCommand extends SyrusCommand {
 	constructor(context) {
@@ -12,15 +12,17 @@ module.exports = class ClientCommand extends SyrusCommand {
 	}
 
 	async run(message, args) {
-		const tokenRegex = new RegExp(`${this.client.token.split("").join("[^]{0,2}")}|${this.client.token.split("").reverse()
-			.join("[^]{0,2}")}`)
+		const token = this.client.token.split("");
+		const tokenRegex = new RegExp(
+			`${token.join("[^]{0,2}")}|${token.reverse().join("[^]{0,2}")}`
+		);
+
 		function clean(text) {
 			if (typeof text === "string") {
 				return text.replace(/`/g, `\`${String.fromCharCode(8203)}`).replace(/@/g, `@${String.fromCharCode(8203)}`)
 					.replace(tokenRegex, "[TOKEN]");
 			}
 			return text;
-
 		}
 
 		try {
@@ -38,6 +40,5 @@ module.exports = class ClientCommand extends SyrusCommand {
 		} catch (err) {
 			message.channel.send(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);
 		}
-
 	}
-}
+};

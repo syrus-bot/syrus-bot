@@ -59,7 +59,7 @@ module.exports = class ClientCommand extends SyrusCommand {
 	}
 
 	async buildEmbed(target, isMember) {
-		const url = target.user.avatarURL({format: "png", dynamic: true})
+		const url = target.user.avatarURL({format: "png", dynamic: true});
 		const flags = await this.parseFlags(target.user.flags);
 		const embed = new MessageEmbed()
 			.setAuthor(

@@ -115,7 +115,7 @@ module.exports = class MusicManager extends Lavaqueue {
 		queue = super.get(key);
 		if (!queue) {
 			queue = new Queue(this, key);
-			this.set(key, queue)
+			this.set(key, queue);
 		}
 		return queue;
 	}
@@ -131,4 +131,4 @@ module.exports = class MusicManager extends Lavaqueue {
 		}
 		return this.load(finder);
 	}
-}
+};

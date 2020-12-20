@@ -27,4 +27,4 @@ module.exports = class ClientCommand extends SyrusCommand {
 		await poll.react("👎");
 		await poll.react("🤷");
 	}
-}
+};
