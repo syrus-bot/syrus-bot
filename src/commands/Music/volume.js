@@ -1,7 +1,6 @@
 const SyrusCommand = require("../../lib/structures/SyrusCommand");
 
 module.exports = class ClientCommand extends SyrusCommand {
-
 	constructor(context) {
 		super(context, {
 			name: "volume",

@@ -33,12 +33,12 @@ module.exports = class ClientCommand extends SyrusCommand {
 				await message.fetchLanguageKey("music:np.time"),
 				`${position} / ${duration}`,
 				true
-			)
+			);
 
 		/*
 			TODO: Add information about who requested the song,
 			and the thumbnail
 		*/
-		return message.channel.send(embed)
+		return message.channel.send(embed);
 	}
 };

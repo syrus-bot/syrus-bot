@@ -18,7 +18,7 @@ module.exports = class ClientCommand extends SyrusCommand {
 		} else {
 			target = message.member;
 		}
-		const url = target.user.avatarURL({format: "png", dynamic: true})
+		const url = target.user.avatarURL({format: "png", dynamic: true});
 		message.channel.send(
 			new MessageEmbed()
 				.setColor("#34eb7d")
@@ -27,4 +27,4 @@ module.exports = class ClientCommand extends SyrusCommand {
 				.setImage(url)
 		);
 	}
-}
+};

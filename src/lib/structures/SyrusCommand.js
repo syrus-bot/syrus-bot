@@ -16,4 +16,4 @@ module.exports = class SyrusCommand extends Command {
 		this.category = folder[folder.length - 1];
 		this.usage = options.usage ?? `${this.name} [...args]`;
 	}
-}
+};

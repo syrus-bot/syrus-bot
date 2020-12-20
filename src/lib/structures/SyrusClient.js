@@ -1,6 +1,6 @@
 const { SapphireClient } = require("@sapphire/framework");
 const CommandStore = require("./CommandStore");
-const DB = require("../../providers/mongodb.js")
+const DB = require("../../providers/mongodb.js");
 /* eslint-disable no-inline-comments, line-comment-position */
 const { i18next } = require("i18next"); // lgtm [js/unused-local-variable]
 const in17n = require("@scp/in17n/register"); // lgtm [js/unused-local-variable]
@@ -24,7 +24,7 @@ async function fetchLanguage(message) {
 	return global.language;
 }
 
-class SyrusClient extends SapphireClient {
+module.exports = class SyrusClient extends SapphireClient {
 	constructor(options) {
 		super({
 			...options,
@@ -52,5 +52,4 @@ class SyrusClient extends SapphireClient {
 		this.fetchPrefix = fetchPrefix.bind(this);
 		this.fetchLanguage = fetchLanguage.bind(this);
 	}
-}
-module.exports = SyrusClient
+};
