@@ -1,9 +1,6 @@
 const { Client: Lavaqueue } = require("lavaqueue");
-const config = require("../../config.json");
 const { MessageEmbed } = require("discord.js");
 const { Queue } = require("lavaqueue");
-const NODE = config.lavalink;
-const REDIS = config.redis;
 
 function send(guildID, packet) {
 	if (this.client.guilds.cache) {
@@ -88,14 +85,16 @@ function readyHandler() {
 }
 
 module.exports = class MusicManager extends Lavaqueue {
-	constructor(client) {
+	constructor(client, config) {
+		// TODO: add default configuration
+		const node = config.lavalink;
 		super({
 			userID: client.user.id,
-			password: NODE.password,
+			password: node.password,
 			hosts: {
-				rest: `http${NODE.ssl}://${NODE.host}:${NODE.port}`,
-				ws: `ws${NODE.ssl}://${NODE.host}:${NODE.port}`,
-				redis: REDIS
+				rest: `http${node.ssl}://${node.host}:${node.port}`,
+				ws: `ws${node.ssl}://${node.host}:${node.port}`,
+				redis: config.redis
 			},
 			send: send
 		});
