@@ -53,7 +53,9 @@ module.exports = class SyrusClient extends SapphireClient {
 		this.music = null;
 		this.settings = null;
 		this.registerStore(this.commands);
-		this.settings = new DB(undefined, config);
+		const { user, pass, host, port, base } = config.database;
+		const mongo = `mongodb://${user}:${pass}@${host}:${port}/${base}`;
+		this.settings = new DB(mongo, config);
 
 		this.fetchPrefix = fetchPrefix.bind(this);
 		this.fetchLanguage = fetchLanguage.bind(this);

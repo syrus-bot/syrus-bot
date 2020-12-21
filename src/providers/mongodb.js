@@ -40,20 +40,12 @@ const defaultConfig = {
 module.exports = class {
 	constructor(uri, config) {
 		this.config = config ?? defaultConfig;
-		const connection = {
-			host: this.config.database.host,
-			port: this.config.database.port,
-			data: this.config.database.base,
-			user: this.config.database.user,
-			pass: this.config.database.pass,
-			options: {
+		this.db = mongoose.createConnection(
+			uri,
+			{
 				useNewUrlParser: true,
 				useUnifiedTopology: true
 			}
-		};
-		this.db = mongoose.createConnection(
-			uri ?? `mongodb://${connection.user}:${connection.pass}@${connection.host}:${connection.port}/${connection.data}`,
-			connection.options
 		);
 		this.db.startSession();
 		this.db.on("connected", () => {
