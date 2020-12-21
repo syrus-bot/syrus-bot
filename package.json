@@ -60,7 +60,10 @@
 		"eslint": "^7.14.0",
 		"eslint-plugin-json": "^2.1.2",
 		"husky": "^4.3.5",
-		"semantic-release": "^17.3.0"
+		"mocha": "^8.2.1",
+		"nyc": "^15.1.0",
+		"semantic-release": "^17.3.0",
+		"sinon": "^9.2.2"
 	},
 	"config": {
 		"commitizen": {
