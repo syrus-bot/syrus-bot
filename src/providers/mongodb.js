@@ -27,7 +27,7 @@ const guildSchema = new mongoose.Schema({
 });
 
 module.exports = class {
-	constructor(...args) {
+	constructor(uri) {
 		const connection = {
 			host: config.database.host,
 			port: config.database.port,
@@ -40,7 +40,7 @@ module.exports = class {
 			}
 		};
 		this.db = mongoose.createConnection(
-			`mongodb://${connection.user}:${connection.pass}@${connection.host}:${connection.port}/${connection.data}`,
+			uri ?? `mongodb://${connection.user}:${connection.pass}@${connection.host}:${connection.port}/${connection.data}`,
 			connection.options
 		);
 		this.db.startSession();
