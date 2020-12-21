@@ -25,14 +25,27 @@ const guildSchema = new mongoose.Schema({
 	}
 });
 
+const defaultConfig = {
+	database: {
+		host: "127.0.0.1",
+		port: "27017",
+		base: "syrus",
+		user: "",
+		pass: ""
+	},
+	prefix: "",
+	token: ""
+};
+
 module.exports = class {
-	constructor(uri) {
+	constructor(uri, config) {
+		this.config = config ?? defaultConfig;
 		const connection = {
-			host: config.database.host,
-			port: config.database.port,
-			data: config.database.base,
-			user: config.database.user,
-			pass: config.database.pass,
+			host: this.config.database.host,
+			port: this.config.database.port,
+			data: this.config.database.base,
+			user: this.config.database.user,
+			pass: this.config.database.pass,
 			options: {
 				useNewUrlParser: true,
 				useUnifiedTopology: true

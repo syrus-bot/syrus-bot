@@ -86,6 +86,7 @@ function readyHandler() {
 
 module.exports = class MusicManager extends Lavaqueue {
 	constructor(client, config) {
+		// TODO: add default configuration
 		const node = config.lavalink;
 		super({
 			userID: client.user.id,
