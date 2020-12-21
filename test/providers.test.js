@@ -3,6 +3,9 @@ const mocha = require("mocha");
 const DB = require("../src/providers/mongodb");
 const mongoose = require("mongoose");
 
+const { MongoMemoryServer } = require("mongodb-memory-server");
+const mongod = new MongoMemoryServer();
+
 const moduleSchema = new mongoose.Schema({
 	enabled: {type: Boolean, default: true},
 	disabledCommands: [String],
@@ -34,7 +37,8 @@ describe("mongodb", function() {
 	let db;
 
 	before(async () => {
-		db = new DB();
+		const uri = await mongod.getUri();
+		db = new DB(uri);
 		db.GuildSchema = db.db.model("MockGuild", guildSchema);
 		db.GuildSchema.createCollection() 
 	});
@@ -46,6 +50,7 @@ describe("mongodb", function() {
 	after(async () => {
 		db.db.dropCollection("mockguilds");
 		db.cleanup();
+		await mongod.stop();
 	});
 
 	it("should instantiate new guild", async () => {
