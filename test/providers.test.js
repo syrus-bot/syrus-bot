@@ -6,31 +6,6 @@ const mongoose = require("mongoose");
 const { MongoMemoryServer } = require("mongodb-memory-server");
 const mongod = new MongoMemoryServer();
 
-const moduleSchema = new mongoose.Schema({
-	enabled: {type: Boolean, default: true},
-	disabledCommands: [String],
-	settings: {}
-});
-
-const guildSchema = new mongoose.Schema({
-	_id: Number,
-	prefix: String,
-	language: String,
-	djRoles: [Number],
-	modRoles: [Number],
-	adminRoles: [Number],
-	modules: {
-		core: {type: moduleSchema},
-		music: {type: moduleSchema},
-		moderation: {type: moduleSchema},
-		automod: {type: moduleSchema},
-		utility: {type: moduleSchema},
-		api: {type: moduleSchema},
-		fun: {type: moduleSchema},
-		info: {type: moduleSchema}
-	}
-});
-
 describe("mongodb", function() {
 	this.slow(50);
 	this.timeout(100);
