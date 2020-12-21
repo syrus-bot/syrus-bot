@@ -64,49 +64,45 @@ describe("mongodb", function() {
 	it("should find existing guild", async () => {
 		const guilds = db.db.collection("mockguilds");
 		const mockGuild = {
-			_id: 1010,
+			_id: 1100,
 			adminRoles: [1011],
 			djRoles: [1001],
 			modRoles: [1000]
 		};
 		await guilds.insertOne(mockGuild);
-		const foundGuild = await db.guild(1010);
+		const foundGuild = await db.guild(1100);
 
 		assert.deepStrictEqual(foundGuild.toObject(), mockGuild);
 	});
 
 	it("should erase guild", async () => {
 		const guilds = db.db.collection("mockguilds");
-		const mockGuild = await db.guild(1010);
+		const mockGuild = await db.guild(1111);
+
 		assert.ok(mockGuild.toObject());
-		const foundGuild = await guilds.findOne({_id: 1010});
-		await db.guildDelete(1010);
-		const noGuild = await guilds.findOne({_id: 1010});
+		
+		const foundGuild = await guilds.findOne({_id: 1111});
+		await db.guildDelete(1111);
+		const noGuild = await guilds.findOne({_id: 1111});
+		
 		assert.notDeepStrictEqual(noGuild, foundGuild);
 	});
 
 	it("should instantiate new global", async () => {
 		const global = db.db.collection("global");
-
-		const oldGlobal = await global.findOneAndDelete({_id: 0});
-		oldGlobal._id = 1010;
-		await global.insertOne(oldGlobal);
 	
 		const mockGlobal = await db.global();
 		const foundGlobal = await global.findOne({_id: 0});
 
-		assert.notDeepStrictEqual(foundGlobal, oldGlobal);
 		assert.deepStrictEqual(foundGlobal, mockGlobal);
-
-		await global.deleteMany({});
-		oldGlobal._id = 0;
-		await global.insertOne(oldGlobal);
 	});
 
 	it("should find existing global", async () => {
 		const global = db.db.collection("global");
+		mockGlobal = {_id: 0, dummyKey: 1111};
+		await global.insertOne(mockGlobal);
 		const foundGlobal = db.global();
 
-		assert.ok(foundGlobal);
+		assert.deepStrictEqual(foundGlobal, mockGlobal);
 	});
 });
