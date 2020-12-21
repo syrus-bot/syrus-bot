@@ -26,14 +26,21 @@ const guildSchema = new mongoose.Schema({
 });
 
 module.exports = class {
-	constructor(uri, config) {
-		this.config = config;
-		this.db = mongoose.createConnection(
-			uri,
-			{
+	constructor(uri) {
+		const connection = {
+			host: config.database.host,
+			port: config.database.port,
+			data: config.database.base,
+			user: config.database.user,
+			pass: config.database.pass,
+			options: {
 				useNewUrlParser: true,
 				useUnifiedTopology: true
 			}
+		};
+		this.db = mongoose.createConnection(
+			uri ?? `mongodb://${connection.user}:${connection.pass}@${connection.host}:${connection.port}/${connection.data}`,
+			connection.options
 		);
 		this.db.startSession();
 		this.db.on("connected", () => {
