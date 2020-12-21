@@ -5,6 +5,7 @@
 	"main": "src/main.js",
 	"scripts": {
 		"start": "npm run lint && cd src && node main",
+		"test": "npx nyc --reporter=lcov mocha --recursive test/**/*.js",
 		"lint": "npx eslint src --ext .json,.js --fix",
 		"gpr": "git pull && npm start",
 		"commit": "git add . && npx git cz"
@@ -72,6 +73,7 @@
 	"husky": {
 		"hooks": {
 			"pre-commit": "npm run lint",
+			"pre-push": "npm run lint && npm test",
 			"commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
 		}
 	},
