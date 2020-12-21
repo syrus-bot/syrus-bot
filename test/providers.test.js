@@ -32,8 +32,8 @@ const guildSchema = new mongoose.Schema({
 });
 
 describe("mongodb", function() {
-	this.slow(1000);
-	this.timeout(2000);
+	this.slow(50);
+	this.timeout(100);
 	let db;
 
 	before(async () => {
