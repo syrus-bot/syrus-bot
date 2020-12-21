@@ -39,22 +39,21 @@ describe("mongodb", function() {
 	before(async () => {
 		const uri = await mongod.getUri();
 		db = new DB(uri);
-		db.GuildSchema = db.db.model("MockGuild", guildSchema);
-		db.GuildSchema.createCollection() 
+		db.GuildSchema.createCollection();
 	});
 
 	beforeEach(async () => {
 		await db.GuildSchema.deleteMany({});
+		await db.db.collection("global").deleteMany({});
 	});
 
 	after(async () => {
-		db.db.dropCollection("mockguilds");
 		db.cleanup();
 		await mongod.stop();
 	});
 
 	it("should instantiate new guild", async () => {
-		const guilds = db.db.collection("mockguilds");
+		const guilds = db.db.collection("guilds");
 		const mockGuild = await db.guild(1010);
 		const foundGuild = await guilds.findOne({_id: 1010});
 
@@ -62,7 +61,7 @@ describe("mongodb", function() {
 	});
 
 	it("should find existing guild", async () => {
-		const guilds = db.db.collection("mockguilds");
+		const guilds = db.db.collection("guilds");
 		const mockGuild = {
 			_id: 1100,
 			adminRoles: [1011],
@@ -76,7 +75,7 @@ describe("mongodb", function() {
 	});
 
 	it("should erase guild", async () => {
-		const guilds = db.db.collection("mockguilds");
+		const guilds = db.db.collection("guilds");
 		const mockGuild = await db.guild(1111);
 
 		assert.ok(mockGuild.toObject());
@@ -101,7 +100,7 @@ describe("mongodb", function() {
 		const global = db.db.collection("global");
 		mockGlobal = {_id: 0, dummyKey: 1111};
 		await global.insertOne(mockGlobal);
-		const foundGlobal = db.global();
+		const foundGlobal = await db.global();
 
 		assert.deepStrictEqual(foundGlobal, mockGlobal);
 	});
