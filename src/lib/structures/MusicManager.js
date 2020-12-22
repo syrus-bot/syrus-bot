@@ -84,16 +84,9 @@ function readyHandler() {
 	);
 }
 
-const defaultConfig = {
-	ssl: "",
-	host: "127.0.0.1",
-	port: "2333",
-	password: ""
-};
-
 module.exports = class MusicManager extends Lavaqueue {
 	constructor(client, config) {
-		const node = config.lavalink ?? defaultConfig;
+		const node = config.lavalink;
 		super({
 			userID: client.user.id,
 			password: node.password,
