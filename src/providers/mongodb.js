@@ -25,21 +25,9 @@ const guildSchema = new mongoose.Schema({
 	}
 });
 
-const defaultConfig = {
-	database: {
-		host: "127.0.0.1",
-		port: "27017",
-		base: "syrus",
-		user: "",
-		pass: ""
-	},
-	prefix: "",
-	token: ""
-};
-
 module.exports = class {
 	constructor(uri, config) {
-		this.config = config ?? defaultConfig;
+		this.config = config;
 		this.db = mongoose.createConnection(
 			uri,
 			{
