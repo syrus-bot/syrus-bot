@@ -11,10 +11,11 @@ describe("mongodb", function() {
 	this.timeout(100);
 	let db;
 
-	before(async () => {
+	before(async function()  {
+		this.timeout(200);
 		const uri = await mongod.getUri();
-		db = new DB(uri);
-		db.GuildSchema.createCollection();
+		db = new DB(uri, {prefix: "", token: ""});
+		await db.GuildSchema.createCollection();
 	});
 
 	beforeEach(async () => {
