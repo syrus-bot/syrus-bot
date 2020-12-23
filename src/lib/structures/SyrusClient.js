@@ -25,10 +25,6 @@ async function fetchLanguage(message) {
 	return global.language;
 }
 
-async function connectMusic(config) {
-	this.music = new MusicManager(this, config);
-}
-
 module.exports = class SyrusClient extends SapphireClient {
 	constructor(options, config) {
 		super({
@@ -51,14 +47,23 @@ module.exports = class SyrusClient extends SapphireClient {
 		this.commands = new CommandStore(this)
 			.registerPath(`${process.cwd()}/commands/`);
 		this.music = null;
+		this.settings = null;
 		this.registerStore(this.commands);
-		const { user, pass, host, port, base } = config.database;
-		const mongo = `mongodb://${user}:${pass}@${host}:${port}/${base}`;
-		this.settings = new DB(mongo, config);
 
 		this.fetchPrefix = fetchPrefix.bind(this);
 		this.fetchLanguage = fetchLanguage.bind(this);
 
-		this.once("ready", connectMusic.bind(this, config));
+		this.once("ready", this.connectMusic.bind(this, config));
+		this.once("ready", this.connectMongo.bind(this, config));
+	}
+
+	connectMusic(config) {
+		this.music = new MusicManager(this, config);
+	}
+
+	connectMongo(config) {
+		const { user, pass, host, port, base } = config.database;
+		const mongo = `mongodb://${user}:${pass}@${host}:${port}/${base}`;
+		this.settings = new DB(mongo, config);
 	}
 };
