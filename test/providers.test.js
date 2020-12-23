@@ -11,8 +11,8 @@ describe("mongodb", function() {
 	this.timeout(100);
 	let db;
 
-	before(async function()  {
-		this.timeout(200);
+	before(async function() {
+		this.timeout(null);
 		const uri = await mongod.getUri();
 		db = new DB(uri, {prefix: "", token: ""});
 		await db.GuildSchema.createCollection();
