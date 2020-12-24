@@ -18,8 +18,8 @@ function getCommand(context, options, constructor, store) {
 	}, options);
 }
 
-describe("command framework", function () {
-	describe("store", function () {
+describe("command framework", () => {
+	describe("store", () => {
 		afterEach(execAfterEach);
 
 		it("should instantiate", () => {
@@ -47,7 +47,7 @@ describe("command framework", function () {
 				[["mockOne", "MockCategoryOne"],
 				 ["mockTwo", "MockCategoryOne"],
 				 ["mockThree", "MockCategoryTwo"]],
-				x => store.insert(getCommand({
+				(x) => store.insert(getCommand({
 					name: x[0],
 					path: `/opt/Syrus/commands/${x[1]}/${x[0]}.js`
 				}, {}, SyrusCommand, store))
@@ -65,7 +65,7 @@ describe("command framework", function () {
 				[["mockOne", "MockCategoryOne"],
 				 ["mockTwo", "MockCategoryOne"],
 				 ["mockThree", "MockCategoryTwo"]],
-				x => getCommand({
+				(x) => getCommand({
 					name: x[0],
 					path: `/opt/Syrus/commands/${x[1]}/${x[0]}.js`
 				}, {}, SyrusCommand, store)
@@ -77,35 +77,38 @@ describe("command framework", function () {
 			const two = Array.from(store.fetchCategory("MockCategoryOne"));
 			const one = Array.from(store.fetchCategory("MockCategoryTwo"));
 			assert.deepStrictEqual(nil, undefined);
-			assert.deepStrictEqual(two, 
+			assert.deepStrictEqual(two,
 				[[pieces[0].name, pieces[0]],
 				 [pieces[1].name, pieces[1]]]
 			);
 			assert.deepStrictEqual(one, [[pieces[2].name, pieces[2]]]);
 		});
 
-		it("should resolve all categories", () => {	
+		it("should resolve all categories", () => {
 			const MockStore = sinon.spy(CommandStore);
 			const store = new MockStore(sinon.fake());
 			const pieces = Array.from(
 				[["mockOne", "MockCategoryOne"],
 				 ["mockTwo", "MockCategoryOne"],
 				 ["mockThree", "MockCategoryTwo"]],
-				x => store.insert(getCommand({
+				(x) => store.insert(getCommand({
 					name: x[0],
 					path: `/opt/Syrus/commands/${x[1]}/${x[0]}.js`
 				}, {}, SyrusCommand, store))
 			);
-			const resolved = store.categorized();
+			const resolved = Array.from(
+				store.categorized(),
+				(category) => Array.from(category)
+			);
 			const checker = Array.from(
-				["MockCategoryOne", "MockCategoryTwo"],
-				x => store.fetchCategory(x)
+				store.categories,
+				(category) => Array.from(store.fetchCategory(category))
 			);
 			assert.deepStrictEqual(resolved, checker);
 		});
 	});
 
-	describe("class", function () {
+	describe("class", () => {
 		const path = process.cwd();
 
 		afterEach(execAfterEach);
@@ -113,7 +116,7 @@ describe("command framework", function () {
 		it("should instantiate", () => {
 			let command;
 			const MockCommand = sinon.spy(SyrusCommand);
-			command = getCommand({path: path}, {name: "mock"}, MockCommand);			
+			command = getCommand({path: path}, {name: "mock"}, MockCommand);
 			assert.ok(MockCommand.calledOnce);
 			assert.ok(!MockCommand.threw());
 			MockCommand.resetHistory();
@@ -125,8 +128,8 @@ describe("command framework", function () {
 		function testCategory(path, category) {
 			const MockCommand = sinon.spy(SyrusCommand);
 			const command = getCommand({
-					name: "mock",
-					path: path
+				name: "mock",
+				path: path
 			}, {}, MockCommand);
 			assert.strictEqual(command.category, category);
 		}

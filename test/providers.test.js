@@ -55,17 +55,17 @@ describe("mongodb", function() {
 		const mockGuild = await db.guild(1111);
 
 		assert.ok(mockGuild.toObject());
-		
+
 		const foundGuild = await guilds.findOne({_id: 1111});
 		await db.guildDelete(1111);
 		const noGuild = await guilds.findOne({_id: 1111});
-		
+
 		assert.notDeepStrictEqual(noGuild, foundGuild);
 	});
 
 	it("should instantiate new global", async () => {
 		const global = db.db.collection("global");
-	
+
 		const mockGlobal = await db.global();
 		const foundGlobal = await global.findOne({_id: 0});
 
