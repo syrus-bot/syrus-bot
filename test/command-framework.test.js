@@ -47,11 +47,25 @@ describe("command framework", () => {
 				[["mockOne", "MockCategoryOne"],
 				 ["mockTwo", "MockCategoryOne"],
 				 ["mockThree", "MockCategoryTwo"]],
-				(x) => store.insert(getCommand({
+				(x) => getCommand({
 					name: x[0],
 					path: `/opt/Syrus/commands/${x[1]}/${x[0]}.js`
-				}, {}, SyrusCommand, store))
+				}, {}, SyrusCommand, store)
 			);
+			for (const command of pieces) {
+				store.insert(command);
+			}
+			assert.deepStrictEqual(
+				store.categories,
+				["MockCategoryOne", "MockCategoryTwo"]
+			);
+			store.unload(pieces[2]);
+			assert.deepStrictEqual(
+				store.categories,
+				["MockCategoryOne"]
+			);
+			store.insert(pieces[2]);
+			store.unload(pieces[0]);
 			assert.deepStrictEqual(
 				store.categories,
 				["MockCategoryOne", "MockCategoryTwo"]
@@ -106,6 +120,8 @@ describe("command framework", () => {
 			);
 			assert.deepStrictEqual(resolved, checker);
 		});
+
+		
 	});
 
 	describe("class", () => {
