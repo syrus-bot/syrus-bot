@@ -5,7 +5,7 @@ module.exports = class ClientCommand extends SyrusCommand {
 		super(context, {
 			name: "set",
 			description: "core:set.description",
-			preconditions: ["GuildOnly", "serverowner"]
+			preconditions: ["GuildOnly", "ServerOwner"]
 		});
 	}
 

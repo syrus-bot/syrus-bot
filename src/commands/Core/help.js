@@ -53,15 +53,15 @@ module.exports = class ClientCommand extends SyrusCommand {
 				category.map(async (command) => {
 					const description = await message.fetchLanguageKey(
 						command.description
-					)
-					return format(command, description)
+					);
+					return format(command, description);
 				})
 			);
 			return {
 				name: category.name,
 				value: commandList.join(individual ? "\n" : ", "),
 				inline: false
-			}
+			};
 		}));
 
 		const allHelpDesc = `

@@ -6,7 +6,7 @@ module.exports = class ClientCommand extends SyrusCommand {
 		super(context, {
 			name: "vote",
 			description: "utilities:vote.description",
-			preconditions: ["GuildOnly", {entry: "permissions", context: {
+			preconditions: ["GuildOnly", {entry: "Permissions", context: {
 				permissions: new Permissions(Permissions.FLAGS.ADD_REACTIONS)
 			}}]
 		});
@@ -27,4 +27,4 @@ module.exports = class ClientCommand extends SyrusCommand {
 		await poll.react("👎");
 		await poll.react("🤷");
 	}
-}
+};

@@ -5,6 +5,7 @@
 	"main": "src/main.js",
 	"scripts": {
 		"start": "npm run lint && cd src && node main",
+		"test": "npx nyc --reporter=lcov mocha --recursive test/**/*.js",
 		"lint": "npx eslint src --ext .json,.js --fix",
 		"gpr": "git pull && npm start",
 		"commit": "git add . && npx git cz"
@@ -35,16 +36,16 @@
 		"bufferutil": "^4.0.2",
 		"discord.js": "github:discordjs/discord.js#master",
 		"globby": "^11.0.1",
-		"got": "^11.8.0",
+		"got": "^11.8.1",
 		"i18next": "^19.8.4",
 		"lavaqueue": "^3.1.8",
 		"libsodium-wrappers": "^0.7.8",
 		"mongodb": "^3.6.3",
-		"mongoose": "^5.10.15",
+		"mongoose": "^5.11.8",
 		"package.json": "^2.0.1",
 		"types": "^0.1.1",
 		"websocket": "^1.0.32",
-		"ws": "^7.4.0"
+		"ws": "^7.4.1"
 	},
 	"directories": {
 		"lib": "lib"
@@ -58,8 +59,12 @@
 		"cz-conventional-changelog": "^3.3.0",
 		"eslint": "^7.14.0",
 		"eslint-plugin-json": "^2.1.2",
-		"husky": "^4.3.0",
-		"semantic-release": "^17.3.0"
+		"husky": "^4.3.5",
+		"mocha": "^8.2.1",
+		"mongodb-memory-server": "^6.9.2",
+		"nyc": "^15.1.0",
+		"semantic-release": "^17.3.0",
+		"sinon": "^9.2.2"
 	},
 	"config": {
 		"commitizen": {
@@ -69,6 +74,7 @@
 	"husky": {
 		"hooks": {
 			"pre-commit": "npm run lint",
+			"pre-push": "npm run lint && npm test",
 			"commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
 		}
 	},

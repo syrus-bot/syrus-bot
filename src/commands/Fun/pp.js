@@ -1,5 +1,5 @@
 const SyrusCommand = require("../../lib/structures/SyrusCommand");
-const { MessageEmbed } = require("discord.js")
+const { MessageEmbed } = require("discord.js");
 
 module.exports = class ClientCommand extends SyrusCommand {
 	constructor(context) {
@@ -25,4 +25,4 @@ module.exports = class ClientCommand extends SyrusCommand {
 				.setDescription(`**8${shaft}D**`)
 		);
 	}
-}
+};

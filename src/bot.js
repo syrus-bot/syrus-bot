@@ -7,7 +7,7 @@ async function main() {
 		ws: {intents: ["GUILDS", "GUILD_MESSAGES", "GUILD_VOICE_STATES"]},
 		logger: {level: LogLevel.Debug},
 		disableMentions: "everyone"
-	});
+	}, config);
 
 	try {
 		await client.login(config.token);

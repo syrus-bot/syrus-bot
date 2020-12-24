@@ -1,7 +1,8 @@
-name: check-code-style
+name: "CI: Lint"
 on: [push]
 jobs:
   eslint-check:
+    name: ESLint
     runs-on: ubuntu-latest
     defaults:
       run:

@@ -1,9 +1,28 @@
 const { BaseAliasStore } = require("@sapphire/framework");
 const SyrusCommand = require("./SyrusCommand");
 
+function onPostLoad(store, command) {
+	if (!store.categories.includes(command.category)) {
+		store.categories.push(command.category);
+	}
+}
+
+function onUnload(store, command) {
+	if (Array.from(store.fetchCategory(command.category)).length === 0) {
+		store.categories = store.categories.filter(
+			(category) => category !== command.category
+		);
+	}
+}
+
 module.exports = class SyrusCommandStore extends BaseAliasStore {
 	constructor(client) {
-		super(client, SyrusCommand, {name: "commands"});
+		super(client, SyrusCommand, {
+			name: "commands",
+			onPostLoad: onPostLoad,
+			onUnload: onUnload
+		});
+		this.categories = [];
 	}
 
 	fetchCategory(categoryName) {
@@ -17,16 +36,9 @@ module.exports = class SyrusCommandStore extends BaseAliasStore {
 	}
 
 	categorized() {
-		const categories = this.categories;
-		const categorizer = {};
-		for (const category of categories) {
-			categorizer.push(this.fetchCategory(category));
-		}
-		return categorizer;
+		return Array.from(
+			this.categories,
+			(category) => this.fetchCategory(category)
+		);
 	}
-
-	get categories() {
-		return Array.from(new Set(this.map((command) => command.category)));
-	}
-
-}
+};

@@ -1,4 +1,4 @@
 **/node_modules
 src/config.json
 coverage
-.DS_Store
+.nyc_output

@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const config = require("../config.json");
 
 const moduleSchema = new mongoose.Schema({
 	enabled: {type: Boolean, default: true},
@@ -11,6 +10,9 @@ const guildSchema = new mongoose.Schema({
 	_id: Number,
 	prefix: String,
 	language: String,
+	djRoles: [Number],
+	modRoles: [Number],
+	adminRoles: [Number],
 	modules: {
 		core: {type: moduleSchema},
 		music: {type: moduleSchema},
@@ -24,21 +26,14 @@ const guildSchema = new mongoose.Schema({
 });
 
 module.exports = class {
-	constructor(...args) {
-		const connection = {
-			host: config.database.host,
-			port: config.database.port,
-			data: config.database.base,
-			user: config.database.user,
-			pass: config.database.pass,
-			options: {
+	constructor(uri, config) {
+		this.config = config;
+		this.db = mongoose.createConnection(
+			uri,
+			{
 				useNewUrlParser: true,
 				useUnifiedTopology: true
 			}
-		};
-		this.db = mongoose.createConnection(
-			`mongodb://${connection.user}:${connection.pass}@${connection.host}:${connection.port}/${connection.data}`,
-			connection.options
 		);
 		this.db.startSession();
 		this.db.on("connected", () => {
@@ -59,8 +54,8 @@ module.exports = class {
 			const docs = await collection
 				.insertOne({
 					_id: 0,
-					prefix: config.prefix,
-					token: config.token,
+					prefix: this.config.prefix,
+					token: this.config.token,
 					language: "en-us"
 				});
 			return docs.ops[0];
@@ -72,7 +67,7 @@ module.exports = class {
 		const guild = await this.GuildSchema.findById(Number(id)).exec();
 		if (guild === null) {
 			const doc = new this.GuildSchema({_id: Number(id)});
-			return await doc.save()
+			return await doc.save();
 		}
 		return guild;
 	}
@@ -80,4 +75,4 @@ module.exports = class {
 	async guildDelete(id) {
 		await this.GuildSchema.findByIdAndDelete(Number(id)).exec();
 	}
-}
+};
