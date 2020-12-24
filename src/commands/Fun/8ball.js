@@ -1,23 +1,3 @@
-/*
-    Syrus - a multipurpose Discord bot, designed to be the best so you don't need the rest.
-    Copyright (C) 2020, Syrus Development Team (Nytelife26 / nytelife@protonmail.com, Logan Heinzelman, ColeCCI and mynameismrtime)
-
-    This file is part of Syrus.
-
-    Syrus is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    Syrus is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with Syrus.  If not, see <https://www.gnu.org/licenses/>.
-*/
-
 const SyrusCommand = require("../../lib/structures/SyrusCommand");
 const { MessageEmbed } = require("discord.js");
 const ANSWERS = [
@@ -64,7 +44,7 @@ module.exports = class ClientCommand extends SyrusCommand {
 					.setDescription(await message.fetchLanguageKey(
 						"fun:8ball.no-q-err.description"
 					))
-			)
+			);
 		}
 		const answer = ANSWERS[Math.floor(Math.random() * ANSWERS.length)];
 		message.channel.send(
@@ -74,4 +54,4 @@ module.exports = class ClientCommand extends SyrusCommand {
 				.setDescription(`**Question:** \`${question.value}\`\n**Answer:** \`${answer}\``)
 		);
 	}
-}
+};
