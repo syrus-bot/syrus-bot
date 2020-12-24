@@ -17,12 +17,10 @@ module.exports = class SyrusCommandStore extends BaseAliasStore {
 	}
 
 	categorized() {
-		const categories = this.categories;
-		const categorizer = {};
-		for (const category of categories) {
-			categorizer.push(this.fetchCategory(category));
-		}
-		return categorizer;
+		return Array.from(
+			this.categories,
+			(category) => this.fetchCategory(category)
+		);
 	}
 
 	get categories() {
