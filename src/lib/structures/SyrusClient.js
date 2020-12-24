@@ -2,6 +2,7 @@ const { SapphireClient } = require("@sapphire/framework");
 const CommandStore = require("./CommandStore");
 const DB = require("../../providers/mongodb.js");
 const MusicManager = require("./MusicManager.js");
+
 /* eslint-disable no-inline-comments, line-comment-position */
 const { i18next } = require("i18next"); // lgtm [js/unused-local-variable]
 const in17n = require("@scp/in17n/register"); // lgtm [js/unused-local-variable]
