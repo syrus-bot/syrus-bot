@@ -1,11 +1,13 @@
 const SyrusCommand = require("../../lib/structures/SyrusCommand");
 const util = require("util");
+const { performance, PerformanceObserver } = require("perf_hooks");
 
 module.exports = class ClientCommand extends SyrusCommand {
 	constructor(context) {
 		super(context, {
 			name: "eval",
 			description: "core:eval.description",
+			aliases: ["ev"],
 			preconditions: ["Owner"],
 			quotes: []
 		});
@@ -27,9 +29,21 @@ module.exports = class ClientCommand extends SyrusCommand {
 
 		try {
 			const code = await args.restResult("string");
-			const evaled = util.inspect(eval(code.value));
+			let timer;
+			const wrappedEval = performance.timerify(() => {
+				return eval(code.value);
+			});
+			const observer = new PerformanceObserver((list) => {
+				timer = list.getEntries()[0].duration;
+				observer.disconnect();
+			});
+			observer.observe({entryTypes: ["function"]});
+			const evaled = wrappedEval();
+			const result = clean(util.inspect(evaled));
 			message.channel
-				.send(clean(evaled), {code: "xl"})
+				.send(
+					`\`\`\`js\n${result}\n\`\`\`\n\u23F1 ${timer}ms`
+				)
 				.catch(() => {
 					message.channel.send(
 						"`OUTPUT WAS TOO LONG TO DISPLAY IN DISCORD, "
@@ -38,7 +52,7 @@ module.exports = class ClientCommand extends SyrusCommand {
 					console.log(evaled);
 				});
 		} catch (err) {
-			message.channel.send(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);
+			message.channel.send(`\`ERROR\` \`\`\`js\n${clean(err)}\n\`\`\``);
 		}
 	}
 };

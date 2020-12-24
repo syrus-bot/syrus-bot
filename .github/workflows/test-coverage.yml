@@ -1,0 +1,25 @@
+name: "CI: Test & Cover"
+on:
+  push:
+  pull_request:
+jobs:
+  test:
+    name: "Test"
+    runs-on: ubuntu-18.04
+    strategy:
+      matrix:
+        node-version: [14.x]
+    steps:
+    - uses: actions/checkout@v2
+    - name: Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: Bootstrap Node modules
+      run: npm ci
+    - name: Run test suite
+      run: npm test
+    - name: Upload coverage
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}

@@ -5,6 +5,7 @@
 	"main": "src/main.js",
 	"scripts": {
 		"start": "npm run lint && cd src && node main",
+		"test": "npx nyc --reporter=lcov mocha --recursive test/**/*.js",
 		"lint": "npx eslint src --ext .json,.js --fix",
 		"gpr": "git pull && npm start",
 		"commit": "git add . && npx git cz"
@@ -59,7 +60,11 @@
 		"eslint": "^7.14.0",
 		"eslint-plugin-json": "^2.1.2",
 		"husky": "^4.3.5",
-		"semantic-release": "^17.3.0"
+		"mocha": "^8.2.1",
+		"mongodb-memory-server": "^6.9.2",
+		"nyc": "^15.1.0",
+		"semantic-release": "^17.3.0",
+		"sinon": "^9.2.2"
 	},
 	"config": {
 		"commitizen": {
@@ -69,6 +74,7 @@
 	"husky": {
 		"hooks": {
 			"pre-commit": "npm run lint",
+			"pre-push": "npm run lint && npm test",
 			"commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
 		}
 	},

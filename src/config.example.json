@@ -1,0 +1,29 @@
+{
+	"token": "",
+	"prefix": "+",
+	"color": "14891321",
+	"shards": 1,
+	"owners": [
+		""
+	],
+	"lavalink": {
+		"host": "localhost",
+		"port": 2333,
+		"region": "us-central",
+		"password": "",
+		"ssl": ""
+	},
+	"redis": {
+		"host": "localhost",
+		"port": 6379,
+		"family": 4,
+		"password": ""
+	},
+	"database": {
+		"host": "localhost",
+		"port": 27012,
+		"base": "syrus",
+		"user": "",
+		"pass": ""
+	}
+}
