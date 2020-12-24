@@ -1,5 +1,0 @@
-const assert = require("assert");
-const sinon = require("sinon");
-
-const MusicManager = require("../src/lib/structures/MusicManager");
-const lavaqueue = require("");
