@@ -25,5 +25,8 @@
 		"base": "syrus",
 		"user": "",
 		"pass": ""
+	},
+	"tokens": {
+		"ksoftsi": ""
 	}
 }
