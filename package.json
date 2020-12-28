@@ -29,8 +29,9 @@
 	],
 	"license": "MIT",
 	"dependencies": {
-		"@sapphire/decorators": "^1.0.3",
-		"@sapphire/framework": "github:sapphire-project/framework#build",
+		"@sapphire/decorators": "^1.2.0",
+		"@sapphire/framework": "^1.0.0-alpha.0",
+		"@sapphire/pieces": "^1.0.0",
 		"@sapphire/time-utilities": "^1.2.0",
 		"@scp/in17n": "^2.0.1",
 		"bufferutil": "^4.0.2",
