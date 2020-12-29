@@ -10,9 +10,7 @@ function execAfterEach() {
 function getCommand(context, options, constructor, store) {
 	const Instance = constructor ?? SyrusCommand;
 	return new Instance({
-		extras: {
-			client: sinon.fake()
-		},
+		client: sinon.fake(),
 		store: store ?? sinon.fake(),
 		...context
 	}, options);
@@ -42,7 +40,7 @@ describe("command framework", () => {
 
 		it("should list categories", () => {
 			const MockStore = sinon.spy(CommandStore);
-			const store = new MockStore(sinon.fake());
+			const store = new MockStore();
 			const pieces = Array.from(
 				[["mockOne", "MockCategoryOne"],
 				 ["mockTwo", "MockCategoryOne"],
@@ -74,7 +72,7 @@ describe("command framework", () => {
 
 		it("should resolve categories", () => {
 			const MockStore = sinon.spy(CommandStore);
-			const store = new MockStore(sinon.fake());
+			const store = new MockStore();
 			const pieces = Array.from(
 				[["mockOne", "MockCategoryOne"],
 				 ["mockTwo", "MockCategoryOne"],
@@ -100,7 +98,7 @@ describe("command framework", () => {
 
 		it("should resolve all categories", () => {
 			const MockStore = sinon.spy(CommandStore);
-			const store = new MockStore(sinon.fake());
+			const store = new MockStore();
 			const pieces = Array.from(
 				[["mockOne", "MockCategoryOne"],
 				 ["mockTwo", "MockCategoryOne"],
