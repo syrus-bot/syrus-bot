@@ -1,10 +1,13 @@
+require("module-alias/register");
+
 const assert = require("assert");
-const mocha = require("mocha");
-const DB = require("../src/providers/mongodb");
+const sinon = require("sinon");
+const DB = require("@data/MongoDB");
 const mongoose = require("mongoose");
 
 const { MongoMemoryServer } = require("mongodb-memory-server");
 const mongod = new MongoMemoryServer();
+const SyrusClient = require("@struct/SyrusClient");
 
 describe("mongodb", function() {
 	this.slow(50);
@@ -14,7 +17,10 @@ describe("mongodb", function() {
 	before(async function() {
 		this.timeout(null);
 		const uri = await mongod.getUri();
-		db = new DB(uri, {prefix: "", token: ""});
+		db = new DB(
+			{logger: {debug: () => {}, info: () => {}}},
+			uri,
+			{prefix: "", token: ""});
 		await db.GuildSchema.createCollection();
 	});
 

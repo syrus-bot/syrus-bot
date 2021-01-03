@@ -1,6 +1,8 @@
+require("module-alias/register");
+
 const Discord = require("discord.js");
-const Manager = new Discord.ShardingManager("./bot.js");
-const config = require("./config.json");
+const Manager = new Discord.ShardingManager(require.resolve("@sky/bot"));
+const config = require("@sky/config.json");
 Manager.spawn(config.shards);
 
 process.on("exit", () => {

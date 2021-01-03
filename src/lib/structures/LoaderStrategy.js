@@ -8,7 +8,7 @@ module.exports = class SyrusLoaderStrategy extends LoaderStrategy {
 	}
 
 	onUnload(store, command) {
-		if (Array.from(store.fetchCategory(command.category)).length === 0) {
+		if (Array.from(store.fetchCategory(command.category)).length === 1) {
 			store.categories = store.categories.filter(
 				(category) => category !== command.category
 			);

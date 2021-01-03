@@ -15,5 +15,6 @@ module.exports = class SyrusCommand extends Command {
 		).split("/");
 		this.category = folder[folder.length - 1];
 		this.usage = options.usage ?? `${this.name} [...args]`;
+		this.client = this.store.client;
 	}
 };

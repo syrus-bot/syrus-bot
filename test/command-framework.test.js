@@ -1,6 +1,8 @@
+require("module-alias/register");
+
 const assert = require("assert");
-const CommandStore = require("../src/lib/structures/CommandStore");
-const SyrusCommand = require("../src/lib/structures/SyrusCommand");
+const CommandStore = require("@struct/CommandStore");
+const SyrusCommand = require("@struct/SyrusCommand");
 const sinon = require("sinon");
 
 function execAfterEach() {
@@ -27,20 +29,20 @@ describe("command framework", () => {
 			assert.ok(!MockStore.threw());
 		});
 
-		it("should register", () => {
+		it("should register", async () => {
 			const MockStore = sinon.spy(CommandStore);
 			const store = new MockStore(sinon.fake());
 			const piece = getCommand({
 				path: "/opt/Syrus/commands/MockCategory/mock.js",
 				name: "mock"
 			}, {}, SyrusCommand, store);
-			store.insert(piece);
-			assert.ok(store.has("mock"));
+			await store.insert(piece);
+			assert.deepStrictEqual(store.get("mock"), piece);
 		});
 
-		it("should list categories", () => {
+		it("should list categories", async () => {
 			const MockStore = sinon.spy(CommandStore);
-			const store = new MockStore();
+			const store = new MockStore(sinon.fake());
 			const pieces = Array.from(
 				[["mockOne", "MockCategoryOne"],
 				 ["mockTwo", "MockCategoryOne"],
@@ -51,28 +53,28 @@ describe("command framework", () => {
 				}, {}, SyrusCommand, store)
 			);
 			for (const command of pieces) {
-				store.insert(command);
+				await store.insert(command);
 			}
 			assert.deepStrictEqual(
 				store.categories,
 				["MockCategoryOne", "MockCategoryTwo"]
 			);
-			store.unload(pieces[2]);
+			await store.unload(pieces[2]);
 			assert.deepStrictEqual(
 				store.categories,
 				["MockCategoryOne"]
 			);
-			store.insert(pieces[2]);
-			store.unload(pieces[0]);
+			await store.insert(pieces[2]);
+			await store.unload(pieces[0]);
 			assert.deepStrictEqual(
 				store.categories,
 				["MockCategoryOne", "MockCategoryTwo"]
 			);
 		});
 
-		it("should resolve categories", () => {
+		it("should resolve categories", async () => {
 			const MockStore = sinon.spy(CommandStore);
-			const store = new MockStore();
+			const store = new MockStore(sinon.fake());
 			const pieces = Array.from(
 				[["mockOne", "MockCategoryOne"],
 				 ["mockTwo", "MockCategoryOne"],
@@ -83,7 +85,7 @@ describe("command framework", () => {
 				}, {}, SyrusCommand, store)
 			);
 			for (piece of pieces) {
-				store.insert(piece);
+				await store.insert(piece);
 			}
 			const nil = store.fetchCategory("FakeCategory");
 			const two = Array.from(store.fetchCategory("MockCategoryOne"));
@@ -96,18 +98,21 @@ describe("command framework", () => {
 			assert.deepStrictEqual(one, [[pieces[2].name, pieces[2]]]);
 		});
 
-		it("should resolve all categories", () => {
+		it("should resolve all categories", async () => {
 			const MockStore = sinon.spy(CommandStore);
-			const store = new MockStore();
+			const store = new MockStore(sinon.fake());
 			const pieces = Array.from(
 				[["mockOne", "MockCategoryOne"],
 				 ["mockTwo", "MockCategoryOne"],
 				 ["mockThree", "MockCategoryTwo"]],
-				(x) => store.insert(getCommand({
+				(x) => getCommand({
 					name: x[0],
 					path: `/opt/Syrus/commands/${x[1]}/${x[0]}.js`
-				}, {}, SyrusCommand, store))
+				}, {}, SyrusCommand, store)
 			);
+			for (const piece of pieces) {
+				await store.insert(piece);
+			}
 			const resolved = Array.from(
 				store.categorized(),
 				(category) => Array.from(category)

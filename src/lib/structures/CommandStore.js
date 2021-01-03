@@ -1,6 +1,6 @@
 const { AliasStore } = require("@sapphire/pieces");
-const SyrusCommand = require("./SyrusCommand");
-const LoaderStrategy = require("./LoaderStrategy");
+const SyrusCommand = require("@struct/SyrusCommand");
+const LoaderStrategy = require("@struct/LoaderStrategy");
 
 module.exports = class SyrusCommandStore extends AliasStore {
 	constructor() {
