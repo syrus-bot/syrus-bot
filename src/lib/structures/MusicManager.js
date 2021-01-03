@@ -80,7 +80,7 @@ function errorHandler(error) {
 
 function readyHandler() {
 	this.client.logger.info(
-		`Lavalink connected successfully after ${this.failed} attempts.`
+		`Lavalink connected successfully after ${this.failed} retries.`
 	);
 }
 
