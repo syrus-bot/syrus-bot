@@ -30,6 +30,7 @@ module.exports = class SyrusClient extends SapphireClient {
 		super({...options});
 		Store.injectedContext = {client: this, logger: this.logger};
 
+		this.unregisterStore(this.commands);
 		this.commands = new CommandStore();
 		this.registerStore(this.commands);
 		this.registerUserDirectories(flaresDirectory);
@@ -44,6 +45,10 @@ module.exports = class SyrusClient extends SapphireClient {
 
 		this.once("ready", this.connectMusic.bind(this, config));
 		this.once("ready", this.connectMongo.bind(this, config));
+	}
+
+	unregisterStore(store) {
+		this.stores.delete(store);
 	}
 
 	connectMusic(config) {
