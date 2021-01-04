@@ -9,7 +9,7 @@ async function main() {
 		ws: {intents: ["GUILDS", "GUILD_MESSAGES", "GUILD_VOICE_STATES"]},
 		logger: {level: LogLevel.Debug},
 		disableMentions: "everyone",
-		baseUserDir: null,
+		baseUserDirectory: null,
 		i18n: {
 			defaultMissingKey: "missing",
 			defaultNS: "global",
