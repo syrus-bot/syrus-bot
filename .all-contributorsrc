@@ -1,0 +1,46 @@
+{
+  "projectName": "syrus-bot",
+  "projectOwner": "syrus-bot",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": true,
+  "commitConvention": "angular",
+  "contributors": [
+    {
+      "login": "Nytelife26",
+      "name": "Tyler J Russell",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/22531310?v=4",
+      "profile": "https://github.com/Nytelife26",
+      "contributions": [
+        "code",
+        "design",
+        "ideas",
+        "infra",
+        "maintenance",
+        "projectManagement",
+        "review",
+        "test",
+        "translation",
+        "tool"
+      ]
+    },
+    {
+      "login": "mynameismax",
+      "name": "Max",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/59715207?v=4",
+      "profile": "https://github.com/mynameismax",
+      "contributions": [
+        "code",
+        "design",
+        "ideas",
+        "review",
+        "translation"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7
+}

@@ -31,6 +31,14 @@ possible. You may find an emoji key [here].
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
+<table>
+  <tr>
+    <td align="center"><a href="https://github.com/Nytelife26"><img src="https://avatars1.githubusercontent.com/u/22531310?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Tyler J Russell</b></sub></a><br /><a href="https://github.com/syrus-bot/syrus-bot/commits?author=Nytelife26" title="Code">💻</a> <a href="#design-Nytelife26" title="Design">🎨</a> <a href="#ideas-Nytelife26" title="Ideas, Planning, & Feedback">🤔</a> <a href="#infra-Nytelife26" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="#maintenance-Nytelife26" title="Maintenance">🚧</a> <a href="#projectManagement-Nytelife26" title="Project Management">📆</a> <a href="https://github.com/syrus-bot/syrus-bot/pulls?q=is%3Apr+reviewed-by%3ANytelife26" title="Reviewed Pull Requests">👀</a> <a href="https://github.com/syrus-bot/syrus-bot/commits?author=Nytelife26" title="Tests">⚠️</a> <a href="#translation-Nytelife26" title="Translation">🌍</a> <a href="#tool-Nytelife26" title="Tools">🔧</a></td>
+    <td align="center"><a href="https://github.com/mynameismax"><img src="https://avatars2.githubusercontent.com/u/59715207?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Max</b></sub></a><br /><a href="https://github.com/syrus-bot/syrus-bot/commits?author=mynameismax" title="Code">💻</a> <a href="#design-mynameismax" title="Design">🎨</a> <a href="#ideas-mynameismax" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/syrus-bot/syrus-bot/pulls?q=is%3Apr+reviewed-by%3Amynameismax" title="Reviewed Pull Requests">👀</a> <a href="#translation-mynameismax" title="Translation">🌍</a></td>
+  </tr>
+</table>
+
 <!-- markdownlint-restore -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
