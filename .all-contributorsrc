@@ -35,10 +35,11 @@
       "profile": "https://github.com/mynameismax",
       "contributions": [
         "code",
-        "design",
         "ideas",
         "review",
-        "translation"
+        "translation",
+        "userTesting",
+        "projectManagement"
       ]
     }
   ],
