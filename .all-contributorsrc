@@ -41,6 +41,18 @@
         "userTesting",
         "projectManagement"
       ]
+    },
+    {
+      "login": "colecci",
+      "name": "Cole",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/46729133?v=4",
+      "profile": "https://colem.dev/",
+      "contributions": [
+        "code",
+        "design",
+        "ideas",
+        "projectManagement"
+      ]
     }
   ],
   "contributorsPerLine": 7
