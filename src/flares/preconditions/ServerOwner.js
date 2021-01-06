@@ -10,9 +10,8 @@ module.exports = class ClientPrecondition extends Precondition {
 			}).run(message);
 			isOwner = isOwner.success;
 		}
-		return isOwner ? this.ok() : this.err(
-			this.name,
-			"Only my masters are allowed to execute this command."
+		return isOwner ? this.ok() : this.error(
+			this.name
 		);
 	}
 };

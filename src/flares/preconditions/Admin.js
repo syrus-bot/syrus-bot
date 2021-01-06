@@ -21,8 +21,7 @@ module.exports = class ClientPrecondition extends Precondition {
 			isAdmin = isAdmin.success;
 		}
 		return isAdmin ? this.ok() : this.error(
-			this.name,
-			"Only administrators or higher are allowed to execute that command."
+			this.name
 		);
 	}
 };

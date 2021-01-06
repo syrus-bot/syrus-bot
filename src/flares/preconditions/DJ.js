@@ -21,8 +21,7 @@ module.exports = class ClientPrecondition extends Precondition {
 			isDj = isDj.success;
 		}
 		return isDj ? this.ok() : this.error(
-			this.name,
-			"Only DJs or higher are allowed to execute that command."
+			this.name
 		);
 	}
 };

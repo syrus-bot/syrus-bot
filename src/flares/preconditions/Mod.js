@@ -21,8 +21,7 @@ module.exports = class ClientPrecondition extends Precondition {
 			isMod = isMod.success;
 		}
 		return isMod ? this.ok() : this.error(
-			this.name,
-			"Only moderators or higher are allowed to execute that command."
+			this.name
 		);
 	}
 };
