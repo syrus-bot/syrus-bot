@@ -1,6 +1,6 @@
 const { Event } = require("@sapphire/framework");
 
-module.exports = class CommandError extends Event {
+module.exports = class ClientError extends Event {
 	constructor(context) {
 		super(context, {
 			event: "commandError"

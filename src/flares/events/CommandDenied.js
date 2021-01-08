@@ -1,7 +1,7 @@
 const { Event, PreconditionError } = require("@sapphire/framework");
 const { MessageEmbed } = require("discord.js");
 
-module.exports = class CommandDeniedEvent extends Event {
+module.exports = class ClientEvent extends Event {
 	constructor(context) {
 		super(context, {
 			event: "commandDenied"
