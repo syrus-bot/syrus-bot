@@ -7,7 +7,6 @@ const mongoose = require("mongoose");
 
 const { MongoMemoryServer } = require("mongodb-memory-server");
 const mongod = new MongoMemoryServer();
-const SyrusClient = require("@struct/SyrusClient");
 
 describe("mongodb", function() {
 	this.slow(50);
