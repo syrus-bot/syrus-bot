@@ -1,6 +1,6 @@
 const { Event } = require("@sapphire/framework");
 
-module.exports = class errorEvent extends Event {
+module.exports = class EventError extends Event {
 	constructor(context) {
 		super(context, {
 			event: "eventError"

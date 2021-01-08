@@ -1,6 +1,6 @@
 const { Event } = require("@sapphire/framework");
 
-module.exports = class readyEvent extends Event {
+module.exports = class OnceReadyEvent extends Event {
 	constructor(context) {
 		super(context, {
 			once: true,
@@ -14,6 +14,9 @@ module.exports = class readyEvent extends Event {
 		client.logger.info(
 			`Successfully initialised and connected to ${guilds} servers.`
 		);
+		for (const store of client.stores) {
+			client.logger.debug(`|- Loaded ${Array.from(store).length} ${store.name}`);
+		}
 		await client.user.setPresence({
 			activity: {
 				name: `over ${guilds} servers! | syrus.gg`,

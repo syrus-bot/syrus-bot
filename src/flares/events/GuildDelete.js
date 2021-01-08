@@ -1,9 +1,8 @@
 const { Event } = require("@sapphire/framework");
 
-module.exports = class cleanupEvent extends Event {
+module.exports = class GuildDeleteEvent extends Event {
 	constructor(context) {
 		super(context, {
-			once: false,
 			event: "guildDelete"
 		});
 	}
