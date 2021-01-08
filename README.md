@@ -9,7 +9,7 @@ This description will be updated in future as the project develops. Just a brief
 
 ## Licensing
 
-Syrus is licensed under the [MIT license]. This is simply to ensure maximum
+Syrus is licensed under the [MIT license](LICENSE). This is simply to ensure maximum
 compatibility and that we are credited for our work.
 
 **HOWEVER**, while the Syrus development team operates under the principles of
