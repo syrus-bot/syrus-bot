@@ -14,8 +14,8 @@ module.exports = class ClientCommand extends SyrusCommand {
 		if (!volume.success) {
 			return message.replyTranslated("music:volume.missing");
 		}
-		const player = this.client.music.queues.get(message.guild.id).player;
-		await player.setVolume(volume.value);
+		await this.context.client.music.queues.get(message.guild.id).player
+			.setVolume(volume.value);
 		return message.replyTranslated(
 			"music:volume.set",
 			[{volume: volume.value}]

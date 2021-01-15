@@ -7,18 +7,18 @@ module.exports = class ClientArgument extends Argument {
 	}
 
 	async parseLoaded(argument) {
-		const command = this.client.commands.get(argument);
+		const command = this.context.client.commands.get(argument);
 		return command ?? undefined;
 	}
 
 	async getCommand(path) {
 		delete require.cache[require.resolve(path)];
-		const loaded = await this.client.commands.load(path);
+		const loaded = await this.context.client.commands.load(path);
 		return loaded.next();
 	}
 
 	async parseFiles(argument) {
-		if (this.client.commands.has(argument)) {
+		if (this.context.client.commands.has(argument)) {
 			return undefined;
 		}
 		const files = await globby(

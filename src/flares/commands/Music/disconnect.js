@@ -17,7 +17,7 @@ module.exports = class ClientCommand extends SyrusCommand {
 			);
 		}
 
-		const queue = this.client.music.queues.get(message.guild.id);
+		const queue = this.context.client.music.queues.get(message.guild.id);
 		await queue.clear();
 		await queue.player.leave();
 		await queue.player.destroy();

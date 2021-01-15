@@ -10,7 +10,8 @@ module.exports = class ClientCommand extends SyrusCommand {
 	}
 
 	async run(message, args) {
-		const player = this.client.music.queues.get(message.guild.id).player;
+		const player = this.context.client.music.queues.get(message.guild.id)
+			.player;
 		if (player.paused) {
 			await player.pause(false);
 			return message.replyTranslated("music:resume.resumed");

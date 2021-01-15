@@ -12,13 +12,13 @@ module.exports = class ClientCommand extends SyrusCommand {
 	}
 
 	async run(message, args) {
-		const queue = this.client.music.queues.get(message.guild.id);
+		const queue = this.context.client.music.queues.get(message.guild.id);
 		if (!queue.player.playing) {
 			return message.replyTranslated("music:np.nothing");
 		}
 		const currentObject = await queue.current();
 		const identifier = currentObject.track;
-		const resolved = await this.client.music.decode(identifier);
+		const resolved = await this.context.client.music.decode(identifier);
 		const formatter = new Timestamp("HH:mm:ss");
 		const position = formatter.displayUTC(currentObject.position);
 		const live = resolved.isStream;

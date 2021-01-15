@@ -22,12 +22,12 @@ module.exports = class ClientCommand extends SyrusCommand {
 			);
 		}
 
-		const queue = this.client.music.queues.get(message.guild.id);
+		const queue = this.context.client.music.queues.get(message.guild.id);
 		const myVoice = message.guild.me.voice;
 		if (!myVoice.channel) {
 			await queue.player.join(theirVoice.id);
 		}
-		const tracks = await this.client.music.fetchTracks(songs.value);
+		const tracks = await this.context.client.music.fetchTracks(songs.value);
 		switch (tracks.loadType) {
 			case "SEARCH_RESULT":
 				await queue.add(tracks.tracks[0].track);

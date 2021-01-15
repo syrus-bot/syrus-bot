@@ -24,7 +24,8 @@ module.exports = class ClientCommand extends SyrusCommand {
 		const category = await args.start().pickResult("category");
 		const individual = category.success;
 		const categories = individual ? [category.value] : undefined;
-		const canEmbed = message.channel.permissionsFor(this.client.user)
+		const canEmbed = message.channel
+			.permissionsFor(this.context.client.user)
 			.has(EMBED_PERMS);
 		const display = await this.buildHelp(message, categories, individual);
 		if (!canEmbed) {
@@ -41,7 +42,7 @@ module.exports = class ClientCommand extends SyrusCommand {
 
 	async buildHelp(message, categories, individual) {
 		const commands = await this.fetchCommands(message, categories);
-		const prefix = await this.client.fetchPrefix(message);
+		const prefix = await this.context.client.fetchPrefix(message);
 		const format = this.formatCommand.bind(
 			this,
 			message,
@@ -87,8 +88,8 @@ use \`${prefix}help [command|category]\``;
 		function getCategory(client, category) {
 			return client.commands.fetchCategory(category);
 		}
-		const all = this.client.commands.categories;
-		const fetch = getCategory.bind(this, this.client);
+		const all = this.context.client.commands.categories;
+		const fetch = getCategory.bind(this, this.context.client);
 		return category ? category : all.map(fetch);
 	}
 

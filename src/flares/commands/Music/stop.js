@@ -10,7 +10,7 @@ module.exports = class ClientCommand extends SyrusCommand {
 	}
 
 	async run(message, args) {
-		const queue = this.client.music.queues.get(message.guild.id);
+		const queue = this.context.client.music.queues.get(message.guild.id);
 		if (queue.player.playing) {
 			await queue.stop();
 			await queue.clear();

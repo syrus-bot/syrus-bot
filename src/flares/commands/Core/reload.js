@@ -13,11 +13,11 @@ module.exports = class ClientCommand extends SyrusCommand {
 		const command = await args.pickResult("command");
 		if (!command.success) {
 			if (command.error.parameter === "all") {
-				this.client.commands.forEach((value, key, map) => {
+				this.context.client.commands.forEach((value, key, map) => {
 					delete require.cache[require.resolve(value.path)];
 				});
-				this.client.commands.clear();
-				await this.client.commands.loadAll();
+				this.context.client.commands.clear();
+				await this.context.client.commands.loadAll();
 				message.replyTranslated("core:reload.allreloaded");
 				return;
 			}
@@ -27,9 +27,9 @@ module.exports = class ClientCommand extends SyrusCommand {
 			);
 		}
 
-		this.client.commands.delete(command.value.name);
+		this.context.client.commands.delete(command.value.name);
 		const reloaded = await args.start().pickResult("command");
-		await this.client.commands.insert(reloaded.value);
+		await this.context.client.commands.insert(reloaded.value);
 		message.replyTranslated(
 			"core:reload.reloaded",
 			[{commandName: command.value.name}]

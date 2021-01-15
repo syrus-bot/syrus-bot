@@ -6,7 +6,7 @@ module.exports = class ClientPrecondition extends Precondition {
 	}
 
 	async run(message, conf) {
-		const config = conf ?? await this.client.settings.guild(
+		const config = conf ?? await this.context.client.settings.guild(
 			message.guild.id
 		);
 		let isAdmin;
@@ -15,9 +15,9 @@ module.exports = class ClientPrecondition extends Precondition {
 			config.adminRoles
 		);
 		if (!isAdmin) {
-			isAdmin = await this.client.preconditions.find((precondition) => {
-				return precondition.name === "ServerOwner";
-			}).run(message);
+			isAdmin = await this.context.client.preconditions.find(
+				(precondition) => precondition.name === "ServerOwner"
+			).run(message);
 			isAdmin = isAdmin.success;
 		}
 		return isAdmin ? this.ok() : this.error(
