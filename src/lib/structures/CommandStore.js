@@ -1,26 +1,12 @@
-const { BaseAliasStore } = require("@sapphire/framework");
-const SyrusCommand = require("./SyrusCommand");
+const { AliasStore } = require("@sapphire/pieces");
+const SyrusCommand = require("@struct/SyrusCommand");
+const LoaderStrategy = require("@struct/LoaderStrategy");
 
-function onPostLoad(store, command) {
-	if (!store.categories.includes(command.category)) {
-		store.categories.push(command.category);
-	}
-}
-
-function onUnload(store, command) {
-	if (Array.from(store.fetchCategory(command.category)).length === 0) {
-		store.categories = store.categories.filter(
-			(category) => category !== command.category
-		);
-	}
-}
-
-module.exports = class SyrusCommandStore extends BaseAliasStore {
-	constructor(client) {
-		super(client, SyrusCommand, {
+module.exports = class SyrusCommandStore extends AliasStore {
+	constructor() {
+		super(SyrusCommand, {
 			name: "commands",
-			onPostLoad: onPostLoad,
-			onUnload: onUnload
+			strategy: new LoaderStrategy()
 		});
 		this.categories = [];
 	}

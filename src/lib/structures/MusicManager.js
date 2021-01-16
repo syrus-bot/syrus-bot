@@ -70,7 +70,7 @@ function errorHandler(error) {
 		if (!this.failed) {
 			const address = error.address;
 			const port = error.port;
-			console.log(
+			this.client.logger.warn(
 				`Lavalink on ${address}:${port} failed. Retrying...`
 			);
 		}
@@ -79,8 +79,8 @@ function errorHandler(error) {
 }
 
 function readyHandler() {
-	console.log(
-		`Lavalink connected successfully after ${this.failed} attempts.`
+	this.client.logger.info(
+		`Lavalink connected successfully after ${this.failed} retries.`
 	);
 }
 

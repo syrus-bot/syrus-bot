@@ -1,12 +1,11 @@
 const { SapphireClient } = require("@sapphire/framework");
-const CommandStore = require("./CommandStore");
-const DB = require("../../providers/mongodb.js");
-const MusicManager = require("./MusicManager.js");
+const { Store } = require("@sapphire/pieces");
+const CommandStore = require("@struct/CommandStore");
+const DB = require("@data/MongoDB");
+const MusicManager = require("@struct/MusicManager");
 
-/* eslint-disable no-inline-comments, line-comment-position */
-const { i18next } = require("i18next"); // lgtm [js/unused-local-variable]
-const in17n = require("@scp/in17n/register"); // lgtm [js/unused-local-variable]
-/* eslint-enable no-inline-comments, line-comment-position */
+require("@sapphire/plugin-i18next/register-discordjs");
+require("@sapphire/plugin-logger/register");
 
 async function fetchPrefix(message) {
 	const guild = await this.settings.guild(message.guild.id);
@@ -27,32 +26,22 @@ async function fetchLanguage(message) {
 }
 
 module.exports = class SyrusClient extends SapphireClient {
-	constructor(options, config) {
-		super({
-			...options,
-			i18n: {
-				defaultMissingKey: "missing",
-				defaultNS: "global",
-				i18next: {
-					preload: ["en-us"],
-					load: "currentOnly",
-					lowerCaseLng: true,
-					fallbackLng: "en-us",
-					initImmediate: false,
-					interpolation: {
-						escapeValue: false
-					}
-				}
-			}
-		});
-		this.commands = new CommandStore(this)
-			.registerPath(`${process.cwd()}/commands/`);
+	constructor(options, flaresDirectory, config) {
+		super({...options});
+		Store.injectedContext = {client: this, logger: this.logger};
+
+		this.deregisterStore(this.commands);
+		this.commands = new CommandStore();
+		this.registerStore(this.commands);
+		this.registerUserDirectories(flaresDirectory);
+
 		this.music = null;
 		this.settings = null;
-		this.registerStore(this.commands);
 
 		this.fetchPrefix = fetchPrefix.bind(this);
 		this.fetchLanguage = fetchLanguage.bind(this);
+
+		this.logger.info("Client initialized. Logging in...");
 
 		this.once("ready", this.connectMusic.bind(this, config));
 		this.once("ready", this.connectMongo.bind(this, config));
@@ -65,6 +54,6 @@ module.exports = class SyrusClient extends SapphireClient {
 	connectMongo(config) {
 		const { user, pass, host, port, base } = config.database;
 		const mongo = `mongodb://${user}:${pass}@${host}:${port}/${base}`;
-		this.settings = new DB(mongo, config);
+		this.settings = new DB(this, mongo, config);
 	}
 };

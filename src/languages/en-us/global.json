@@ -1,7 +1,8 @@
 {
 	"missing": "{{key}} has not been localised for En-US yet.",
 	"commerr": {
-		"denied": "Sorry, I can't let you do that, looks like you lack the required permissions to run {{cmd}} :(",
+		"denied": "Sorry, I can't let you run the {{cat}} command {{cmd}}. You must be an {{err}} or higher :(",
+		"runtime": "Whoops! Look like there was an error in the command you just ran. Sorry about that!\nPlease can you report this to the Syrus development team in our support server? Here's some debug information to give them:\n{{err}}",
 		"missingparams": "You forgot to specify a value for the {{arg}} argument!"
 	},
 	"toolong": "Looks like your specified value for the {{arg}} argument was too long! It must be at most {{chars}} characters.",

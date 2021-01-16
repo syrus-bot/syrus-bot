@@ -29,32 +29,27 @@
 	],
 	"license": "MIT",
 	"dependencies": {
-		"@sapphire/decorators": "^1.0.3",
-		"@sapphire/framework": "github:sapphire-project/framework#build",
+		"@sapphire/discord-utilities": "^1.0.3",
+		"@sapphire/framework": "^1.0.0-alpha.2",
+		"@sapphire/pieces": "^1.0.1",
+		"@sapphire/plugin-i18next": "^1.0.0",
+		"@sapphire/plugin-logger": "^1.0.5",
 		"@sapphire/time-utilities": "^1.2.0",
-		"@scp/in17n": "^2.0.1",
+		"@types/ws": "^7.4.0",
 		"bufferutil": "^4.0.2",
-		"discord.js": "github:discordjs/discord.js#master",
+		"discord.js": "^12.5.1",
 		"globby": "^11.0.1",
 		"got": "^11.8.1",
-		"i18next": "^19.8.4",
 		"lavaqueue": "^3.1.8",
-		"libsodium-wrappers": "^0.7.8",
-		"mongodb": "^3.6.3",
-		"mongoose": "^5.11.8",
-		"package.json": "^2.0.1",
-		"types": "^0.1.1",
-		"websocket": "^1.0.32",
-		"ws": "^7.4.1"
-	},
-	"directories": {
-		"lib": "lib"
+		"module-alias": "^2.2.2",
+		"mongoose": "^5.11.8"
 	},
 	"devDependencies": {
 		"@commitlint/cli": "^11.0.0",
 		"@commitlint/config-conventional": "^11.0.0",
 		"@semantic-release/changelog": "^5.0.1",
 		"@semantic-release/git": "^9.0.0",
+		"all-contributors-cli": "^6.19.0",
 		"commitizen": "^4.2.2",
 		"cz-conventional-changelog": "^3.3.0",
 		"eslint": "^7.14.0",
@@ -63,7 +58,7 @@
 		"mocha": "^8.2.1",
 		"mongodb-memory-server": "^6.9.2",
 		"nyc": "^15.1.0",
-		"semantic-release": "^17.3.0",
+		"semantic-release": "^17.3.1",
 		"sinon": "^9.2.2"
 	},
 	"config": {
@@ -77,6 +72,13 @@
 			"pre-push": "npm run lint && npm test",
 			"commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
 		}
+	},
+	"_moduleAliases": {
+		"@sky": "./src",
+		"@flares": "./src/flares",
+		"@struct": "./src/lib/structures",
+		"@exts": "./src/lib/extensions",
+		"@data": "./src/data"
 	},
 	"repository": {
 		"type": "git",
