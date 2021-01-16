@@ -1,4 +1,11 @@
 module.exports = {
+	branches: [
+		"master",
+		{
+			name: "staging"
+			prerelease: true
+		}
+	],
 	plugins: [
 		"@semantic-release/commit-analyzer",
 		"@semantic-release/release-notes-generator",
