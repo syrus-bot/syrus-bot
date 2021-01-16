@@ -1,4 +1,4 @@
-const { Event, PreconditionError } = require("@sapphire/framework");
+const { Event } = require("@sapphire/framework");
 const { MessageEmbed } = require("discord.js");
 
 module.exports = class ClientEvent extends Event {
