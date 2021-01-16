@@ -2,6 +2,7 @@ name: "Production: Release"
 on:
   push:
     branches:
+      - master
       - staging
 jobs:
   release:
