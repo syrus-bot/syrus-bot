@@ -7,7 +7,7 @@ on:
     - staging 
 jobs:
   analyze:
-    name: Analye
+    name: Analyze
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
