@@ -2,7 +2,7 @@ module.exports = {
 	branches: [
 		"master",
 		{
-			name: "staging"
+			name: "staging",
 			prerelease: true
 		}
 	],
