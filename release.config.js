@@ -1,4 +1,11 @@
 module.exports = {
+	branches: [
+		"master",
+		{
+			name: "staging",
+			prerelease: true
+		}
+	],
 	plugins: [
 		"@semantic-release/commit-analyzer",
 		"@semantic-release/release-notes-generator",
@@ -10,6 +17,17 @@ module.exports = {
 			}
 		],
 		"@semantic-release/github",
-		"@semantic-release/git"
+		[
+			"@semantic-release/git",
+			{
+				assets: [
+					"src/**/*.{js,json}",
+					"package*.json",
+					"CHANGELOG.md",
+					"README.md"
+				],
+				message: "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+			}
+		]
 	]
 }
