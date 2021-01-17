@@ -1,3 +1,73 @@
+# [2.0.0-staging.1](https://github.com/syrus-bot/syrus-bot/compare/v1.0.0...v2.0.0-staging.1) (2021-01-17)
+
+
+### Bug Fixes
+
+* **music:** fix errors with disconnecting ([#37](https://github.com/syrus-bot/syrus-bot/issues/37)) ([f9136fd](https://github.com/syrus-bot/syrus-bot/commit/f9136fdf058e8ef7b822e708894614def0125986))
+* address LGTM concerns ([#27](https://github.com/syrus-bot/syrus-bot/issues/27)) ([11e59d7](https://github.com/syrus-bot/syrus-bot/commit/11e59d721fba1b78af160df27f001fc56a84b4cc))
+* **commands:** fix argument parsing in set ([4682260](https://github.com/syrus-bot/syrus-bot/commit/4682260910805546010ac3ea532bf5c02cd942a5))
+
+
+### Code Refactoring
+
+* update to latest sapphire ([#55](https://github.com/syrus-bot/syrus-bot/issues/55)) ([af98e85](https://github.com/syrus-bot/syrus-bot/commit/af98e850af238af59c698d2de91117daa992684c)), closes [#41](https://github.com/syrus-bot/syrus-bot/issues/41) [#38](https://github.com/syrus-bot/syrus-bot/issues/38) [#47](https://github.com/syrus-bot/syrus-bot/issues/47) [#48](https://github.com/syrus-bot/syrus-bot/issues/48) [#48](https://github.com/syrus-bot/syrus-bot/issues/48)
+
+
+### Features
+
+* **checks:** add full suite cascading predicates ([#42](https://github.com/syrus-bot/syrus-bot/issues/42)) ([edf48d5](https://github.com/syrus-bot/syrus-bot/commit/edf48d5dbb8745bc23fcfc396501215e08bc7b9c)), closes [#25](https://github.com/syrus-bot/syrus-bot/issues/25) [#25](https://github.com/syrus-bot/syrus-bot/issues/25) [#25](https://github.com/syrus-bot/syrus-bot/issues/25) [#25](https://github.com/syrus-bot/syrus-bot/issues/25)
+* **commands:** implement fun ([#40](https://github.com/syrus-bot/syrus-bot/issues/40)) ([1ac3d1a](https://github.com/syrus-bot/syrus-bot/commit/1ac3d1ab67664789817c6aad758553ef0e722f17))
+* **core:** add guildDelete event ([16a9adf](https://github.com/syrus-bot/syrus-bot/commit/16a9adf3de09a4471bfa4e0e1ddbc05573374635)), closes [#1](https://github.com/syrus-bot/syrus-bot/issues/1)
+* **core:** add guildDelete to database driver ([5b68d69](https://github.com/syrus-bot/syrus-bot/commit/5b68d69d05a19d2aba7a85eb54cd61a5107319da))
+
+
+### BREAKING CHANGES
+
+* All of the above changes are considered breaking.
+
+* chore: fix dependency security
+
+* chore: update dependencies
+
+* chore(pm): add all-contributors spec
+
+* docs: update @Nytelife26 as a contributor
+
+* docs: update @mynameismax as a contributor
+
+* docs: add @colecci as a contributor
+
+* fix(checks): naming conventions & error handling
+
+* refactor(events): reformat all
+
+* chore(pm): fix readme license link
+
+* test(data): remove accidental client inclusion
+
+* feat(i18n): add language key for new event
+
+* style(events): reformat event class names
+
+* feat(events): add VoiceStateUpdate
+
+This new event implements functionality to leave the voice channel once there are no members
+remaining, to conserve bandwidth and processing power.
+
+* refactor: utilize new store context
+
+* ci(release): change release trigger branch to staging
+
+Following this, staging will be the branch that triggers releases. Master will then be the branch
+that hosts major stable versions, and the version that the docker image for the production-ready bot
+is based on, meanwhile staging will instantiate Syrus Development.
+
+* fix(events): address lgtm concerns
+
+* ci: streamline release workflow
+
+* style: fix typo in workflow
+
 # 1.0.0 (2020-11-28)
 
 
