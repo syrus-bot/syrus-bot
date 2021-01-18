@@ -3,7 +3,7 @@ module.exports = {
 		"master",
 		{
 			name: "staging",
-			prerelease: true
+			prerelease: "alpha"
 		}
 	],
 	plugins: [
