@@ -14,8 +14,8 @@ module.exports = class ClientEvent extends Event {
 		client.logger.info(
 			`Successfully initialised and connected to ${guilds} servers.`
 		);
-		for (const store of client.stores) {
-			client.logger.debug(`|- Loaded ${Array.from(store).length} ${store.name}`);
+		for (const [name, store] of client.stores) {
+			client.logger.debug(`|- Loaded ${Array.from(store).length} ${name}`);
 		}
 		await client.user.setPresence({
 			activity: {

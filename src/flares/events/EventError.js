@@ -9,7 +9,7 @@ module.exports = class ClientEvent extends Event {
 
 	async run(error, errorPayload) {
 		const logger = this.context.client.logger;
-		logger.err(`Error in Event ${errorPayload.piece.name}:`);
+		logger.error(`Error in Event ${errorPayload.piece.name}:`);
 		logger.trace(error);
 	}
 };
