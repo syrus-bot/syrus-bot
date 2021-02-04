@@ -28,12 +28,10 @@ async function fetchLanguage(message) {
 module.exports = class SyrusClient extends SapphireClient {
 	constructor(options, flaresDirectory, config) {
 		super({...options});
-		Store.injectedContext = {client: this, logger: this.logger};
 
-		this.deregisterStore(this.commands);
-		this.commands = new CommandStore();
-		this.registerStore(this.commands);
-		this.registerUserDirectories(flaresDirectory);
+		this.stores.deregister(this.commands);
+		this.stores.register(new CommandStore());
+		this.stores.registerUserDirectories(flaresDirectory);
 
 		this.music = null;
 		this.settings = null;
@@ -55,5 +53,21 @@ module.exports = class SyrusClient extends SapphireClient {
 		const { user, pass, host, port, base } = config.database;
 		const mongo = `mongodb://${user}:${pass}@${host}:${port}/${base}`;
 		this.settings = new DB(this, mongo, config);
+	}
+
+	get commands() {
+		return this.stores.get("commands");
+	}
+
+	get events() {
+		return this.stores.get("events");
+	}
+
+	get preconditions() {
+		return this.stores.get("preconditions");
+	}
+
+	get arguments() {
+		return this.stores.get("arguments");
 	}
 };
