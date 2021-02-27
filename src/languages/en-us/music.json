@@ -1,0 +1,50 @@
+{
+	"ban": {
+		"description": "Bans a specified member.",
+		"banned": ":hammer: Banned **{{member}}**."
+	},
+    "channelreq": "You are not in a voice channel!",
+    "disconnect": {
+        "description": "Disconnect from current voice channel.",
+        "disconnected": "Successfully disconnected from `{{channel}}`."
+    },
+    "join": {
+        "description": "Join the voice channel.",
+        "joined": "Successfully joined `{{channel}}`."
+    },
+    "np": {
+        "description": "Check what is now playing.",
+        "nothing": "I am not playing anything right now.",
+        "playing": "Now Playing",
+        "time": "Elapsed Time"
+    },
+    "pause": {
+        "description": "Pause the music.",
+        "paused": "Pausing the music.",
+        "already": "The music is already paused!"
+    },
+    "play": {
+        "description": "Play a song."
+    },
+    "reqsamechannel":"You are not in the same channel as me :angry:!",
+    "resume": {
+        "description": "Resume the music.",
+        "resumed": "Resumed the music",
+        "already": "The music is already playing!"
+    },
+    "skip": {
+        "description": "Skip the playing song",
+        "skipped": "Song skipped.",
+        "nothing": "Nothing to skip!"
+    },
+    "stop": {
+        "description": "Stop the music and clear the queue.",
+        "stopped": "Music stopped :frowning:.",
+        "nothing": ":confused: You cant stop nothing!"
+    },
+    "volume": {
+        "description": "Change the volume of the music.",
+        "missing": ":confused: No volume provided!",
+        "set": "Set the volume to `{{volume}}`."
+    }
+}

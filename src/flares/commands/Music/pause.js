@@ -15,6 +15,6 @@ module.exports = class ClientCommand extends SyrusCommand {
 			await player.pause();
 			return message.replyTranslated("music:pause.paused");
 		}
-		return message.replyTranslated("music:resume.already");
+		return message.replyTranslated("music:pause.already");
 	}
 };
