@@ -13,6 +13,7 @@
 	},
 	"purge": {
 		"description": "Cleans up a certain amount of messages.",
+		"invalidamt": "Oops! Please enter an amount between 1 and 100!",
 		"purged": "**Successfully purged {{amount}} message(s).**"
 	},
 	"unlock": {

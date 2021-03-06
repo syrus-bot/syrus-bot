@@ -20,6 +20,9 @@ module.exports = class ClientCommand extends SyrusCommand {
 		if (amount.value === undefined) {
 			amount.value = 1;
 		}
+		if (amount.value > 100 || amount.value < 1) {
+			return message.replyTranslated("moderation:purge.invalidamt");
+		}
 		await message.delete();
 		const messages = await message.channel.messages
 			.fetch({limit: amount.value});
