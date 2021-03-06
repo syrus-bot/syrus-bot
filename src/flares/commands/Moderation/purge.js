@@ -26,14 +26,15 @@ module.exports = class ClientCommand extends SyrusCommand {
 		await message.delete();
 		const messages = await message.channel.messages
 			.fetch({limit: amount.value});
-		await message.channel.bulkDelete(messages);
-		const finishedMessage = await message.replyTranslated(
-			"moderation:purge.purged",
-			[{amount: amount.value}]
-		);
-
-		setTimeout(() => {
-			finishedMessage.delete();
-		}, 3000);
+		await message.channel.bulkDelete(messages, {filterOld: true}).then(async messages => {
+			const finishedMessage = await message.replyTranslated(
+				"moderation:purge.purged",
+				[{amount: messages.size}]
+			);
+	
+			setTimeout(() => {
+				finishedMessage.delete();
+			}, 3000);
+		});
 	}
 };
