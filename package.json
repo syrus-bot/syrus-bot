@@ -44,7 +44,7 @@
 		"package.json": "^2.0.1",
 		"types": "^0.1.1",
 		"websocket": "^1.0.32",
-		"ws": "^7.4.0"
+		"ws": "^7.4.6"
 	},
 	"directories": {
 		"lib": "lib"
