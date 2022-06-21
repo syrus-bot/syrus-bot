@@ -39,7 +39,7 @@
 		"bufferutil": "^4.0.2",
 		"discord.js": "^12.5.1",
 		"globby": "^11.0.1",
-		"got": "^11.8.1",
+		"got": "^11.8.5",
 		"lavaqueue": "^3.1.8",
 		"module-alias": "^2.2.2",
 		"mongoose": "^5.11.8"
